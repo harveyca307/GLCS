@@ -1,0 +1,23 @@
+{
+	"@type":"Cube",
+	"Name":"MyTestCubeA",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('MyTestCubeA_D1')"
+		},
+		{
+			"@id":"Dimensions('MyTestCubeA_D2')"
+		},
+		{
+			"@id":"Dimensions('MyTestCubeA_D3')"
+		},
+		{
+			"@id":"Dimensions('MyTestCubeA_D4')"
+		},
+		{
+			"@id":"Dimensions('MyTestCubeA_D5')"
+		}
+	],
+	"Views@Code.links":[]
+}

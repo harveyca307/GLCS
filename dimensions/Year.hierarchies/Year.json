@@ -1,0 +1,23 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Year",
+	"Elements":
+	[
+		{
+			"Name":"2019",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"2020",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"2021",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"Year.subsets/Default.json"
+	]
+}

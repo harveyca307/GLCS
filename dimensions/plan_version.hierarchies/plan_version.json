@@ -1,0 +1,31 @@
+{
+	"@type":"Hierarchy",
+	"Name":"plan_version",
+	"Elements":
+	[
+		{
+			"Name":"FY 2003 Budget",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"FY 2004 Budget",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"FY 2004 Forecast",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"FY 2005 Budget-baseline",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"FY 2005 Budget-upside",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"plan_version.subsets/Subset1.json"
+	]
+}

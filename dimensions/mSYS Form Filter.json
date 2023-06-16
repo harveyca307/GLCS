@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mSYS Form Filter",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mSYS Form Filter')/Hierarchies('mSYS Form Filter')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mSYS Form Filter.hierarchies/mSYS Form Filter.json"
+	]
+}

@@ -1,0 +1,148 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mDataUpdate Scenario",
+	"Elements":
+	[
+		{
+			"Name":"Scenario Description",
+			"Type":"String"
+		},
+		{
+			"Name":"Update Logic",
+			"Type":"String"
+		},
+		{
+			"Name":"Core Parameters",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Cube",
+			"Type":"String"
+		},
+		{
+			"Name":"Source Version",
+			"Type":"String"
+		},
+		{
+			"Name":"Target Version",
+			"Type":"String"
+		},
+		{
+			"Name":"Source Period",
+			"Type":"String"
+		},
+		{
+			"Name":"Target Period",
+			"Type":"String"
+		},
+		{
+			"Name":"# of Periods",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Skip Settings",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Skip Rule",
+			"Type":"String"
+		},
+		{
+			"Name":"Skip Consolidated",
+			"Type":"String"
+		},
+		{
+			"Name":"Copy Filters",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Version Planning",
+			"Type":"String"
+		},
+		{
+			"Name":"Corporate Planning Source",
+			"Type":"String"
+		},
+		{
+			"Name":"GL Company-Cost Center Planning",
+			"Type":"String"
+		},
+		{
+			"Name":"GL Account Planning",
+			"Type":"String"
+		},
+		{
+			"Name":"YearMonth",
+			"Type":"String"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"Core Parameters",
+			"ComponentName":"Cube",
+			"Weight":1
+		},
+		{
+			"ParentName":"Core Parameters",
+			"ComponentName":"Source Version",
+			"Weight":1
+		},
+		{
+			"ParentName":"Core Parameters",
+			"ComponentName":"Target Version",
+			"Weight":1
+		},
+		{
+			"ParentName":"Core Parameters",
+			"ComponentName":"Source Period",
+			"Weight":1
+		},
+		{
+			"ParentName":"Core Parameters",
+			"ComponentName":"Target Period",
+			"Weight":1
+		},
+		{
+			"ParentName":"Core Parameters",
+			"ComponentName":"# of Periods",
+			"Weight":1
+		},
+		{
+			"ParentName":"Skip Settings",
+			"ComponentName":"Skip Rule",
+			"Weight":1
+		},
+		{
+			"ParentName":"Skip Settings",
+			"ComponentName":"Skip Consolidated",
+			"Weight":1
+		},
+		{
+			"ParentName":"Copy Filters",
+			"ComponentName":"Version Planning",
+			"Weight":1
+		},
+		{
+			"ParentName":"Copy Filters",
+			"ComponentName":"Corporate Planning Source",
+			"Weight":1
+		},
+		{
+			"ParentName":"Copy Filters",
+			"ComponentName":"GL Company-Cost Center Planning",
+			"Weight":1
+		},
+		{
+			"ParentName":"Copy Filters",
+			"ComponentName":"GL Account Planning",
+			"Weight":1
+		},
+		{
+			"ParentName":"Copy Filters",
+			"ComponentName":"YearMonth",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":[]
+}

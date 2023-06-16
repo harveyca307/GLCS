@@ -1,0 +1,17 @@
+{
+	"@type":"Cube",
+	"Name":"SYS Form Filter",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('}Clients')"
+		},
+		{
+			"@id":"Dimensions('mSYS Form Filter')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"SYS Form Filter.views/Default.json"
+	]
+}

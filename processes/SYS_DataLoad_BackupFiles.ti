@@ -1,0 +1,42 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			SYS_DataLoad_BackupFiles
+# Author:			Chad Harvey
+# Date Created:		04.28.2020
+# Date Modified:	04.20.2020 by: Chad Harvey
+# Purpose:			This process will load the SYS_BackupFiles cube with the list of current backups
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sCube = 'SYS_BackupFiles';
+sOPath = CellGetS('Control', 'TM1 Application Log Path', 'Value') | '\';
+sBPath = CellGetS('Control', 'TM1 Backups', 'Value');
+sFile = '_BackupFiles.txt';
+sMask = '*.7z';
+nLine = 1;
+
+sCMD = 'cmd /c forfiles /P ' | sBPath | ' /m ' | sMask | ' > ' | sOPath | sFile;
+ExecuteCommand(sCMD, 1);
+
+CubeClearData(sCube);
+
+DatasourceNameForServer = sOPath | sFile;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+CellPutS(vFile, sCube, NumberToString(nLine), 'File Name');
+nLine = nLine + 1;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

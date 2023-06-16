@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"Hierarchy_Rows",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('Hierarchy_Rows')/Hierarchies('Hierarchy_Rows')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"Hierarchy_Rows.hierarchies/Hierarchy_Rows.json"
+	]
+}

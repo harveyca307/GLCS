@@ -1,0 +1,285 @@
+{
+	"@type":"Hierarchy",
+	"Name":"SYS LineNo",
+	"Elements":
+	[
+		{
+			"Name":"All Lines",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"1",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"2",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"3",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"4",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"5",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"6",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"7",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"8",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"9",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"10",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"11",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"12",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"13",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"14",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"15",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"16",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"17",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"18",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"19",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"20",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"21",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"22",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"23",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"24",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"25",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"26",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"27",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"28",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"29",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"30",
+			"Type":"Numeric"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"1",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"2",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"3",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"4",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"5",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"6",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"7",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"8",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"9",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"10",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"11",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"12",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"13",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"14",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"15",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"16",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"17",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"18",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"19",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"20",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"21",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"22",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"23",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"24",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"25",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"26",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"27",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"28",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"29",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Lines",
+			"ComponentName":"30",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":[]
+}

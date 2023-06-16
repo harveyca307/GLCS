@@ -1,0 +1,10 @@
+{
+	"@type":"Subset",
+	"Name":"Temp",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Version')/Hierarchies('Version')/Elements('Working Plan')"
+		}
+	]
+}

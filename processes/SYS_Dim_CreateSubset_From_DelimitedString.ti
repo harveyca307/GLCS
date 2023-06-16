@@ -1,0 +1,131 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Constants ---------------#
+cLogProc = 'PLOG';
+cProc = GetProcessName;
+
+#--------------- Initialize Logging ---------------#
+ExecuteProcess(cLogProc, 'pFlag', 'INIT', 'pProc', cProc);
+
+#--------------- Error Hanlding ---------------#
+nError = 0;
+nParam = 1;
+
+IF(pDimension @= '' % DimensionExists(pDimension) = 0);
+	nError = 1;
+    sMessage = 'pDimension input is invalid';
+ELSE;
+	sMessage = 'pDimension="' | pDimension | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage, 'pLine', 'P0' | NumberToString(nParam)); nParam = nParam + 1;
+
+IF(pSubset @= '');
+	nError = 1;
+    sMessage = 'pSubset not supplied';
+ELSE;
+	sMessage = 'pSubset="' | pSubset | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage, 'pLine', 'P0' | NumberToString(nParam)); nParam = nParam + 1;
+
+IF(pString @= '');
+	nError = 1;
+    sMessage = 'pString not supplied';
+ELSE;
+	sMessage = 'pString="' | pString | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage, 'pLine', 'P0' | NumberToString(nParam)); nParam = nParam + 1;
+
+IF(pDelimiter @= '');
+	pDelimiter = '+';
+    sMessage = 'pDelimiter defaulted to "+';
+ELSE;
+	sMessage = 'pDelimiter="' | pDelimiter | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage, 'pLine', 'P0' | NumberToString(nParam)); nParam = nParam + 1;
+
+IF(pUseAlias @= '');
+	pUseAlias = 'No';
+    sMessage = 'pUseAlias defaulted to "No"';
+ELSE;
+	sMessage = 'pUseAlias="' | pUseAlias | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage, 'pLine', 'P0' | NumberToString(nParam)); nParam = nParam + 1;
+
+IF(pAliasName @= '' & pUseAlias @= 'Yes');
+	nError = 1;
+    sMessage = 'pAliasName not supplied, but pUseAlias was set to "Yes"';
+ELSE;
+	sMessage = 'pAliasName="' | pAliasName | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage, 'pLine', 'P0' | NumberToString(nParam)); nParam = nParam + 1;
+
+IF(nError = 1);
+	ProcessBreak;
+ENDIF;
+
+#--------------- Variables ---------------#
+nDelimIndex = 1;
+sElems = pString;
+
+#--------------- Begin Prolog Processing ---------------#
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', 'Beginning Prolog processing...');
+
+IF(HierarchySubsetExists(pDimension, pDimension, pSubset) = 1);
+	HierarchySubsetDeleteAllElements(pDimension, pDimension, pSubset);
+ELSE;
+	HierarchySubsetCreate(pDimension, pDimension, pSubset, 0);
+ENDIF;
+
+WHILE(nDelimIndex <> 0 & LONG(sElems) > 0);
+	nDelimIndex = SCAN(pDelimiter, sElems);
+    IF(nDelimIndex <> 0);
+    	sElem = TRIM(SUBST(sElems, 1, nDelimIndex - 1));
+        sElems = TRIM(SUBST(sElems, nDelimIndex + LONG(pDelimiter), LONG(sElems)));
+    ELSE;
+    	sElem = TRIM(sElems);
+    ENDIF;
+    
+    HierarchySubsetElementInsert(pDimension, pDimension, pSubset, sElem, HierarchySubsetGetSize(pDimension, pDimension, pSubset) + 1);
+    
+    IF(pUseAlias @= 'Yes');
+    	HierarchySubsetAliasSet(pDimension, pDimension, pSubset, pAliasName);
+    ENDIF;
+END;
+
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF(nError = 0);
+     sStatus = 'SUCCESS';
+ELSE;
+     sStatus = 'ERROR';
+ENDIF;
+
+sMessage = '-' | FILL('-', 99);
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+
+IF(sStatus @= 'SUCCESS');
+     sMessage = 'Process completed successfully';
+     ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+ELSE;
+     sMessage = 'Process finished with errors';
+     ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+ENDIF;
+
+#--------------- Finalize Process Logging
+ExecuteProcess(cLogProc, 'pFlag', 'END', 'pProc', cProc, 'pMSG', sStatus);
+
+IF(sStatus @<> 'SUCCESS');
+     ProcessQuit;
+ENDIF;
+#endregion

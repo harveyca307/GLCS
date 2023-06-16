@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mSYS Hierarchy Control",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mSYS Hierarchy Control')/Hierarchies('mSYS Hierarchy Control')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mSYS Hierarchy Control.hierarchies/mSYS Hierarchy Control.json"
+	]
+}

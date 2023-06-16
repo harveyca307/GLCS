@@ -1,0 +1,31 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			SYS_TM1 Backup
+# Author:			Chad Harvey
+# Date Created:		04.20.2020
+# Date Modified:	04.20.2020 by: Chad Harvey
+# Purpose:			This process will backup the TM1 Database
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sPrograms = CellGetS('Control', 'TM1 Programs Path', 'Value');
+sServer = CellGetS('Control', 'TM1 Server Name', 'Value');
+sSource = CellGetS('Control', 'TM1 Database Path', 'Value');
+sDest = CellGetS('Control', 'TM1 Backups', 'Value');
+sRetention = CellGetS('Control', 'Backup Retention Period', 'Value');
+
+sCMD = sPrograms | '\TM1_Backup.exe --source ' | sSource | ' --dest ' | sDest | ' --server ' | sServer | ' --clean ' | sRetention;
+
+SaveDataAll;
+ExecuteCommand(sCMD, 1);
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+ExecuteProcess('SYS_DataLoad_BackupFiles');
+#endregion

@@ -1,0 +1,267 @@
+{
+	"@type":"NativeView",
+	"Name":"Default",
+	"Columns":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('mData Control')/Hierarchies('mData Control')"
+				},
+				"Elements":
+				[
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Action')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Source Name')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Target Type')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Target Name')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Target Location')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Header')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Dimension')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Output Alias')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Output Count')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Dimension Count')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Delimiter')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Include Header')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Ignore Rounded Zero')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Element')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Type')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Quote')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Attribute')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Suppress Zeros')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Suppress Consolidations')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Suppress Rules')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Clear Target')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Format')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Create File If Empty')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Precision')"
+					},
+					{
+						"@id":"Dimensions('mData Control')/Hierarchies('mData Control')/Elements('Evaluate Rounded Zero')"
+					}
+				]
+			}
+		}
+	],
+	"Rows":
+	[
+		{
+			"Subset":
+			{
+				"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Subsets('Default')"
+			}
+		}
+	],
+	"Titles":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')"
+				},
+				"Elements":
+				[
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 1')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 2')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 3')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 4')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 5')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 6')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 7')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 8')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 9')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 10')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 11')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 12')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 13')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 14')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 15')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 16')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 17')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 18')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 19')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 20')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 21')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 22')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 23')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 24')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 25')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 26')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 27')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 28')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 29')"
+					},
+					{
+						"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 30')"
+					}
+				]
+			},
+			"Selected":
+			{
+				"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')/Elements('Scenario 1')"
+			}
+		},
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')"
+				},
+				"Elements":
+				[
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Total')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 1')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 2')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 3')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 4')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 5')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 6')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 7')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 8')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 9')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Output 10')"
+					},
+					{
+						"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Target Header')"
+					}
+				]
+			},
+			"Selected":
+			{
+				"@id":"Dimensions('Data Control Target')/Hierarchies('Data Control Target')/Elements('Target Header')"
+			}
+		}
+	],
+	"SuppressEmptyColumns":false,
+	"SuppressEmptyRows":false,
+	"FormatString":"0.#########"
+}

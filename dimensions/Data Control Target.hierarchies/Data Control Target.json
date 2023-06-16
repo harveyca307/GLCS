@@ -1,0 +1,114 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Data Control Target",
+	"Elements":
+	[
+		{
+			"Name":"Output 1",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 2",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 3",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 4",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 5",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 6",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 7",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 8",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 9",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 10",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Total",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Target Header",
+			"Type":"Numeric"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 2",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 3",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 4",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 5",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 6",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 7",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 8",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 9",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Output 10",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Target Header",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":[]
+}

@@ -1,0 +1,44 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+nSal = 100000;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+# IF PD >= HD & PD < TD => Full Amount
+# IF PD >= HD & PD < TD => Partial
+# IF PD > HD & PD < TD => Partial
+
+
+nDate = vValue - 21916; 
+sDate = TIMST(nDate, '\Y-\m-\d');
+
+sYear = SUBST(sDate, 1, 4);
+sMonth = SUBST(sDate, 6,2);
+sDay = SUBST(sDate, 9,2);
+nDateNew = DAYNO(sYear | '-' | sMonth | '-' | sDay) + 21916;
+
+nStart = CellGetN('Time Information', sYear, sMonth, 'Start Date');
+nEnd = CellGetN('Time Information', sYear, sMonth, 'End Date');
+nNumber = CellGetN('Time Information', sYear, 'Total Year', 'Number of Days');
+
+
+nSalPerDay = nSal \ nNumber;
+
+nDays = nEnd - nDateNew;
+
+nPay = nDays * nSalPerDay;
+
+ASCIIOutput('chad.txt', sDate, NumberToString(nDateNew), NumberToString(nDays), NumberToString(nSal), NumberToString(nSalPerDay), NumberToString(nPay));
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

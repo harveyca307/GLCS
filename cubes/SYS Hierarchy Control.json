@@ -1,0 +1,18 @@
+{
+	"@type":"Cube",
+	"Name":"SYS Hierarchy Control",
+	"Rules@Code.link":"SYS Hierarchy Control.rules",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('}Dimensions')"
+		},
+		{
+			"@id":"Dimensions('SYS LineNo')"
+		},
+		{
+			"@id":"Dimensions('mSYS Hierarchy Control')"
+		}
+	],
+	"Views@Code.links":[]
+}

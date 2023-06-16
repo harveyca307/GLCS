@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"System - Schedule",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('System - Schedule')/Hierarchies('System - Schedule')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"System - Schedule.hierarchies/System - Schedule.json"
+	]
+}

@@ -1,0 +1,27 @@
+{
+	"@type":"Process",
+	"Name":"SYS Cube Views",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"SYS Cube Views.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pData",
+			"Prompt":"",
+			"Value":"S:\\prod\\PRIME\\Data",
+			"Type":"String"
+		},
+		{
+			"Name":"pOut",
+			"Prompt":"",
+			"Value":"s:\\prod\\PRIME\\WorkingDocs\\Chad Harvey",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

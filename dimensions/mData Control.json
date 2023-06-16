@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mData Control",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mData Control')/Hierarchies('mData Control')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mData Control.hierarchies/mData Control.json"
+	]
+}

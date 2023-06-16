@@ -1,0 +1,18 @@
+{
+	"@type":"Cube",
+	"Name":"System - Schedule",
+	"Rules@Code.link":"System - Schedule.rules",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('System - Schedule')"
+		},
+		{
+			"@id":"Dimensions('System - Schedule Processes')"
+		},
+		{
+			"@id":"Dimensions('System - mSchedule')"
+		}
+	],
+	"Views@Code.links":[]
+}

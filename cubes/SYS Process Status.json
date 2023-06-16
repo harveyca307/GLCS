@@ -1,0 +1,20 @@
+{
+	"@type":"Cube",
+	"Name":"SYS Process Status",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('}Processes')"
+		},
+		{
+			"@id":"Dimensions('SYS Process Status Lines')"
+		},
+		{
+			"@id":"Dimensions('mSYS Process Status')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"SYS Process Status.views/Default.json"
+	]
+}

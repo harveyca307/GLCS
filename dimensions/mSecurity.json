@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mSecurity",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mSecurity')/Hierarchies('mSecurity')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mSecurity.hierarchies/mSecurity.json"
+	]
+}

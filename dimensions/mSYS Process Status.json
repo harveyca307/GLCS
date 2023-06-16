@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mSYS Process Status",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mSYS Process Status')/Hierarchies('mSYS Process Status')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mSYS Process Status.hierarchies/mSYS Process Status.json"
+	]
+}

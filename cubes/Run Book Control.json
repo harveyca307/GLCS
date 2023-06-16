@@ -1,0 +1,20 @@
+{
+	"@type":"Cube",
+	"Name":"Run Book Control",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('Run Book')"
+		},
+		{
+			"@id":"Dimensions('Run Book Index')"
+		},
+		{
+			"@id":"Dimensions('mRun Book Control')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"Run Book Control.views/Default.json"
+	]
+}

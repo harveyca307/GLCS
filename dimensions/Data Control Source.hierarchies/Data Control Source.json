@@ -1,0 +1,117 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Data Control Source",
+	"Elements":
+	[
+		{
+			"Name":"Dimension 1",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension 2",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension 3",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension 4",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension 5",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension 6",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension 7",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension 8",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension 9",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension 10",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Total",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Source Header",
+			"Type":"Numeric"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 2",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 3",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 4",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 5",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 6",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 7",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 8",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 9",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Dimension 10",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total",
+			"ComponentName":"Source Header",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"Data Control Source.subsets/Default.json"
+	]
+}

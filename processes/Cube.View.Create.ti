@@ -1,0 +1,54 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process: Cube_View_Create
+# Purpose: Create view for use in TI processes
+# Created by: Chad Harvey (ACG)
+# Creation Date: 3.28.2022
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#--------------- Constamts ---------------#
+cProcess = GetProcessName;
+cUser = NumberToString(DIMIX('}Clients', TM1USER));
+cTimestamp = TIMST(now, '\Y\m\d\h\i\d');
+cRandomInt = NumberToString(INT(RAND() * 1000));
+
+#--------------- Error Handling --------------#
+nError = 0;
+
+IF(nError = 1);
+	ProcessBreak;
+ENDIF;
+
+#--------------- Prolog Processing ---------------#
+
+#----- Parse Filter
+sFilter = TRIM(pFilter);
+nChar = 1;
+nCharMax = LONG(pFilter);
+nExtra = 0;
+IF(nCharMax > 0);
+	pFilter = pFilter | pElementDelim;
+    nCharMax = nCharMax + LONG(pElementStartDelim);
+    nExtra = nChar;
+ENDIF;
+ASCIIOUTPUT('chad.txt', NumberToString(nextra));
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF(nError = 1);
+	ProcessQuit;
+ENDIF;
+#endregion

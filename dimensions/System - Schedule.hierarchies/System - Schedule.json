@@ -1,0 +1,33 @@
+{
+	"@type":"Hierarchy",
+	"Name":"System - Schedule",
+	"Elements":
+	[
+		{
+			"Name":"Total Schedule",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Dimension Load",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Data Load",
+			"Type":"Numeric"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"Total Schedule",
+			"ComponentName":"Dimension Load",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total Schedule",
+			"ComponentName":"Data Load",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":[]
+}

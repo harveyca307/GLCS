@@ -1,0 +1,12 @@
+{
+	"@type":"Hierarchy",
+	"Name":"SYS_PAW_Colunm",
+	"Elements":
+	[
+		{
+			"Name":"Element",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

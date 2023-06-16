@@ -1,0 +1,10 @@
+{
+	"@type":"Subset",
+	"Name":"ExportCube_1_151",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Version')/Hierarchies('Version')/Elements('Working Plan')"
+		}
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"Process Log Line",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('Process Log Line')/Hierarchies('Process Log Line')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"Process Log Line.hierarchies/Process Log Line.json"
+	]
+}

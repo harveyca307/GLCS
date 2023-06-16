@@ -1,0 +1,184 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			SYS_HierarchyUpdate_[ SYS Hierarchy Control ]_Update
+# Author:			Chad Harvey
+# Date Created:		04.29.2020
+# Date Modified:	04.29.2020 by: Chad Harvey
+# Purpose:			This process will create and update Attribute Hierarchies for pDimension on pLine
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#--------------- Error Handling ---------------#
+nError = 0;
+sMessage = '';
+sParameters = '';
+
+IF(pDimension @= '');
+	nError = nError + 1;
+    sMessage = 'pDimension not supplied.';
+ELSEIF(DIMIX('}Dimensions', pDimension) = 0);
+	nError = nError + 1;
+    sMessage = 'pDimension:"' | pDimension | '" is not valid';
+ENDIF;
+
+IF(pLine @= '');
+	nError = nError + 1;
+    sMessage = sMessage | ' pLine not supplied.';
+ENDIF;
+
+sParameters = 'pDimension="' | pDimension | '"; pLine="' | pLine | '"';
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sUserID = TM1USER;
+IF(DIMIX('}Clients', sUserID) = 0);
+	sUser = 'Chore';
+ELSE;
+	sUser = NumberToString(DIMIX('}Clients', sUserID));
+ENDIF;
+sProcess = GetProcessName;
+sPrefix = CellGetS('Control', 'TI Prefix', 'Value');
+sTimeStamp = TIMST(NOW, '\Y\m\d\h\i\s');
+sRandomInt = NumberToString(INT(RAND() * 1000));
+sCube = 'SYS Hierarchy Control';
+sSubset = sProcess | '.' | pDimension | '.' | sUser | '.' | sTimeStamp | '.' | sRandomInt;
+sAttrCube = '}ElementAttributes_' | pDimension;
+sHierarchy = CellGetS(sCube, pDimension, pLine, 'Hierarchy Name');
+sRoot = CellGetS(sCube, pDimension, pLine, 'Root Element Name');
+sEmpty = CellGetS(sCube, pDimension, pLine, 'Empty Attribute Default');
+nLevel = CellGetN(sCube, pDimension, pLine, 'Levels');
+sBaseParent = CellGetS(sCube, pDimension, pLine, 'Parent Base Hierarchy');
+
+#--------------- Process Logging ---------------#
+sLogProc = 'SYS Process Status';
+nStartTime = NOW();
+sStartTime = TIMST(nStartTime, '\Y/\m/\d, \h:\i:\s');
+
+IF(nError = 0);
+	sMDX = '{TM1FILTERBYLEVEL({TM1DRILLDOWNMEMBER({[' | pDimension | '].[' | sBaseParent | ']}, ALL, RECURSIVE)}, 0)}';
+    ExecuteProcess('}bedrock.hier.sub.create.bymdx'
+    	, 'pDim', pDimension
+        , 'pSub', sSubset
+        , 'pMDXExpr', sMDX
+        , 'pConvertToStatic', 1
+        , 'pTemp', 1);
+        
+    IF(HierarchyExists(pDimension, sHierarchy) = 0);
+    	HierarchyCreate(pDimension, sHierarchy);
+    ELSE;
+   		HierarchyDeleteAllElements(pDimension, sHierarchy);
+    ENDIF;
+    
+    IF(HierarchyExists(pDimension, 'Leaves') = 0);
+    	HierarchyCreate(pDimension, 'Leaves');
+    ENDIF;
+    
+    #----- Insert Top Level Elements
+    HierarchyElementInsertDirect(pDimension, sHierarchy, '', sRoot, 'C');
+    HierarchyElementInsertDirect(pDimension, sHierarchy, '', sEmpty, 'C');
+    HierarchyElementComponentAddDirect(pDimension, sHierarchy, sRoot, sEmpty, 1);
+    
+    DatasourceType = 'SUBSET';
+    DatasourceNameForServer = pDimension;
+    DatasourceDimensionSubset = sSubset;
+ELSE;
+	nEndTime = NOW();
+    sEndTIme = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+    sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+    ExecuteProcess(sLogProc
+      , 'pProcess', sProcess
+      , 'pLogFile', ''
+      , 'pStatus', 'Error'
+      , 'pParameters', sParameters
+      , 'pStartTime', sStartTime
+      , 'pEndTime', sEndTime
+      , 'pRun', sDuration);
+    ProcessError;
+ENDIF;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+nMissing = 0;
+
+HierarchyElementInsert(pDimension, sHierarchy, '', vElement, 'N');
+
+nLoop = 1;
+
+WHILE(nLoop <= nLevel);
+	sAttrName = 'Level ' | NumberToString(nLoop) | ' Attribute';
+    sAttrName = CellGetS(sCube, pDimension, pLine, sAttrName);
+    sAttrValue = CellGetS(sAttrCube, vElement, sAttrName);
+    IF(sAttrValue @= '');
+    	nMissing = 1;
+    ENDIF;
+    nLoop = nLoop + 1;
+END;
+
+IF(nMissing = 1);
+	HierarchyElementComponentAdd(pDimension, sHierarchy, sEmpty, vElement, 1);
+ELSE;
+	nLoop = 1;
+    WHILE(nLoop <= nLevel);
+    	sAttrName = 'Level ' | NumberToString(nLoop) | ' Attribute';
+        sAttrName = CellGetS(sCube, pDimension, pLine, sAttrName);
+        sAttrValue = CellGetS(sAttrCube, vElement, sAttrName);
+        
+        HierarchyElementInsert(pDimension, sHierarchy, '', sAttrValue, 'C');
+        
+        IF(nLoop = 1);
+        	sChild = vElement;
+            sParent = sAttrValue;
+        ELSE;
+        	sAttrName = 'Level ' | NumberToString(nLoop-1) | ' Attribute';
+            sAttrName = CellGetS(sCube, pDimension, pLine, sAttrName);
+            sPrevAttrVal = CellGetS(sAttrCube, vElement, sAttrName);
+            sChild = sPrevAttrVal;
+            sParent = sAttrValue;
+        ENDIF;
+        
+        HierarchyElementComponentAdd(pDimension, sHierarchy, sParent, sChild, 1);
+        
+        IF(nLoop = nLevel);
+        	HierarchyElementComponentAdd(pDimension, sHierarchy, sRoot, sParent, 1);
+        ENDIF;
+        nLoop = nLoop + 1;
+    END;
+ENDIF;
+    
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+sLogDir = GetProcessErrorFileDirectory();
+sErrLog = GetProcessErrorFileName();
+IF(sErrLog @<> '');
+     sStatus = 'Error';
+     sLogFile = sLogDir | sErrLog;
+ELSE;
+     sStatus = 'Success';
+     sLogFile = '';
+     sMessage = '';
+ENDIF;
+
+#---------- Process Logging ----------#
+nEndTime = NOW();
+sEndTime = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+ExecuteProcess(sLogProc
+    , 'pProcess', sProcess
+    , 'pLogFile', sLogFile
+    , 'pStatus', sStatus  | ' ' | sMessage
+    , 'pParameters', sParameters
+    , 'pStartTime', sStartTime
+    , 'pEndTime', sEndTime
+    , 'pRun', sDuration);
+#endregion

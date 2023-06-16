@@ -1,0 +1,39 @@
+{
+	"@type":"Process",
+	"Name":"CubeLoad_[ Security Assignments ]_from_[ ClientGroups ]",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"CubeLoad_[ Security Assignments ]_from_[ ClientGroups ].ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"TM1CubeView",
+		"dataSourceNameForClient":"}ClientGroups",
+		"dataSourceNameForServer":"}ClientGroups",
+		"view":"Default"
+	},
+	"Parameters":[],
+	"Variables":
+	[
+		{
+			"Name":"vClient",
+			"Type":"String",
+			"Position":1,
+			"StartByte":0,
+			"EndByte":0
+		},
+		{
+			"Name":"vGroup",
+			"Type":"String",
+			"Position":2,
+			"StartByte":0,
+			"EndByte":0
+		},
+		{
+			"Name":"vValue",
+			"Type":"String",
+			"Position":3,
+			"StartByte":0,
+			"EndByte":0
+		}
+	]
+}

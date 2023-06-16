@@ -1,0 +1,12 @@
+FEEDSTRINGS;
+SKIPCHECK;
+
+['All Scenarios'] = S: '';
+['All Scenarios'] = C: 0;
+['Core Parameters'] = C: 0;
+['Skip Settings'] = C: 0;
+['# of Periods'] = C: 0;
+
+FEEDERS;
+
+['Scenario Description'] => DB('}ElementAttributes_Data Update Scenario',!Data Update Scenario,'Name');

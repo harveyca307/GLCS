@@ -1,0 +1,124 @@
+#region Prolog
+
+vProcessName     = 'Testcase - ParallelDataLoad.Queue';
+vProcessRunCount = ATTRN('}Processes', vProcessName, 'Run count') + 1;
+IF ( DimensionElementexists ( 'Lines', NumberToString(vProcessRunCount)) = 0);
+  DimensionElementInsertDirect ( 'Lines', '', NumberToString(vProcessRunCount), 'N');
+ENDIF;
+
+# CELLPUTN ( NOW(), 'Process metrics', vProcessName, NumberToString(vProcessRunCount), 'Start time' );
+# CELLPUTS ( 'pCubeName', 'Process metrics', vProcessName, NumberToString(vProcessRunCount), 'P1 Name' );
+# CELLPUTS ( pCubeName, 'Process metrics', vProcessName, NumberToString(vProcessRunCount), 'P1 Value' );
+# CELLPUTS ( 'pSplitDimension', 'Process metrics', vProcessName, NumberToString(vProcessRunCount), 'P2 Name' );
+# CELLPUTS ( pSplitDimension, 'Process metrics', vProcessName, NumberToString(vProcessRunCount), 'P2 Value' );
+# CELLPUTS ( 'pQueueSize', 'Process metrics', vProcessName, NumberToString(vProcessRunCount), 'P3 Name' );
+# CELLPUTS ( NumberToString(pQueueSize), 'Process metrics', vProcessName, NumberToString(vProcessRunCount), 'P3 Value' );
+
+DatasourceASCIIQuoteCharacter = '';
+vNow           = TIMST (NOW(), '\Y\m\d\h\i\s' );
+
+vChildProcess  = 'Testcase.ParallelDataLoad.DirectLoad';
+#vChildProcess  = 'Testcase.ParallelDataLoad.Export';
+
+IF ( pTM1Version @= 'v11' );
+  vDirectory     = '../Testcase/' | pCubeName | '_' | vNow | '/';
+  #ExecuteCommand( 'rm -rf ' | vDirectory , 1 );
+  #ExecuteCommand( 'mkdir ' | vDirectory , 1 );
+ELSE;
+  vDirectory     = '/Testcase/' | pCubeName | '_' | vNow | '/';
+ENDIF;
+queueDebugFile = vDirectory | 'queuedebug.log';
+queueFile      = vDirectory | 'queue.log';
+
+
+subsetName = 'l0Subset'; 
+IF ( SubsetExists ( pSplitDimension, subsetName ) = 1);
+   SubsetDestroy ( pSplitDimension, subsetName );
+ENDIF;
+SubsetCreate ( pSplitDimension, subsetName );
+
+elementIndex = 1;
+WHILE ( elementIndex <= DIMSIZ ( pSplitDimension ) );
+   IF ( ELLEV ( pSplitDimension, DIMNM ( pSplitDimension, elementIndex ) ) = 0  );
+       SubsetElementInsert ( pSplitDimension, subsetName, DIMNM ( pSplitDimension, elementIndex ), SubsetGetSize ( pSplitDimension, subsetName) + 1);
+   ENDIF;
+   elementIndex = elementIndex + 1;
+END;
+
+elementCount = DIMSIZ ( pSplitDimension );
+subsetIndexToQueue = 1;
+
+queueCount = 0;
+queue = '';
+completedCount = 0;
+
+WHILE (completedCount < SubsetGetSize ( pSplitDimension, subsetName ));
+    #Count number of elements in queue
+    queueCharacterCount = 1;
+    queueWordStart      = 1;
+    queueWordLength     = 1;
+    queueCharacter      = SUBST(queue, queueCharacterCount, 1);
+    delimiterCount      = 0;
+    
+    WHILE(queueCharacter @<> '');
+        queueCharacterCount = queueCharacterCount + 1;
+        queueCharacter      = SUBST(queue, queueCharacterCount, 1);
+        IF(queueCharacter @= ',' % queueCharacter @= '');
+            delimiterCount  = delimiterCount + 1;
+            jobToCheck      = SUBST(queue, queueWordStart, queueWordLength);
+            IF (jobToCheck @<> ''); 
+                #ASCIIOUTPUT ( queueDebugFile, 'Checking status of jobID: ' | jobToCheck );
+                IF ( pTM1Version @= 'v11' );
+#                 ELSEIF ( pTM1Version @= 'v12' );
+# #                     ret = GetJobStatus ( jobToCheck );
+#                     IF (Ret = ProcessExitNormal() % Ret = ProcessExitSeriousError() );
+#                         #ASCIIOUTPUT ( queueDebugFile, 'Removing jobID: ' | jobToCheck | ' from queue' );
+#                         queue = DELET ( queue, queueWordStart, queueWordLength + 1 );
+#                         completedCount = completedCount + 1;
+#                         IF ( pQueueLog @= 'Y' );
+#                            ASCIIOUTPUT ( queueFile, queue );
+#                         ENDIF;
+#                     ENDIF;
+                ELSE;
+                   ProcessQuit;
+                ENDIF;
+                
+                queueWordLength = 0;
+                queueWordStart  = queueCharacterCount + 1;
+            ENDIF;
+        ELSE;
+            queueWordLength = queueWordLength + 1;
+        ENDIF;
+    END;
+    currentQueueSize = delimiterCount + 1;
+    
+    # Adds more elements to the queue if the queue has less than the max number of members
+    IF ( currentQueueSize < pQueueSize & subsetIndexToQueue <= SubsetGetSize ( pSplitDimension, subsetName ));
+        splitElement = SubsetGetElementName ( pSplitDimension, subsetName, subsetIndexToQueue );
+        jobID        = RunProcess( vChildProcess, 'pCubeName', pCubeName, 'pDimName', pSplitDimension, 'pElementName', splitElement, 'pDirectory', vDirectory, 'pTM1Version', pTM1Version );
+        IF ( pTM1Version @= 'v11');
+          ASCIIOUTPUT ( queueDebugFile, 'Adding jobID to queue: ' | splitElement );
+          queue = queue | splitElement | ',';
+          IF ( pQueueLog @= 'Y' );
+            ASCIIOUTPUT ( queueFile, queue );
+          ENDIF;
+        ELSEIF ( pTM1Version @= 'v12');
+          ASCIIOUTPUT ( queueDebugFile, 'Adding jobID to queue: ' | jobID | ' for slice: ' | splitElement );
+          queue = queue | jobID | ',';
+          IF ( pQueueLog @= 'Y' );
+            ASCIIOUTPUT ( queueFile, queue );
+          ENDIF;
+        ELSE;
+          ProcessQuit;
+        ENDIF;
+       subsetIndexToQueue = subsetIndexToQueue + 1;
+    ENDIF;
+END;
+
+ASCIIOUTPUT ( queueDebugFile, 'Completed ok' );
+#endregion
+#region Epilog
+
+# CELLPUTN ( NOW(), 'Process metrics', vProcessName, NumberToString(vProcessRunCount), 'End time' );
+ATTRPUTN( vProcessRunCount, '}Processes', vProcessName, 'Run count' );
+#endregion

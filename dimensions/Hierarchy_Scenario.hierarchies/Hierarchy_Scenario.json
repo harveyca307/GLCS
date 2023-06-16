@@ -1,0 +1,28 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Hierarchy_Scenario",
+	"Elements":
+	[
+		{
+			"Name":"Working",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Final",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Backup",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"Hierarchy_Scenario.subsets/SYS_HierarchyManagement_Promote.1.20211201105722.671.json",
+		"Hierarchy_Scenario.subsets/SYS_HierarchyManagement_Promote.1.20211201105722.671.Clear.json",
+		"Hierarchy_Scenario.subsets/SYS_HierarchyManagement_Promote.1.20211201110443.358.json",
+		"Hierarchy_Scenario.subsets/SYS_HierarchyManagement_Promote.1.20211201110443.358.Clear.json",
+		"Hierarchy_Scenario.subsets/SYS_HierarchyManagement_Promote.1.20211201110601.388.json",
+		"Hierarchy_Scenario.subsets/SYS_HierarchyManagement_Promote.1.20211201110601.388.Clear.json"
+	]
+}

@@ -1,0 +1,13 @@
+#region Prolog
+
+sDate = '4-JUN-2023';
+
+sYear = SUBST(sDate, LONG(sDate)-3, 4);
+sDate = DELET( sDate, long(sDate)-4, 5);
+sDay = SUBST(sDate, 1, SCAN('-', sDate)-1);
+sMonth = SUBST(sDate, SCAN('-', sDate) + 1, LONG(sDate) - SCAN('-', sDate));
+
+ASCIIOUTPUT('./model_upload/chad.txt', sYear, sDay, sMonth);
+
+
+#endregion

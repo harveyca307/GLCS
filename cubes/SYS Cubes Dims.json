@@ -1,0 +1,17 @@
+{
+	"@type":"Cube",
+	"Name":"SYS Cubes Dims",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('}Cubes')"
+		},
+		{
+			"@id":"Dimensions('}Dimensions')"
+		},
+		{
+			"@id":"Dimensions('mSYS_Cubes_Dims')"
+		}
+	],
+	"Views@Code.links":[]
+}

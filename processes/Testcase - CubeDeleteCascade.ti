@@ -1,0 +1,49 @@
+#region Prolog
+
+###################################
+#   Created By Stuart King.                                    
+#   IBM Planning Analyics Offering Manager         
+#   stuart.king@ca.ibm.com
+#   December 2018
+###################################
+
+vCubeName = pCubeName; 
+IF ( vCubeName @= '');
+  vCubeName = CELLGETS('Picklists', 'Cubes', 'Value' );
+ENDIF;
+
+vNow = NumberToString( NOW );
+tempSubset = 'temp_deleteCubeCasade_' | vNow;
+IF (SubsetExists ( '}Dimensions', tempSubset  ) = 1 );
+   SubsetDestroy ( '}Dimensions', tempSubset  ); 
+ENDIF;
+SubsetCreate ( '}Dimensions', tempSubset  );
+
+i = 1;
+dimensionName = TABDIM ( vCubeName, i );
+WHILE ( dimensionName @<> '' );
+   SubsetElementInsert (  '}Dimensions', tempSubset , dimensionName, SubsetGetSize ( '}Dimensions', tempSubset  ) + 1 );
+   dimensionName = TABDIM ( vCubeName, i );
+   i = i + 1;
+END;
+
+IF ( CubeExists ( vCubeName ) = 1);
+   CubeDestroy ( vCubeName );
+ELSE ;
+   PROCESSQUIT;
+ENDIF;
+
+subsetSize = SUBSETGETSIZE ( '}Dimensions', tempSubset  );
+WHILE ( subsetSize > 1 );
+   dimName = SubsetGetElementName ( '}Dimensions', tempSubset, subsetSize );
+   SubsetElementDelete ( '}Dimensions', tempSubset, subsetSize );
+   DIMENSIONDESTROY ( dimName );
+   subsetSize = SUBSETGETSIZE ( '}Dimensions', tempSubset  );
+END;
+#endregion
+#region Epilog
+
+IF (SubsetExists ( '}Dimensions', tempSubset  ) = 1 );
+   SubsetDestroy ( '}Dimensions', tempSubset  ); 
+ENDIF;
+#endregion

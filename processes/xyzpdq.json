@@ -1,0 +1,25 @@
+{
+	"@type":"Process",
+	"Name":"xyzpdq",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"xyzpdq.ti",
+	"UIData":"CubeAction=1511€DataAction=1503€CubeLogChanges=0€",
+	"VariablesUIData":
+	[
+		"IgnoredInputVarName=Account€VarType=32€ColType=1165€",
+		"IgnoredInputVarName=Department€VarType=32€ColType=1165€",
+		"IgnoredInputVarName=Currency€VarType=32€ColType=1165€",
+		"IgnoredInputVarName=tMonth€VarType=32€ColType=1165€",
+		"IgnoredInputVarName=Version€VarType=32€ColType=1165€",
+		"IgnoredInputVarName=Value€VarType=33€ColType=1165€"
+	],
+	"DataSource":
+	{
+		"Type":"TM1CubeView",
+		"dataSourceNameForClient":"Budget Forecast",
+		"dataSourceNameForServer":"Budget Forecast",
+		"view":"Katie"
+	},
+	"Parameters":[],
+	"Variables":[]
+}

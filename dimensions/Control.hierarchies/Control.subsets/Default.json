@@ -1,0 +1,28 @@
+{
+	"@type":"Subset",
+	"Name":"Default",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Control')/Hierarchies('Control')/Elements('TM1 Server Controls')"
+		},
+		{
+			"@id":"Dimensions('Control')/Hierarchies('Control')/Elements('TM1 Server Name')"
+		},
+		{
+			"@id":"Dimensions('Control')/Hierarchies('Control')/Elements('TM1 Database Path')"
+		},
+		{
+			"@id":"Dimensions('Control')/Hierarchies('Control')/Elements('TM1 Logging Path')"
+		},
+		{
+			"@id":"Dimensions('Control')/Hierarchies('Control')/Elements('TM1 Application Log Path')"
+		},
+		{
+			"@id":"Dimensions('Control')/Hierarchies('Control')/Elements('File Path Import')"
+		},
+		{
+			"@id":"Dimensions('Control')/Hierarchies('Control')/Elements('File Path Export')"
+		}
+	]
+}

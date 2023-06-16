@@ -1,0 +1,174 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:	SYS_Version Copy_Wrapper
+# Author:		Chad Harvey
+# Date Created:	03.09.2020
+# Date Modified:	03.09.2020 by: Chad Harvey
+# Purpose:	This process will execute the relevant Version Copy processes as needed
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#--------------- Error Handlers ---------------#
+nError = 0;
+sParameters = '';
+sMessage = '';
+
+IF(pSrcVer @= '');
+     nError = nError + 1;
+     sMessage = 'pSrcVer not supplied.';
+ELSEIF(DIMIX('Version', pSrcVer) = 0);
+     nError = nError + 1;
+     sMessage = 'pSrcVer:"' | pSrcVer | '" is not valid.';
+ENDIF;
+
+IF(pTgtVer @= '');
+     nError = nError + 1;
+     sMessage = sMessage | ' pTgtVer not supplied.';
+ELSEIF(DIMIX('Version', pTgtVer) = 0);
+     DimensionElementInsertDirect('Version', '', pTgtVer, 'N');
+ENDIF;
+
+IF(pTime @= '');
+     nError = nError + 1;
+     sMessage = sMessage | ' pTime not supplied.';
+ELSEIF(DIMIX('tMonth', pTime) = 0);
+     nError = nError + 1;
+     sMessage = sMessage | ' pTime:"' | pTime | '" is not valid.';
+ENDIF;
+
+IF(pCube @= '');
+     nError = nError + 1;
+     sMessage = sMessage | ' pCube not supplied.';
+ELSEIF(DIMIX('}Cubes', pCube) = 0);
+     nError = nError + 1;
+     sMessage = sMessage | ' pCube:"' | pCube | '" is not valid.';
+ENDIF;
+
+IF(pSnapshot @= '');
+     nError = nError + 1;
+     sMessage = sMessage | ' pSnapshot not supplied.';
+ELSEIF(UPPER(pSnapshot) @<> 'Y' % UPPER(pSnapShot) @<> 'N');
+     nError = nError + 1;
+     sMessage = sMessage | ' pSnapshot:"' | pSnapshot | '" is not valid.';
+ENDIF;
+
+sParameters = 'pSrcVer="' | pSrcVer | '"; pTgtVer="' | pTgtVer | '"; pTime="' | pTime | '"; pCube="' | pCube | '"; pSnapshot="' | pSnapshot | '"';
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sUserID = TM1USER;
+IF(DIMIX('}Clients', sUserID) = 0);
+     sUser = 'Chore';
+ELSE;
+     sUser = NumberToString(DIMIX('}Clients', sUserID));
+ENDIF;
+sPrefix = CellGetS('Control', 'Value', 'TI Prefix');
+sTimeStamp = TIMST(NOW, '\Y\m\d\h\i\s');
+sRandomInt = NumberToString(INT(RAND() * 1000));
+sArchive = CellGetS('Control', 'Archive Veresion', 'Value');
+bNMeasures = 0;
+bSMeasures = 0;
+
+#--------------- Process Logging ---------------#
+sProcess = GetProcessName();
+sLogProc = 'SYS Process Status';
+nStartTime = NOW();
+sStartTime = TIMST(nStartTime, '\Y/\m/\d, \h:\i:\s');
+
+IF(nError = 0);
+     IF(UPPER(pSnapshot) @= 'Y');
+          DimensionElementComponentAddDirect('Version', sArchive, pTgtVer, 0);
+     ENDIF;
+     
+     #----- Count Number of Dimensions and Find Measure Dimension
+     nLoop = 1;
+     WHILE(TABDIM(pCube, nLoop) @<> '');
+          nLoop = nLoop + 1;
+     END;
+     nDimCnt = nLoop - 1;
+     sMeasureDim = TABDIM(pCube, nDimCnt);
+
+     #----- Check for Existence of N Measures and S Measures
+     nLoop = 1;
+     nMax = DIMSIZ(sMeasureDim);
+     WHILE(nLoop <= nMax);
+          sElement = DIMNM(sMeasureDim, nLoop);
+          IF(ELLEV(sMeasureDim, sElement) = 0 & DTYPE(sMeasureDim, sElement) @= 'N');
+               bNMeasures = 1;
+          ELSEIF(ELLEV(sMeasureDim, sElement) = 0 & DTYPE(sMeasureDim, sElement) @= 'S');
+               bSMeasures = 1;
+          ENDIF;
+          nLoop = nLoop + 1;
+     END;
+     
+     #-----Execute Numeric Measure Copy
+     IF(bNMeasures = 1);
+          ExecuteProcess('SYS_Version Copy_Numeric Values'
+               , 'pSrcVer', pSrcVer
+               , 'pTgtVer', pTgtVer
+               , 'pTime', pTime
+               , 'pCube', pCube);
+     ENDIF;
+
+     #----- Execute String Measure Copy
+     IF(bSMeasures = 1);
+          ExecuteProcess('SYS_Version Copy_String Values'
+               , 'pSrcVer', pSrcVer
+               , 'pTgtVer', pTgtVer
+               , 'pTime', pTime
+               , 'pCube', pCube);
+     ENDIF;
+ELSE;
+     nEndTime = NOW();
+     sEndTIme = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+     sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+     ExecuteProcess(sLogProc
+          , 'pProcess', sProcess
+          , 'pLogFile', ''
+          , 'pStatus', 'Error'
+          , 'pParameters', sParameters
+          , 'pStartTime', sStartTime
+          , 'pEndTime', sEndTime
+          , 'pRun', sDuration);
+ENDIF;
+#endregion
+#region Metadata
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+sLogDir = GetProcessErrorFileDirectory();
+sErrLog = GetProcessErrorFileName();
+IF(sErrLog @<> '');
+     sStatus = 'Error';
+     sLogFile = sLogDir | sErrLog;
+ELSE;
+     sStatus = 'Success';
+     sLogFile = '';
+     sMessage = '';
+ENDIF;
+
+#---------- Process Logging ----------#
+nEndTime = NOW();
+sEndTime = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+ExecuteProcess(sLogProc
+    , 'pProcess', sProcess
+    , 'pLogFile', sLogFile
+    , 'pStatus', sStatus  | ' ' | sMessage
+    , 'pParameters', sParameters
+    , 'pStartTime', sStartTime
+    , 'pEndTime', sEndTime
+    , 'pRun', sDuration);
+#endregion

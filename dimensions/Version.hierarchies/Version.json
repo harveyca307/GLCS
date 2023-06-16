@@ -1,0 +1,60 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Version",
+	"Elements":
+	[
+		{
+			"Name":"Actuals",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Working Forecast",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Working Plan",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Act vs Forecast",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Act vs Plan",
+			"Type":"Consolidated"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"Act vs Forecast",
+			"ComponentName":"Working Forecast",
+			"Weight":-1
+		},
+		{
+			"ParentName":"Act vs Forecast",
+			"ComponentName":"Actuals",
+			"Weight":1
+		},
+		{
+			"ParentName":"Act vs Plan",
+			"ComponentName":"Working Plan",
+			"Weight":-1
+		},
+		{
+			"ParentName":"Act vs Plan",
+			"ComponentName":"Actuals",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"Version.subsets/Default.json",
+		"Version.subsets/ExportCube_1_151.json",
+		"Version.subsets/ExportCube_1_609.json",
+		"Version.subsets/ExportCube_1_746.json",
+		"Version.subsets/ExportCube_1_763.json",
+		"Version.subsets/ExportCube_1_882.json",
+		"Version.subsets/Temp.json"
+	]
+}

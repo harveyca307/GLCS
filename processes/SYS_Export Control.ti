@@ -1,0 +1,271 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sSourceName = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Source Name');
+sTargetName = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Target Name');
+sDelimiter = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Delimiter');
+sQuote = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Quote');
+nOutput = CellGetN('Export Control', pExportIndex, 'Export Header', 'Total', 'Output Count');
+nNumDim = CellGetN('Export Control', pExportIndex, 'Export Header', 'Total', 'Dimension Count');
+sHeader = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Include Header');
+sSupZ = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Suppress Zeros');
+sSupC = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Suppress Consolidations');
+sSupR = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Suppress Rules');
+sCreateEmptyFile = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Create File If Empty');
+
+#---
+sIgnoreRoundedZero = CellGetS('Export Control', pExportIndex, 'Export Header', 'Export Header', 'Ignore Rounded Zero');
+#---
+
+DatasourceNameForServer=sSourceName;
+
+cCube = sSourceName;
+cView = 'ExportCube_'|pExportIndex|'_' | NumberToString (ROUND (RAND() * 1000 ));
+DataSourceType='View';
+
+
+IF (ViewExists(cCube, cView)=1);
+    ViewDestroy(cCube, cView);
+ENDIF;
+
+IF (sSupZ @='N');
+    sSuppressZero = 0;
+ELSE;
+    sSuppressZero = 1;
+ENDIF;
+IF (sSupC @='N');
+    sSuppressConsol=0;
+ELSE;
+    sSuppressConsol=1;
+ENDIF;
+IF (sSupR @='Y');
+     sSuppressRules=1;
+ELSE;
+     sSuppressRules=0;
+ENDIF;
+
+  # Create Processing View for source version 
+  nRet = ExecuteProcess('}bedrock.cube.view.create',
+          'pLogOutput', 0,
+          'pCube', cCube,
+          'pView', cView,
+          'pFilter', '',
+          'pSuppressZero', sSuppressZero,
+          'pSuppressConsol', sSuppressConsol,
+          'pSuppressRules', sSuppressRules,
+          'pDimDelim', '&',
+          'pEleStartDelim', '¦',
+          'pEleDelim', '+' ,
+          'pTemp', 1
+          );
+
+#Element
+#All Leafs
+#Subset
+nIndex =1;
+
+WHILE (nIndex<=nNumDim);
+     sDimElem = NumberToString(nIndex);
+     sDim = CellGetS('Export Control', pExportIndex, 'Export Header', sDimElem, 'Dimension');
+     sType = CellGetS('Export Control', pExportIndex, 'Export Header', sDimElem, 'Type');
+     sSourceElem = CellGetS('Export Control', pExportIndex, 'Export Header', sDimElem, 'Element');
+
+####New in QA
+                IF (SubsetExists(sDim, cView) = 1);
+                SubsetDeleteAllElements(sDim, cView);
+                ELSE;
+                SubsetCreate(sDim, cView);
+                ENDIF;
+                ViewSubsetAssign(cCube, cView, sDim, cView);
+####New in QA
+
+     IF (sType @= 'Element');
+                SubsetElementInsert(sDim, cView, sSourceElem, 1);
+     ELSEIF (sType @= 'Subset');
+                ViewSubsetAssign(cCube, cView, sDim, sSourceElem);
+     ELSEIF (sType @= 'All Leafs');
+                 nDimSiz = DIMSIZ(sDim);
+                 nIndex2 = 1;
+                 WHILE (nIndex2<=nDimSiz);
+                        sElem = DIMNM(sDim, nIndex2);
+                        IF (ELLEV(sDim,sElem)=0 & (sSourceElem @='' % (ELISANC(sDim, sSourceElem, sElem)=1 % DIMIX(sDim,sSourceElem) = DIMIX(sDim,sElem))));
+                             SubsetElementInsert(sDim, cView, sElem, 1);      
+                        ENDIF;
+                        nIndex2 = nIndex2 + 1;
+                        IF (nIndex2=1000000);
+                                 processquit;
+                        ENDIF;
+                  END;
+     ENDIF;
+
+     nIndex = nIndex + 1;
+END;
+
+
+DatasourceCubeview=cView;
+
+DatasourceASCIIQuoteCharacter='';
+
+sIsFileEmpty='Y';
+
+#----
+nTotalEvaluations =  CellGetN('Export Control', pExportIndex, 'All Outputs', 'Export Header', 'Evaluate Rounded Zero');
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+sIsFileEmpty='N';
+
+#----
+nIsRoundedZero = 0;
+
+IF (sHeader @= 'Y');
+sStr = '';
+nIndex = 1;
+WHILE (nIndex<=nOutput);
+       sIndex = NumberToString(nIndex);
+       sStr = sStr | sQuote | CellGetS('Export Control', pExportIndex, 'Export Header', sIndex, 'Header') | sQuote;
+       IF (nIndex < nOutput);
+             sStr = sStr | sDelimiter;
+       ENDIF;
+       nIndex = nIndex+1;
+END;
+AsciiOutput(sTargetName, sStr);
+sHeader = '';
+ENDIF;
+
+sStr ='';
+nIndex = 1;
+WHILE (nIndex<=nOutput);
+       sIndex = NumberToString(nIndex);
+       sType = CellGetS('Export Control', pExportIndex, 'Output '|sIndex, 'Export Header', 'Type');
+       sVar = CellGetS('Export Control', pExportIndex, 'Output '|sIndex, 'Export Header', 'Element');
+       sAttr = CellGetS('Export Control', pExportIndex, 'Output '|sIndex, 'Export Header', 'Attribute');
+       sFormat = CellGetS('Export Control', pExportIndex, 'Output '|sIndex, 'Export Header', 'Format');
+       nPrecision = CellGetN('Export Control', pExportIndex, 'Output '|sIndex, 'Export Header', 'Precision');
+       #----
+       nEvaluateZero = CellGetN('Export Control', pExportIndex, 'Output '|sIndex, 'Export Header', 'Evaluate Rounded Zero');
+       #----
+       sValue='';
+       IF (sType @= 'Source');
+                sValue =  Expand('%'|sVar|'%');
+                IF (sFormat@<>'');
+                     nValue = Numbr(sValue);
+                      IF (sFormat@='Nearest Integer');
+                             nValue = ROUNDP(nValue, nPrecision);
+                      ELSEIF (sFormat@='Rounded Up Integer');                           
+                             nValue2 = ROUNDP(nValue+0.5, nPrecision);
+                             IF (nValue+1 = nValue2);
+                                     nValue = nValue2-1; 
+                             ELSE;
+                                      nValue = nValue2;
+                             ENDIF;
+                      ELSEIF (sFormat@='Rounded Down Integer');   
+                             nValue = ROUNDP(nValue-0.5, nPrecision);                        
+                      ENDIF;                 
+                      sValue = NumberToString(nValue);
+                ENDIF;               
+       ELSEIF (sType @= 'Source (Attribute S)');
+                sDimNumber = SUBST(sVar,2,LONG(sVar)-1);
+                sDimName = CellGetS('Export Control', pExportIndex, 'Export Header', sDimNumber, 'Dimension');
+                sValue = ATTRS(sDimName, Expand('%'|sVar|'%'), sAttr);
+       ELSEIF (sType @= 'Source (Metric N)');
+               IF (nNumDim = 2); CellGetN(cCube, v1, sVar);
+               ELSEIF (nNumDim = 3); nValue = CellGetN(cCube, v1, v2, sVar);
+               ELSEIF (nNumDim = 4); nValue = CellGetN(cCube, v1, v2, v3, sVar);
+               ELSEIF (nNumDim = 5); nValue = CellGetN(cCube, v1, v2, v3, v4, sVar);
+               ELSEIF (nNumDim = 6); nValue = CellGetN(cCube, v1, v2, v3, v4, v5, sVar);
+               ELSEIF (nNumDim = 7); nValue = CellGetN(cCube, v1, v2, v3, v4, v5, v6, sVar);
+               ELSEIF (nNumDim = 8); nValue = CellGetN(cCube, v1, v2, v3, v4, v5, v6, v7, sVar);
+               ELSEIF (nNumDim = 9); nValue = CellGetN(cCube, v1, v2, v3, v4, v5, v6, v7, v8, sVar);
+               ELSEIF (nNumDim = 10); nValue = CellGetN(cCube, v1, v2, v3, v4, v5, v6, v7, v8, v9, sVar);
+               ENDIF;
+                IF (sFormat@<>'');
+                      IF (sFormat@='Nearest Integer');
+                             nValue = ROUNDP(nValue, nPrecision);
+#---                             
+                             IF ( nValue = 0 & nEvaluateZero = 1 );
+                             
+                                nIsRoundedZero = nIsRoundedZero + 1;
+                             
+                             ENDIF;
+#---                             
+                      ELSEIF (sFormat@='Rounded Up Integer');                           
+                             nValue2 = ROUNDP(nValue+0.5, nPrecision);
+                             IF (nValue+1 = nValue2);
+                                     nValue = nValue2-1; 
+                             ELSE;
+                                      nValue = nValue2;
+                             ENDIF;
+                      ELSEIF (sFormat@='Rounded Down Integer');   
+                             nValue = ROUNDP(nValue-0.5, nPrecision);                        
+                      ENDIF;                 
+                ENDIF;
+               sValue = NumberToString(nValue);
+        ELSEIF (sType @= 'Source (Metric S)');
+               IF (nNumDim = 2); CellGetS(cCube, v1, sVar);
+               ELSEIF (nNumDim = 3); sValue = CellGetS(cCube, v1, v2, sVar);
+               ELSEIF (nNumDim = 4); sValue = CellGetS(cCube, v1, v2, v3, sVar);
+               ELSEIF (nNumDim = 5); sValue = CellGetS(cCube, v1, v2, v3, v4, sVar);
+               ELSEIF (nNumDim = 6); sValue = CellGetS(cCube, v1, v2, v3, v4, v5, sVar);
+               ELSEIF (nNumDim = 7); sValue = CellGetS(cCube, v1, v2, v3, v4, v5, v6, sVar);
+               ELSEIF (nNumDim = 8); sValue = CellGetS(cCube, v1, v2, v3, v4, v5, v6, v7, sVar);
+               ELSEIF (nNumDim = 9); sValue = CellGetS(cCube, v1, v2, v3, v4, v5, v6, v7, v8, sVar);
+               ELSEIF (nNumDim = 10); sValue = CellGetS(cCube, v1, v2, v3, v4, v5, v6, v7, v8, v9, sVar);
+               ENDIF;
+       ENDIF;
+       sStr = sStr | sQuote | sValue | sQuote;
+       IF (nIndex < nOutput);
+             sStr = sStr | sDelimiter;
+       ENDIF;
+nIndex = nIndex+1;
+END;
+
+
+#----
+IF ( sIgnoreRoundedZero @= 'Y');
+
+  IF ( nIsRoundedZero = nTotalEvaluations );
+  
+  # Skip Export
+
+    ELSE;
+  
+   AsciiOutput(sTargetName, sStr);
+   
+   ENDIF;
+
+ELSE;
+
+AsciiOutput(sTargetName, sStr);
+
+ENDIF;
+
+#----
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF (sIsFileEmpty@='Y' & sCreateEmptyFile @= 'Y');
+sStr = '';
+nIndex = 1;
+WHILE (nIndex<=nOutput);
+       sIndex = NumberToString(nIndex);
+       sStr = sStr | sQuote | CellGetS('Export Control', pExportIndex, 'Export Header', sIndex, 'Header') | sQuote;
+       IF (nIndex < nOutput);
+             sStr = sStr | sDelimiter;
+       ENDIF;
+       nIndex = nIndex+1;
+END;
+AsciiOutput(sTargetName, sStr);
+sHeader = '';
+ENDIF;
+#endregion

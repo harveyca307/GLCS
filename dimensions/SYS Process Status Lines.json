@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"SYS Process Status Lines",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('SYS Process Status Lines')/Hierarchies('SYS Process Status Lines')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"SYS Process Status Lines.hierarchies/SYS Process Status Lines.json"
+	]
+}

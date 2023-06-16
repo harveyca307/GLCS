@@ -1,0 +1,97 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Global Variables ---------------#
+StringGlobalVariable('sProcessReturnCode');
+NumericGlobalVariable('nProcessReturnCode');
+nProcessReturnCode= 0;
+
+#--------------- Constants ---------------#
+cThisProcName   = GetProcessName();
+cUserName       = TM1User();
+cTimeStamp      = TimSt( Now, '\Y\m\d\h\i\s' );
+cRandomInt      = NumberToString( INT( RAND( ) * 1000 ));
+cTempSub        = cThisProcName |'_'| cTimeStamp |'_'| cRandomInt;
+cStartTime      = NumberToString( pStartTime );
+cEndTime        = NumberToString( pEndTime );
+cMsgErrorLevel  = 'ERROR';
+cMsgErrorContent= 'User:%cUserName% Process:%cThisProcName% Message: %sMsg%';
+cLogInfo        = 'User:%cUserName% Process:%cThisProcName% run to check if chore should run with parameters pMonthDays:%pMonthDays%, pWeekDays:%pWeekDays%, pDelim:%pDelim%, pStartTime:%cStartTime%, pEndTime:%cEndTime%.' ; 
+nErrors         = 0;
+sMsg            = '';
+
+#--------------- Error Handling ---------------#
+IF(pDelim @= '');
+	pDelim = '&';
+ENDIF;
+
+IF(pMonthdays @<> '');
+	IF(SUBST(pMonthDays, LONG(pMonthDays), 1) @<> pDelim);
+    	pMonthDays = pMonthDays | pDelim;
+    ENDIF;
+ENDIF;
+
+IF(pWeekDays @<> '');
+	IF(SUBST(pWeekDays, LONG(pWeekDays), 1) @<> pDelim);
+    	pWeekDays = pWeekDays | pDelim;
+    ENDIF;
+ENDIF;
+
+IF(pStartTime <= 0 % pStartTime >= 24);
+	pStartTime = 24;
+ELSE;
+	pStartTime = ROUND(pStartTime);
+ENDIF;
+
+IF(pEndTime < pStartTime);
+	pEndTime = pStartTime;
+ENDIF;
+pEndTime = ROUND(pEndTime);
+
+bStop = 0;
+
+IF(DIMIX('}Clients', cUserName) > 0);
+	sMessage = 'Chore will not run by user';
+    LogOutput('INFO', expand(cMsgErrorContent));
+ELSE;
+	IF(pMonthDays @<> '');
+    	sDayInMonth = TIMST(NOW, '\d');
+        IF(SCAN(sDayInMonth | pDelim, pMOnthDays) = 0 & SCAN(sDayInMonth | ' ' | pDelim, pMonthDays) = 0);
+        	sMessage = '';
+        	bStop = 1;
+        ENDIF;
+    ENDIF;
+    
+    IF(pWeekDays @<> '');
+    	nDayIndex = MOD(DAYNO(TODAY) + 21915, 7);
+        sWeekDay = '';
+        IF(nDayIndex = 0);
+        	sWeekDay = 'SUN';
+        ELSEIF(nDayIndex = 1);
+        	sWeekDay = 'MON';
+        ELSEIF(nDayIndex = 2);
+        	sWeekDay = 'TUE';
+        ELSEIF(nDayIndex = 3);
+        	sWeekDay = 'WED';
+        ELSEIF(nDayIndex = 4);
+        	sWeekDay = 'THU';
+        ELSEIF(nDayIndex = 5);
+        	sWeekDay = 'FRI';
+        ELSEIF(nDayIndex = 6);
+        	sWeekDay = 'SAT';
+        ENDIF;
+        
+        IF(SCAN(sWeekDay | pDelim, pWeekDays) = 0 & SCAN(sWeekday | ' '| pDelim, pWeekDays) = 0);
+        	bStop = 1;
+        ENDIF;
+    ENDIF;
+ENDIF;
+    
+    
+        	
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

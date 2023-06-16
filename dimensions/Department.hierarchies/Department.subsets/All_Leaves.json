@@ -1,0 +1,31 @@
+{
+	"@type":"Subset",
+	"Name":"All_Leaves",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('105')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('110')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('115')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('200')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('300')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('405')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('410')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('415')"
+		}
+	]
+}

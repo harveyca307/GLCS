@@ -1,0 +1,32 @@
+{
+	"@type":"Hierarchy",
+	"Name":"System - mSchedule",
+	"Elements":
+	[
+		{
+			"Name":"Run Count",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Schedule Sequence",
+			"Type":"String"
+		},
+		{
+			"Name":"Sequence",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Active",
+			"Type":"String"
+		},
+		{
+			"Name":"Pass",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dependent Process",
+			"Type":"String"
+		}
+	],
+	"Subsets@Code.links":[]
+}

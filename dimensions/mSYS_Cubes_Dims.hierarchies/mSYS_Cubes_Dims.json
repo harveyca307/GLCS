@@ -1,0 +1,12 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mSYS_Cubes_Dims",
+	"Elements":
+	[
+		{
+			"Name":"Indicator",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

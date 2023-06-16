@@ -1,0 +1,51 @@
+{
+	"@type":"Hierarchy",
+	"Name":"System - Schedule Processes",
+	"Elements":
+	[
+		{
+			"Name":"Total for Processing",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Dimension Load",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Data Load",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"DimUpdate_[ Users ]_from_[ Clients ]",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"zOrphans",
+			"Type":"Numeric"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"Total for Processing",
+			"ComponentName":"Dimension Load",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total for Processing",
+			"ComponentName":"Data Load",
+			"Weight":1
+		},
+		{
+			"ParentName":"Dimension Load",
+			"ComponentName":"DimUpdate_[ Users ]_from_[ Clients ]",
+			"Weight":1
+		},
+		{
+			"ParentName":"Dimension Load",
+			"ComponentName":"zOrphans",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":[]
+}

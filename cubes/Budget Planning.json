@@ -1,0 +1,32 @@
+{
+	"@type":"Cube",
+	"Name":"Budget Planning",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('Version')"
+		},
+		{
+			"@id":"Dimensions('Business Unit')"
+		},
+		{
+			"@id":"Dimensions('Department')"
+		},
+		{
+			"@id":"Dimensions('Account')"
+		},
+		{
+			"@id":"Dimensions('Month')"
+		},
+		{
+			"@id":"Dimensions('Currency')"
+		},
+		{
+			"@id":"Dimensions('mBudget Planning')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"Budget Planning.views/Forecast.json"
+	]
+}

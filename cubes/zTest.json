@@ -1,0 +1,17 @@
+{
+	"@type":"Cube",
+	"Name":"zTest",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('Version')"
+		},
+		{
+			"@id":"Dimensions('mEmployee')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"zTest.views/Default.json"
+	]
+}

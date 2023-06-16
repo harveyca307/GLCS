@@ -1,0 +1,32 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Sys_Promote",
+	"Elements":
+	[
+		{
+			"Name":"Source Instance",
+			"Type":"String"
+		},
+		{
+			"Name":"Target Instance",
+			"Type":"String"
+		},
+		{
+			"Name":"Promotion Title",
+			"Type":"String"
+		},
+		{
+			"Name":"Object Type",
+			"Type":"String"
+		},
+		{
+			"Name":"Object",
+			"Type":"String"
+		},
+		{
+			"Name":"Number of Output Objects",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

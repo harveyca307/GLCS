@@ -1,0 +1,24 @@
+{
+	"@type":"Cube",
+	"Name":"Data Control",
+	"Rules@Code.link":"Data Control.rules",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('Data Control Scenario')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')"
+		},
+		{
+			"@id":"Dimensions('Data Control Target')"
+		},
+		{
+			"@id":"Dimensions('mData Control')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"Data Control.views/Default.json"
+	]
+}

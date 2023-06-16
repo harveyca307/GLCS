@@ -1,0 +1,58 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+ nLatest = 0;
+
+DatasourceNameforServer = 'C:\TM1_Servers\GLCS\Data\nz_tm1_merch_inventory_weekly.csv';
+# DatasourceASCIIQuoteCharacter = '';
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+sMonth = SUBST(vWeek, 4, 3);
+sDay = SUBST(vWeek, 1, 2);
+sYear = SUBST(vWeek, 8,4);
+
+IF(sMonth @= 'JAN');
+  sMonth = '01';
+ELSEIF(sMonth @= 'FEB');
+  sMonth = '02';
+ELSEIF(sMonth @= 'MAR');
+  sMonth = '03';
+ELSEIF(sMonth @= 'APR');
+    sMonth = '04';
+ELSEIF(sMonth @= 'MAY');
+  sMonth = '05';
+ELSEIF(sMonth @= 'JUN');
+  sMonth = '06';
+ELSEIF(sMonth @= 'JUL');
+  sMonth = '07';
+ELSEIF(sMonth @= 'AUG');
+    sMonth = '08';
+ELSEIF(sMonth @= 'SEP');
+  sMonth = '09';
+ELSEIF(sMonth @= 'OCT');
+  sMonth = '10';
+ELSEIF(sMonth @= 'NOV');
+  sMonth = '11';
+ELSE;
+  sMonth = '12';
+ENDIF;
+
+nDate = DAYNO(sYear | '-' | sMonth | '-' | sDay);
+
+IF(nDate > nLatest);
+  nLatest = nDate;
+ENDIF;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+CellPutS(TIMST(nLatest, '\Y-\m-\d'), 'COntrol', 'Current nventory Actual Week', 'Value');
+#endregion

@@ -1,0 +1,20 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mCapEx Assumptions",
+	"Elements":
+	[
+		{
+			"Name":"Lifespan",
+			"Type":"String"
+		},
+		{
+			"Name":"Asset Account",
+			"Type":"String"
+		},
+		{
+			"Name":"Depreciation Account",
+			"Type":"String"
+		}
+	],
+	"Subsets@Code.links":[]
+}

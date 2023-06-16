@@ -1,0 +1,10 @@
+{
+	"@type":"Subset",
+	"Name":"SYS_HierarchyManagement_Promote.1.20211201110443.358.Clear",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Hierarchy_Alternates')/Hierarchies('Hierarchy_Alternates')/Elements('Hierarchy 1')"
+		}
+	]
+}

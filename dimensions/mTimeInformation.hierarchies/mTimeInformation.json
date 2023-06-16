@@ -1,0 +1,20 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mTimeInformation",
+	"Elements":
+	[
+		{
+			"Name":"Start Date",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"End Date",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Number of Days",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

@@ -1,0 +1,67 @@
+#region Prolog
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+nError = 0;
+
+IF(pDim @= '');
+     sMessage = 'pDim not supplied.';
+     nError = 1;
+ELSEIF(DIMIX('}Dimensions', pDim) = 0);
+     sMessage = 'pDim: "' | pDim | '" is not a valid dimension.';
+     nError = 1;
+ENDIF;
+
+IF(pTop @= '');
+     nError = 1;
+     sMessage = sMessage | ' pTop not supplied.';
+ENDIF;
+
+IF(nError = 0);
+     sPar = 'Alternate Hierarchies';
+     IF(DIMIX(pDim, sPar) > 0);
+          nMax = ELCOMPN(pDim, sPar);
+          nLoop = nMax;
+          
+          WHILE(nLoop > 0);
+               sElement = ELCOMP(pDim, sPar, nLoop);
+               IF(ELCOMPN(pDim, sElement) = 0 & SCAN(pTop, sElement) > 0);
+                    DimensionElementDelete(pDim, sElement);
+               ENDIF;
+               nLoop = nLoop - 1;
+          END;
+     ENDIF;
+     
+     sPar = 'zAlternate Hierarchies';
+     IF(DIMIX(pDim, sPar) > 0);
+          nMax = ELCOMPN(pDim, sPar);
+          nLoop = nMax;
+          
+          WHILE(nLoop > 0);
+               sElement = ELCOMP(pDim, sPar, nLoop);
+               IF(ELCOMPN(pDim, sElement) = 0 & SCAN(pTop, sElement) > 0);
+                    DimensionElementDelete(pDim, sElement);
+               ENDIF;
+               nLoop = nLoop - 1;
+          END;
+     ENDIF;
+ELSE;
+     ItemReject(sMessage);
+ENDIF;
+#endregion
+#region Metadata
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

@@ -1,0 +1,5 @@
+#region Prolog
+
+AssignClientPassword( 'ADMIN', 'apple');
+
+#endregion

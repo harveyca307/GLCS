@@ -1,0 +1,47 @@
+FEEDSTRINGS;
+SKIPCHECK;
+
+#Region Defaults
+['Hierarchy Name','Column1'] = S: STET;
+['Hierarchy Name'] = S: '';
+['Total Rows', 'Column 1'] = S: 'Element';
+['Total Rows', 'Column 2'] = S: 'Parent';
+['Total Rows', 'Column 3'] = S: 'Weight';
+['Total Rows', 'Column 4'] = S: 'Name';
+#EndRegion
+
+#Region Status
+
+['Working', 'Status'] = S: IF(ELISANC('Hierarchy_Rows', 'Total Rows', !Hierarchy_Rows) = 1
+		& DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 1') @<> ''
+		& DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 2') @= ''
+   	, 'Invalid Parent'
+    , CONTINUE);
+    
+['Working', 'Status'] = S: IF(ELISANC('Hierarchy_Rows', 'Total Rows', !Hierarchy_Rows) = 1
+		& DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 1') @<> ''
+		& DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 2') @<> ''
+        & DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 3') @= ''
+    , 'Invalid Weight'
+    , CONTINUE);
+    
+['Working', 'Status'] = S: IF(ELISANC('Hierarchy_Rows', 'Total Rows', !Hierarchy_Rows) = 1
+		& DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 1') @<> ''
+		& DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 2') @<> ''
+        & SCAN(DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 3'), '0123456789') = 0
+    , 'Invalid Weight'
+    , CONTINUE);
+
+['Working', 'Status'] = S: 
+	IF(ELISANC('Hierarchy_Rows', 'Total Rows', !Hierarchy_Rows) = 1
+    	& DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 1') 
+    	@<> DB('Hierarchy Management', !'}Dimensions', 'Final', !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 1')
+        %
+        DB('Hierarchy Management', !'}Dimensions', !Hierarchy_Scenario, !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 2')
+    	@<> DB('Hierarchy Management', !'}Dimensions', 'Final', !Hierarchy_Alternates, !Hierarchy_Rows, 'Column 2')
+    , 'Out of Sync'
+    , STET);
+#EndRegion
+
+FEEDERS;
+['Column 1'] => ['Working', 'Status'];

@@ -1,0 +1,20 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mBudget Planning Upload History",
+	"Elements":
+	[
+		{
+			"Name":"Update Description",
+			"Type":"String"
+		},
+		{
+			"Name":"Updated",
+			"Type":"String"
+		},
+		{
+			"Name":"Counter",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

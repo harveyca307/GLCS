@@ -1,0 +1,5 @@
+{
+	"@type":"Subset",
+	"Name":"Zerg",
+	"Expression":"{TM1SUBSETALL( [Capex Index] )}"
+}

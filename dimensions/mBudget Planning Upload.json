@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mBudget Planning Upload",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mBudget Planning Upload')/Hierarchies('mBudget Planning Upload')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mBudget Planning Upload.hierarchies/mBudget Planning Upload.json"
+	]
+}

@@ -1,0 +1,67 @@
+{
+	"@type":"Subset",
+	"Name":"SYS_HierarchyManagement_Promote.1.20211201110601.388",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 1')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 2')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 3')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 4')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 5')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 6')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 7')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 8')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 9')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 10')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 11')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 12')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 13')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 14')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 15')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 16')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 17')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 18')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 19')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')/Hierarchies('m_HierarchyManagement')/Elements('Column 20')"
+		}
+	]
+}

@@ -1,0 +1,64 @@
+{
+	"@type":"NativeView",
+	"Name":"Default",
+	"Columns":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('mBudget Planning Upload')/Hierarchies('mBudget Planning Upload')"
+				},
+				"Expression":"TM1SubsetAll([mBudget Planning Upload])"
+			}
+		}
+	],
+	"Rows":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('Budget Upload Index')/Hierarchies('Budget Upload Index')"
+				},
+				"Expression":"TM1SubsetAll([Budget Upload Index])"
+			}
+		}
+	],
+	"Titles":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('}Clients')/Hierarchies('}Clients')"
+				},
+				"Expression":"TM1SubsetAll([}Clients])"
+			},
+			"Selected":
+			{
+				"@id":"Dimensions('}Clients')/Hierarchies('}Clients')/Elements('Admin')"
+			}
+		},
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('Version')/Hierarchies('Version')"
+				},
+				"Expression":"TM1SubsetAll([Version])"
+			},
+			"Selected":
+			{
+				"@id":"Dimensions('Version')/Hierarchies('Version')/Elements('Working Plan')"
+			}
+		}
+	],
+	"SuppressEmptyColumns":false,
+	"SuppressEmptyRows":false,
+	"FormatString":"0.00"
+}

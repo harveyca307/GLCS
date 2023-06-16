@@ -1,0 +1,137 @@
+{
+	"@type":"NativeView",
+	"Name":"Chad",
+	"Columns":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')"
+				},
+				"Elements":
+				[
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('Year')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('Month')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('MonthLong')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('MonthNr')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('MonthNrStr')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('Qtr')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('Year-Qtr')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('Year-Month')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('YrMnthLong')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('YrMnthNr')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('isActualsPeriod')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-1')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-2')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-3')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-4')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-5')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-6')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-7')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-8')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-9')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-10')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-11')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M-12')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+1')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+2')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+3')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+4')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+5')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+6')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+7')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+8')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+9')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+10')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+11')"
+					},
+					{
+						"@id":"Dimensions('mMonth Control')/Hierarchies('mMonth Control')/Elements('M+12')"
+					}
+				]
+			}
+		}
+	],
+	"Rows":
+	[
+		{
+			"Subset":
+			{
+				"@id":"Dimensions('tMonth')/Hierarchies('tMonth')/Subsets('Chad')"
+			}
+		}
+	],
+	"Titles":[],
+	"SuppressEmptyColumns":false,
+	"SuppressEmptyRows":false,
+	"FormatString":"0.#########"
+}

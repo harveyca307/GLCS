@@ -1,0 +1,55 @@
+{
+	"@type":"Hierarchy",
+	"Name":"ChadDim",
+	"Elements":
+	[
+		{
+			"Name":"Annie",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Test 1",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Test 2",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Test 23",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Test 45",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Orphans",
+			"Type":"Consolidated"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"Test 1",
+			"ComponentName":"Test 45",
+			"Weight":1
+		},
+		{
+			"ParentName":"Test 1",
+			"ComponentName":"Test 2",
+			"Weight":1
+		},
+		{
+			"ParentName":"Test 2",
+			"ComponentName":"Test 23",
+			"Weight":1
+		},
+		{
+			"ParentName":"Orphans",
+			"ComponentName":"Annie",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":[]
+}

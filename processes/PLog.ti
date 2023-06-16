@@ -1,0 +1,311 @@
+#region Prolog
+#===========================================================================================
+#
+#   Copyright:  Application Consulting Group, Inc.  2021
+#
+#   Process:      PLog
+#   Created:      2021-01-18
+#   Author:        B. Cave (ACG)
+#
+#   Parameters:
+#      None
+#
+#   Description:
+#      Master audit logging of all executed processes
+#
+#      Parameters:
+#         pFlag - type of operation to be run.  Valid settings are:
+#                                    INIT - Start a fresh audit log for the named process
+#                                    MSG - Write an audit line to the current log       
+#                                    END - Close out the current log   
+#         pProc - Executing process being logged
+#         pMsg - Message to write to audit log (pFLag = MSG) -OR- final status of process execution (pFlag = END)
+#         pLine - Storing Parameters values into the P01-P09 Line settings 
+#
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+#  Modifications:
+#
+#    Date                        Modifier                              Comments
+#    ============        ====================  ======================================================
+#    yyyy-mm-dd              J. Doe (Company X)           Example of change comment
+#
+#===========================================================================================
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#============================================================================================
+#--- Variables for object & process names (revise on a client-by-client basis as needed!)
+#============================================================================================
+sPLogRun = 'Process Log Run';
+sPLogLine = 'Process Log Line';
+sPLog = 'Process Log';
+sPLogUser = 'Process Log by User';
+sPLogTI = 'PLog';
+
+
+
+#===================================================================================
+#===  Validate that a valid Process name parameter has been provided
+#===================================================================================
+IF( DIMIX( '}Processes', pProc ) = 0 );
+      ProcessQuit();
+EndIF;
+
+
+#===================================================================================
+#===  Validate that a valid RunFlag parameter has been provided
+#===================================================================================
+pFlag = UPPER( pFlag );
+IF( pFlag @<> 'INIT'  &  pFlag @<> 'MSG'  &  pFlag @<> 'END' );
+      ProcessQuit();
+EndIF;
+
+
+#=== Save Start Date/Time
+nStartTime1 = NOW;
+
+#===================================================================================
+# Get the username of the person executing the process
+#===================================================================================
+IF( SUBST( TM1User(), 1, 2 ) @= 'R*' );
+     #==== Chore in which case TM1USER() returns 'R*<ChoreName>' so log run under Admin ID
+     sUserID = 'Admin';
+     sUserName = 'Admin';
+ELSE;
+     sUserID = TM1USER();
+     IF( DIMIX( '}ElementAttributes_}Clients', 'Name' ) = 1 ); 
+          sUserName = AttrS( '}Clients', sUserID, 'Name' );
+     EndIF;
+     IF( sUserName @= '' );
+          sUserName = sUserID;
+     EndIF;
+ENDIF;
+
+
+
+#====================================================================================
+#-----
+#-----   Run Type = INIT     Prep a new log by shifting all existing logs down 1 in the stack    
+#-----
+#====================================================================================
+
+IF( pFlag @= 'INIT' );
+
+     #-------------------------------------------------------------------------------------------------------------------------------------------------- 
+     # Loop through the Process Run dimension, moving all content down 1 position
+     #-------------------------------------------------------------------------------------------------------------------------------------------------- 
+     nLoopCtr1 = DIMSIZ( sPLogRun );
+     nLineMax  = DIMSIZ( sPLogLine );
+
+     WHILE( nLoopCtr1 > 0 );
+          sRunEle = DIMNM( sPLogRun, nLoopCtr1  );
+          IF( sRunEle  @<> 'Current' );
+               sRunElePrev = DIMNM( sPLogRun , nLoopCtr1-1 );
+               sPriorRunProc = CellGetS( sPLog, pProc, sRunElePrev, 'T01');
+          EndIF;
+
+          #===  Move data from prior Process Run ONLY when the T01 line has a Process Name populated, otherwise it is all blank and does not need copying!
+          IF( sRunEle  @= 'Current'  %  sPriorRunProc @<> '' );
+
+               #=== Copy all content from previous Run into the current one for Admin and Client logs
+               nLoopCtr2 = 1;
+               WHILE( nLoopCtr2 <= nLineMax );
+                    sLineEle = DIMNM( sPLogLine, nLoopCtr2 );
+                    sData1 = '';
+                    sData2 = '';
+                    IF( sRunEle @<> 'Current' );
+                         sData1 = CellGetS( sPLog, pProc, sRunElePrev, sLineEle);
+                         sData2 = CellGetS( sPLogUser, pProc, sUserID, sRunElePrev, sLineEle);
+                    EndIF;
+
+                    CellPutS( sData1, sPLog, pProc, sRunEle, sLineEle);
+                    CellPutS( sData2, sPLogUser, pProc, sUserID, sRunEle, sLineEle);
+
+                    #== Proceed to next Process Log Line
+                    nLoopCtr2 = nLoopCtr2 + 1;
+
+                    #=== If next line in current & previous log is blank & NOT a P or T line setting, then there is no more data to copy - you can move to next Process Run
+                    sLineEle = DIMNM( sPLogLine, nLoopCtr2 );
+                    IF( SUBST( sLineEle, 1, 1 ) @<> 'T'  &  SUBST( sLineEle, 1, 1 ) @<> 'P' );
+                         sPriorRunNextLine = CellGetS( sPLog, pProc, sRunElePrev, sLineEle );
+                         sCurrRunNextLine = CellGetS( sPLog, pProc, sRunEle, sLineEle );
+                        IF( sPriorRunNextLine @= ''  &  sCurrRunNextLine @= '' );
+                              nLoopCtr2 = nLineMax +100;
+                        EndIF;
+                    EndIF;
+
+                    #--- End:  While( nLoopCtr2 <= nLineMax )
+               END;
+
+               #-- End:  IF( sPriorRunProc @<> '' )
+          EndIF;
+
+          #== Proceed to next Process Log Run
+          nLoopCtr1  =  nLoopCtr1 - 1;
+
+          #-- End:  WHILE( nLoopCtr1 > 0 )
+     END;
+
+
+     #-------------------------------------------------------------------------------------------------------------------------------------------------- 
+     # Initial lines queried by admin templates
+     #-------------------------------------------------------------------------------------------------------------------------------------------------- 
+     sMsg = pProc;
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T01');
+     sMsg = sUserName;
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T02');
+     sMsg = TIMST( nStartTime1, '\Y-\m-\d' );
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T03');
+     sMsg = TIMST( nStartTime1, '\h:\i:\s' );
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T04');
+     sMsg = 'FAILED: Unknown Error';
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T08');
+
+     #---  Save the initial timestamp in T05 (Process End Time); this will be used when the process ends to calc the elapsed time!
+     sMsg = NumberToString( nStartTime1 );
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T05');
+
+
+     #-------------------------------------------------------------------------------------------------------------------------------------------------- 
+     # Standard first 3 lines of detail logging 
+     #-------------------------------------------------------------------------------------------------------------------------------------------------- 
+     sMsg = 'Starting process: '  |  pProc;
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg );
+
+     sMsg = 'Process executed by: '  |  sUserName;
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg );
+
+     sMsg = '-';
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg );
+
+     #---  End of pFlag = 'INIT'
+EndIF;
+
+
+
+#====================================================================================
+#-----
+#-----   Run Type = MSG     Apply the audit message to the next line in the Current log
+#-----
+#====================================================================================
+
+IF( pFlag @= 'MSG' );
+
+     #=== The pLine parameter will only be passed in for the special T01-T09 and P01-P09 slots, 
+     #===     otherwise it defaults to 1 for the first audit line used OR increments by 1 for all follow-up audit lines
+     #=== NOTE: All audit lines are written to the 'Current' value of Process Run
+     IF( pLine @= '' );
+           sLineCtr1 = CellGetS( sPLog, pProc, 'Current', 'T09');
+           IF( sLineCtr1 @= '' );
+                sLineCtr2 = '1';
+           ELSE;
+                sLineCtr2 = NumberToString( StringToNumber( sLineCtr1 ) + 1 ); 
+           EndIF;
+     ELSE;
+          sLineCtr2 = pLine;
+     EndIF;
+
+     IF( SUBST( pLine, 1, 1 ) @= 'T'  %  SUBST( pLine, 1, 1 ) @= 'P' );
+          #=== Write Parameter / Setting to process log
+          CellPutS( pMsg, sPLog, pProc, 'Current', sLineCtr2 );
+          CellPutS( pMsg, sPLogUser, pProc, sUserID, 'Current', sLineCtr2 );
+     ELSE;
+          #=== Write Message to process log and update Line Counter
+          CellPutS( sLineCtr2, sPLog, pProc, 'Current', 'T09' );
+          CellPutS( sLineCtr2, sPLogUser, pProc, sUserID, 'Current', 'T09' );
+
+         #===  Prefix message with timestamp, then write to log
+          pMsg = '['|TIMST( NOW, '\Y-\m-\d \h:\i:\s')|']   '  |  pMsg;
+          CellPutS( pMsg, sPLog, pProc, 'Current', sLineCtr2 );
+          CellPutS( pMsg, sPLogUser, pProc, sUserID, 'Current', sLineCtr2 );
+     EndIF;
+
+     #---  End of pFlag = 'MSG'
+EndIF;
+
+
+
+
+#====================================================================================
+#-----
+#-----   Run Type = END     Close out the current process log
+#-----
+#====================================================================================
+
+IF( pFlag @= 'END' );
+
+     #===  Retrieve the original timestamp from the T05 line member
+     nStartTime2 = StringToNumber( CellGetS( sPLog, pProc, 'Current', 'T05'  ) );
+     nEndTime1 = NOW;
+
+     #===  Apply metrics for closing out process log
+
+     #---  End date
+     sMsg = TIMST( nEndTime1, '\Y-\m-\d');
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T05');
+
+     #---  End time
+     sMsg = TIMST( nEndTime1, '\h:\i:\s');
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T06');
+
+     #---  Runtime
+     sTotalRuntime = TIMST( nEndTime1 -  nStartTime2, '\hh:\im:\ss' );
+     sMsg = sTotalRuntime;
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T07');
+
+     #---  For the END call ONLY, the pMsg parameter is used to pass in the Status value to simplify the # of params
+     sMsg = pMsg;
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg, 'pLine', 'T08');
+
+
+     #-------------------------------------------------------------------------------------------------------------------------------------------------- 
+     # Standard last lines of audit logging 
+     #-------------------------------------------------------------------------------------------------------------------------------------------------- 
+     sMsg = '  ';
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg );
+
+     sMsg = 'Total Runtime = ' | sTotalRuntime;
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg );
+
+     sMsg = '  ';
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg );
+
+     sMsg = pProc | ' completed';
+     ExecuteProcess( sPLogTI, 'pFlag', 'MSG', 'pProc', pProc, 'pMsg', sMsg );
+
+
+     #---  End of pFlag = 'END'
+EndIF;
+
+
+
+
+#==
+#=====  End of Prolog
+#==
+#endregion
+#region Metadata
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+
+
+#---
+#====   End of Epilog
+#--
+
+
+#endregion

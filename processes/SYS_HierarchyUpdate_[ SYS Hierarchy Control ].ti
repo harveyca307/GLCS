@@ -1,0 +1,126 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			SYS_HierarchyUpdate_[ SYS Hierarchy Control]
+# Author:			Chad Harvey
+# Date Created:		04.29.2020
+# Date Modified:	03.29.2020 by: Chad Harvey
+# Purpose:			This process manage the attribite hierarchies for pDimension
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#--------------- Error Handling ---------------#
+nError = 0;
+sMessage = '';
+sParameters = '';
+
+IF(pDimension @= '');
+	nError = nError + 1;
+    sMessage = 'pDimension not supplied.';
+ELSEIF(DIMIX('}Dimensions', pDimension) = 0);
+	nError = nError + 1;
+    sMessage = 'pDimension:"' | pDimension | '" is not valid.';
+ENDIF;
+
+sParameters = 'pDimension="' | pDimension | '"';
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sUserID = TM1USER;
+IF(DIMIX('}Clients', sUserID) = 0);
+	sUser = 'Chore';
+ELSE;
+	sUser = NumberToString(DIMIX('}Clients', sUserID));
+ENDIF;
+sPrefix = CellGetS('Control', 'TI Prefix', 'Value');
+sTimeStamp = TIMST(NOW, '\Y\m\d\h\i\s');
+sRandomInt = NumberToString(INT(RAND() * 1000));
+sCube = 'SYS Hierarchy Control';
+sView = sPrefix | sCube | '.' | sUser | '.' |sTimeStamp | '.' | sRandomInt;
+sAttr = '}ElementAttributes_' | pDimension;
+
+#--------------- Process Logging ---------------#
+sProcess = GetProcessName();
+sLogProc = 'SYS Process Status';
+nStartTime = NOW();
+sStartTime = TIMST(nStartTime, '\Y/\m/\d, \h:\i:\s');
+
+IF(nError = 0);
+	sFilter = '}Dimensions' | ':' | pDimension | '&mSYS Hierarchy Control:Active ';
+    ExecuteProcess('}bedrock.cube.view.create'
+    	, 'pCube', sCube
+        , 'pView', sView
+        , 'pFilter', sFilter
+        , 'pSuppressZero', 1
+        , 'pSuppressConsol', 1
+        , 'pSuppressRules', 0
+        , 'pDimDelim', '&'
+        , 'pEleStartDelim', ':'
+        , 'pEleDelim', '+'
+        , 'pTemp', 1
+        , 'pSubN', 0);
+        
+    #----- Assign View to process
+    DatasourceType = 'VIEW';
+    DatasourceNameForServer = sCube;
+    DatasourceCubeView = sView;
+ELSE;
+	nEndTime = NOW();
+    sEndTIme = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+    sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+    ExecuteProcess(sLogProc
+      , 'pProcess', sProcess
+      , 'pLogFile', ''
+      , 'pStatus', 'Error'
+      , 'pParameters', sParameters
+      , 'pStartTime', sStartTime
+      , 'pEndTime', sEndTime
+      , 'pRun', sDuration);
+	ProcessError;
+ENDIF;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables --------------#
+sValid = CellGetS(sCube, pDimension, vLines, 'Validation');
+
+IF(sValid @= '');
+	ExecuteProcess('SYS_HierarchyUpdate_[ SYS Hierarchy Control ]_Update'
+    	, 'pDimension', pDimension
+        , 'pLine', vLines);
+ENDIF;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+sLogDir = GetProcessErrorFileDirectory();
+sErrLog = GetProcessErrorFileName();
+IF(sErrLog @<> '');
+     sStatus = 'Error';
+     sLogFile = sLogDir | sErrLog;
+ELSE;
+     sStatus = 'Success';
+     sLogFile = '';
+     sMessage = '';
+ENDIF;
+
+#---------- Process Logging ----------#
+nEndTime = NOW();
+sEndTime = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+ExecuteProcess(sLogProc
+    , 'pProcess', sProcess
+    , 'pLogFile', sLogFile
+    , 'pStatus', sStatus  | ' ' | sMessage
+    , 'pParameters', sParameters
+    , 'pStartTime', sStartTime
+    , 'pEndTime', sEndTime
+    , 'pRun', sDuration);
+#endregion

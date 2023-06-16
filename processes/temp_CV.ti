@@ -1,0 +1,101 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Global Vars ---------------#
+StringGlobalVariable('sProcessReturnCode');
+NumericGlobalVariable('nProcessReturnCode');
+nProcessReturnCode= 0;
+
+#--------------- Constants ---------------#
+sUserID = TM1USER;
+IF(DIMIX('}Clients', sUserID) = 0);
+     cUser = 'Chore';
+ELSE;
+     cUser = NumberToString(DIMIX('}Clients', sUserID));
+ENDIF;
+cTimeStamp = TIMST(NOW, '\Y\m\d\h\i\s');
+cRandomInt = NumberToString(INT(RAND() * 1032));
+cProcess = GetProcessName();
+cErrorMessage = '%cProcess% : %sUserID% : %sMessage%';
+cView = cProcess | '.' | cUser | '.' | cRandomInt | '.' | cTimestamp;
+cSubset = cView;
+
+#--------------- Error Handlers ---------------#
+sMessage = '';
+nError = 0;
+
+IF(pCube @= '');
+	nError = nError + 1;
+    sMessage = 'pCube not supplied.';
+    LogOutput('ERROR', expand(cErrorMessage));
+ENDIF;
+
+IF(pDelimiter @= '');
+	nError = nError + 1;
+    sMessage = 'pDelimiter not supplied';
+    LogOutput('ERROR', expand(cErrorMessage));
+ENDIF;
+
+#----- Create objects
+
+IF(nError = 0);
+	IF(UPPER(pCube) @= 'ALL');
+    	sMDX = '{TM1SUBSETALL([}Cubes])}';
+    ELSE;
+    	sCubeList = TRIM(pCube);
+          sMDX = '';
+          WHILE(sCubeList @<> '');
+               nPos = SCAN(pDelimiter, sCubeList);
+               IF(nPos = 0);
+                    nPos = LONG(sCubeList) + 1;
+               ENDIF;
+               
+               sCube = TRIM(SUBST(sCubeList, 1, nPos - 1));
+               IF(SCAN('*', sCube) <> 0 % SCAN('>', sCube) <> 0);
+                    IF(sMDX @= '');
+                         sMDX = EXPAND('{TM1FILTERBYPATTERN({TM1SUBSETALL([}Cubes])}, "%sCube%")}');
+                    ELSE;
+                         sMDX = EXPAND('%sMDX% + {TM1FILTERBYPATTERN({TM1SUBSETALL([}Cubes])}, "%sCube%")}');
+                    ENDIF;
+               ELSE;
+                    IF(DIMIX('}Cubes', sCube) = 0);
+                         nError = nError + 1;
+                         sMessage = 'Cube: "' | sCube | '" does not exist.';
+                         LogOutput('ERROR', EXPAND(cErrorMessage));
+                         ProcessBreak;
+                    ELSE;
+                         IF(sMDX @= '');
+                              sMDX = EXPAND('{[}Cubes].[%sCube%]}');
+                         ELSE;
+                              sMDX = EXPAND('%sMDX% + {[}Cubes].[%sCube%]}');
+                         ENDIF;
+                    ENDIF;
+               ENDIF;
+               sCubeList = TRIM(DELET(sCubeList, 1, nPos + LONG(pDelimiter) - 1));
+          END;
+               sMDX = EXPAND('{%sMDX%}');
+     ENDIF;
+     ASCIIOUTPUT('chad.txt', sMDX);
+     IF(SubsetExists('}Cubes', cSubset) = 1);
+          SubsetDestroy('}Cubes', cSubset);
+     ENDIF;
+     SubsetCreatebyMDX(cSubset, sMDX, '}Cubes', 1);
+ELSE;
+	ProcessBreak;
+ENDIF;
+
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+
+IF(nError > 0);
+	nProcessReturnCode = 0;
+	sMessage = 'the process incurred at least 1 error.  Please see above lines for more details.';
+    LogOutput('ERROR', expand(cErrorMessage));
+    sProcessReturnCode = Expand( '%sProcessReturnCode% Process:%cProcess% completed with errors. Check tm1server.log for details.' );
+ELSE;
+ENDIF;
+#endregion

@@ -1,0 +1,150 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Constants ---------------#
+cProc = GetProcessName();
+cCube = 'SYS Subset Control';
+cLogProc = 'PLOG';
+cUser = NumberToString(ELementIndex('}Clients', '}Clients', TM1USER));
+cTimestamp = TIMST(now, '\Y\m\d\h\i\s');
+cRandomInt = NumberToString(INT(RAND() * 1000));
+cTemp = 1;
+
+#--------------- Intialize Logging ---------------#
+ExecuteProcess(cLogProc, 'pFlag', 'INIT', 'pProc', cProc);
+
+#--------------- Error Handling ---------------#
+nError = 0;
+IF(pDimension @= '');
+	nError = 1;
+    sMessage = 'pDimension not supplied';
+ELSEIF(DimensionExists(pDimension) = 0);
+	nError = 1;
+    sMessage = 'pDimension: "' | pDimension | '" does not exist';
+ELSE;
+	sMessage = 'pDimension="' | pDimension | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMsg', sMessage, 'pLine', 'P01');
+
+IF(nError = 1);
+	ProcessBreak;
+ENDIF;
+
+#--------------- Variables ---------------#
+sView = expand('%cProc%.%cUser%.%cTimestamp%.%cRandomInt%');
+
+ExecuteProcess(cLogProc, 'pFLag', 'MSG', 'pProc', cProc, 'pMSG', 'Beginning Prolog Processing...');
+
+IF(ViewExists(cCube, sView) = 1);
+	ViewDestroy(cCube, sView);
+ENDIF;
+
+ViewCreate(cCube, sView, cTemp);
+ViewExtractSkipZeroesSet(cCube, sView, 1);
+ViewExtractSkipCalcsSet(cCube, sView, 1);
+ViewExtractSkipRuleValuesSet(cCube, sView, 0);
+
+nLoop = 1;
+nMax = CubeDimensionCountGet(cCube);
+WHILE(nLoop <= nMax);
+	sDim = TABDIM(cCube, nLoop);
+    
+    IF(HierarchySubsetExists(sDim, sDim, sView) = 1);
+    	HierarchySubsetDeleteAllElements(sDim, sDim, sView);
+    ELSE;
+    	HierarchySubsetCreate(sDim, sDim, sView, cTemp);
+    ENDIF;
+    
+    IF(sDim @= '}Dimensions');
+    	HierarchySubsetElementInsert(sDim, sDim, sView, pDimension, 1);
+    ELSEIF(sDim @= 'mSYS Subset Control');
+    	HierarchySubsetElementInsert(sDim, sDim, sView, 'Subset Name', 1);
+    ELSE;
+    	nELem = 1;
+        nElemMax = ElementCount(sDim, sDim);
+        WHILE(nElem <= nElemMax);
+        	sElement = ElementName(sDim, sDim, nElem);
+            IF(ElementLevel(sDim, sDim, sElement) = 0);
+            	HierarchySubsetElementInsert(sDim, sDim, sView, sElement, 0);
+            ENDIF;
+            nELem = nElem + 1;
+        END;
+    ENDIF;
+    
+    ViewSubsetAssign(cCube, sView, sDim, sView);
+    nLoop = nLoop + 1;
+END;
+    
+#----- Assign View to Process
+DatasourceType = 'VIEW';
+DatasourceNameForServer = cCube;
+DatasourceCubeView = sView;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sActive = CellGetS(cCube, pDimension, vLine, 'Active');
+sAlias = CellGetS(cCube, pDimension, vLine, 'Alias Attribute');
+sStaticFlag = CellGetS(cCube, pDimension, vLine, 'String or MDX');
+sSubsetExpr = CellGetS(cCube, pDimension, vLine,'Subset Expression');
+sConvert = CellGetS(cCube, pDimension, vLine,'Make Static');
+sUseAlias = CellGetS(cCube, pDimension, vLine,'Use Alias');
+
+IF(sActive @= 'Yes');
+    IF(sStaticFlag @= 'String');
+        ExecuteProcess('SYS_Dim_CreateSubset_From_DelimitedString'
+            , 'pDimension', pDimension
+            , 'pSubset', vValue
+            , 'pString', sSubsetExpr
+            , 'pDelimiter', '+'
+            , 'pUseAlias', sUseAlias
+            , 'pAliasName', sAlias);
+    ELSE;
+        ExecuteProcess('SYS_Dim_CreateSubset_ByMDX'
+            , 'pDimension', pDimension
+            , 'pSubset', vValue
+            , 'pMDXExpr', sSubsetExpr
+            , 'pConvertToStatic', sConvert
+            , 'pUseAlias', sUseAlias
+            , 'pAliasName', sAlias);
+    ENDIF;
+ENDIF;
+
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF(nError = 0);
+     sStatus = 'SUCCESS';
+ELSE;
+     sStatus = 'ERROR';
+ENDIF;
+
+
+sMessage = '-' | FILL('-', 99);
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+
+IF(sStatus @= 'SUCCESS');
+     sMessage = 'Process completed successfully';
+     ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+ELSE;
+     sMessage = 'Process finished with errors';
+     ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+ENDIF;
+
+#--------------- Finalize Process Logging
+ExecuteProcess(cLogProc, 'pFlag', 'END', 'pProc', cProc, 'pMSG', sStatus);
+
+IF(sStatus @<> 'SUCCESS');
+     ProcessQuit;
+ENDIF;
+#endregion

@@ -1,0 +1,10 @@
+{
+	"@type":"Subset",
+	"Name":"SYS_HierarchyManagement_Promote.1.20211201105722.671",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Hierarchy_Scenario')/Hierarchies('Hierarchy_Scenario')/Elements('Working')"
+		}
+	]
+}

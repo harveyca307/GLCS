@@ -1,0 +1,45 @@
+{
+	"@type":"Process",
+	"Name":"SYS_Version Copy_Wrapper",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"SYS_Version Copy_Wrapper.ti",
+	"UIData":"CubeAction=1511€DataAction=1503€CubeLogChanges=0€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pSrcVer",
+			"Prompt":"Source Version: ",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pTgtVer",
+			"Prompt":"Target Version: ",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pTime",
+			"Prompt":"TIme Element: ",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pCube",
+			"Prompt":"Cube to Copy: ",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pSnapshot",
+			"Prompt":"Create Snapshot:",
+			"Value":"Y",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

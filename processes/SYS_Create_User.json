@@ -1,0 +1,21 @@
+{
+	"@type":"Process",
+	"Name":"SYS_Create_User",
+	"HasSecurityAccess":true,
+	"Code@Code.link":"SYS_Create_User.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pUser",
+			"Prompt":"",
+			"Value":"",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

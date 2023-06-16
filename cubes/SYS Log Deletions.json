@@ -1,0 +1,14 @@
+{
+	"@type":"Cube",
+	"Name":"SYS Log Deletions",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('SYS_LogDeletions')"
+		},
+		{
+			"@id":"Dimensions('SYS_mLogDeletions')"
+		}
+	],
+	"Views@Code.links":[]
+}

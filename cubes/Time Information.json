@@ -1,0 +1,18 @@
+{
+	"@type":"Cube",
+	"Name":"Time Information",
+	"Rules@Code.link":"Time Information.rules",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('Calendar Year')"
+		},
+		{
+			"@id":"Dimensions('Calendar Month')"
+		},
+		{
+			"@id":"Dimensions('mTimeInformation')"
+		}
+	],
+	"Views@Code.links":[]
+}

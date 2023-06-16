@@ -1,0 +1,93 @@
+# SKIPCHECK;
+
+#Region STETs
+['Source Header', 'Target Header', {'Action', 'Source Name', 'Suppress Consolidations', 'Suppress Rules', 'Suppress Zeros'}] = STET;
+
+#EndRegion
+
+#Region Export
+
+['Source Header', 'Target Header',
+	{'Delimiter', 'Include Header', 'Quote'}] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @= 'Export'
+    	, STET
+        , CONTINUE);
+        
+[{'Dimension 1','Dimension 2','Dimension 3','Dimension 4','Dimension 5','Dimension 6','Dimension 7','Dimension 8','Dimension 9','Dimension 10'}, 'Target Header', {'Header', 'Output Alias'}] = S:
+	IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @= 'Export'
+    	, STET
+        , CONTINUE);
+        
+        
+# ['Target Header', 'Header'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @= 'Export'
+#     , STET
+#     , CONTINUE);
+       
+
+# ['Clear Target'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @= 'Export'
+# 	, ''
+#     , CONTINUE);
+
+['Source Header', 'Target Header', {'Create File if Empty', 'Delimiter', 'Include Header','Quote'}] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @= 'Export'
+	, STET
+    , CONTINUE);
+
+['Source Header', 'Target Header', 'Target Type'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @= 'Export'
+	, 'File'
+    , CONTINUE);
+
+['Source Header', 'Target Header', 'Target Name'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Target Type') @<> 'File'
+	, ''
+    , STET);
+
+
+['Source Header', 'Target Header', 'Target Location'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @= 'Export'
+	, DB('Control', 'File Path Export', 'Value' ) | DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Target Name')
+    , CONTINUE);
+
+#EndRegion
+
+
+#Region Version Copy
+
+# ['Source Header', 'Target Header', 'Target Type'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @<> 'Export'
+# 	, STET
+#     , CONTINUE);
+
+['Source Header', 'Target Header', 'Target Location'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @<> 'Export'
+		& DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Target Type') @= 'All Cubes'
+	, 'All Cubes'
+    , CONTINUE);
+    
+# ['Source Header', 'Target Header', 'Target Location'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @<> 'Export'
+# 	, STET
+#     , CONTINUE);
+
+#EndRegion
+
+#Region Copy
+['Source Header', 'Target Header', 'Target Type'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @= 'Copy'
+	, 'Single Cube'
+    , CONTINUE);
+
+['Source Header', 'Target Header', 'Target Location'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @= 'Copy'
+	, DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Source Name')
+    , CONTINUE);
+    
+#EndRegion 
+
+
+#Region Misc
+['Source Header', 'Target Header', 'Clear Target'] = S: IF(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Action') @<> 'Export'
+	, STET
+    , CONTINUE);
+[{'Action', 'Clear Target', 'Create File if Empty', 'Header', 'Source Name', 'Delimiter', 'Header','Include Header', 'Output Alias', 'Quote', 'Suppress Consolidations', 'Suppress Rules', 'Suppress Zeros', 'Target Location', 'Target Name', 'Target Type'}] = S: '';
+['Dimension Count'] = N: IF(DB('Data Control', !'Data Control Scenario', !'Data Control Source', !'Data Control Target', 'Dimension') @<> '', 1, 0);
+['Output Count'] = N: IF(DB('Data Control', !'Data Control Scenario', !'Data Control Source', !'Data Control Target', 'Header') @<> '', 1, 0);
+['Target Header', 'Dimension'] = S: TABDIM(DB('Data Control', !'Data Control Scenario', 'Source Header', 'Target Header', 'Source Name'), NUMBR(ATTRS('Data Control Source',!Data Control Source, 'Number')));
+['Source Header', 'Target Header'] = S: '';
+
+#EndRegion
+
+
+
+# FEEDERS;

@@ -1,0 +1,196 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Constants ---------------#
+cProc = GetProcessName();
+cCube = 'Hierarchy Management';
+cUser = NumberToString(ELementIndex('}Clients', '}Clients', TM1USER));
+cTimeStamp = TIMST(now, '\Y\m\d\h\i\s');
+cRandomInt = NumbertoString(INT(RAND() * 1000));
+cLogProc = 'PLOG';
+cTemp = 1;
+
+#--------------- Initialize Logging ---------------#
+ExecuteProcess(cLogProc, 'pFLag', 'INIT', 'pProc', cProc);
+
+#--------------- Error Handling ---------------#
+nError = 0;
+nParam = 1;
+IF(pDimension @= '');
+	nError = 1;
+    sMessage = 'pDimension not supplied';
+ELSEIF(DimensionExists(pDimension) = 0);
+	nError = 1;
+    sMessage = 'pDimension:"' | pDimension | '" does not exist';
+ELSE;
+	sMessage = 'pDimension="' | pDimension | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage, 'pLine', 'P0' | NumberToString(nParam)); nParam = nParam + 1;
+
+IF(pHierarchy @= '');
+	nError = 1;
+    sMessage = 'pHierarchy not supplied';
+ELSEIF(ElementIndex('Hierarchy_Alternates', 'Hierarchy_Alternates', pHierarchy) = 0);
+	nError = 1;
+    sMessage = 'pHierarchy:"' | pHierarchy | '" is invalid';
+ELSE;
+	sMessage = 'pHierarchy="' | pHierarchy | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage, 'pLine', 'P0' | NumberToString(nParam)); nParam = nParam + 1;
+
+IF(nError = 1);
+	ProcessBreak;
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', 'Beginning Prolog processing');
+
+#--------------- Variables ---------------#
+sView = EXPAND('%cProc%.%cUser%.%cTimeStamp%.%cRandomInt%');
+sAttr = 'ID - Name';
+sAttrDim = '}ElementAttributes_' | pDimension;
+
+IF(ElementIndex(sAttrDim, sAttrDim, sAttr) = 0);
+	ElementAttrInsert(pDimension, pDimension, '', sAttr, 'A');
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', 'Promoting Hierarchies');
+CellPutS('NO', '}CubeProperties', cCube, 'LOGGING');
+ExecuteProcess('SYS_HierarchyManagement_Promote'
+	, 'pDimension', pDimension
+    , 'pHierarchy', pHierarchy
+    , 'pSource', 'Final'
+    , 'pTarget', 'Backup');
+    
+ExecuteProcess('SYS_HierarchyManagement_Promote'
+	, 'pDimension', pDimension
+    , 'pHierarchy', pHierarchy
+    , 'pSource', 'Working'
+    , 'pTarget', 'Final'); 
+CellPutS('YES', '}CubeProperties', cCube, 'LOGGING');
+
+#----- Turn off cube logging on Attribute Cube
+sOldLog = CellGetS('}CubeProperties', sAttrDim, 'LOGGING');
+CellPutS('NO', '}CubeProperties', sAttrDim, 'LOGGING');
+
+IF(ViewExists(cCube, sView) = 1);
+	ViewDestroy(cCUbe, sView);
+ENDIF;
+
+ViewCreate(cCube, sView, cTemp);
+
+ViewExtractSkipZeroesSet(cCube, sView, 1);
+ViewExtractSkipCalcsSet(cCube, sView, 1);
+ViewExtractSkipRuleValuesSet(cCube, sView, 1);
+
+nLoop = 1;
+nMax = CubeDimensionCountGet(cCube);
+WHILE(nLoop <= nMax);
+	sDim = TABDIM(cCube, nLoop);
+    IF(HierarchySubsetExists(sDim, sDim, sView) = 1);
+    	HierarchySubsetDeleteAllElements(sDim, sDim, sView);
+    ELSE;
+    	HierarchySubsetCreate(sDim, sDim, sView, cTemp);
+    ENDIF;
+    
+    IF(sDim @= '}Dimensions');
+    	HierarchySubsetElementInsert(sDim, sDim, sView, pDimension, 1);
+    ELSEIF(sDim @= 'Hierachy_Scenario');
+    	HierarchySubsetElementInsert(sDim, sDim, sView, 'Final', 1);
+    ELSEIF(sDim @= 'Hierarchy_Alternates');
+    	HierarchySubsetElementInsert(sDim, sDim, sView, pHierarchy, 1);
+    ELSEIF(sDim @= 'm_HierarchyManagement');
+    	HierarchySubsetElementInsert(sDim, sDim, sView, 'Column 1', 1);
+    ELSE;
+    	sMDX = '{TM1FILTERBYLEVEL({TM1SUBSETALL([' | sDim | '])}, 0)}';
+        SubsetMDXSet(sDim, sView, sMDX);
+        SubsetMDXSet(sDim, sView, '');
+    ENDIF;
+    ViewSubsetAssign(cCube, sView, sDim, sView);
+    nLoop = nLoop + 1;
+END;
+
+#----- Assign View to Subset
+DatasourceTyoe = 'VIEW';
+DatasourceNameforServer = cCube;
+Datasourcecubeview = sView;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sParent = CellGetS(cCube, pDimension, 'Final', pHierarchy, vRow, 'Column 2');
+nWeight = StringToNumber(CellGetS(cCube, pDimension, 'Final', pHierarchy, vRow, 'Column 3'));
+
+IF(ELementIndex(pDimension, pDimension, vValue) = 0);
+	HierarchyElementInsert(pDimension, pDimension, '', vValue, 'N');
+ENDIF;
+
+IF(ElementIndex(pDimension, pDimension, sParent) = 0);
+	HierarchyElementInsert(pDimension, pDimension, '', sParent, 'C');
+ENDIF;
+
+IF(sParent @<> '');
+	HierarchyElementComponentAdd(pDimension, pDimension, sParent, vValue, nWeight);
+ENDIF;
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sAttrName = CellGets(cCube, pDimension, 'Final', pHierarchy, vRow, 'Column 4');
+
+IF(sAttrName @<> '');
+	sID_Name = vValue | ' - ' | sAttrName;
+    ElementAttrPutS(sID_Name, pDimension, pDimension, vValue, sAttr);
+ENDIF;
+
+nLoop = 5;
+nMax = 20;
+WHILE(nLoop <= nMax);
+	sAttrName = CellGetS(cCube, pDimension, 'Final', pHierarchy, 'Total Rows', 'Column ' | NumberToString(nLoop));
+    IF(sAttrName @<> '');
+    	ElementAttrInsert(pDimension, pDimension, '', sAttrName, 'S');
+        sAttrValue = CellGetS(cCube, pDimension, 'Final', pHierarchy, vRow, 'Column ' | NumbertoString(nLoop));
+        ELementAttrPutS(sAttrValue, pDimension, pDimension, vValue, sAttrName);
+    ENDIF;
+    nLoop = nLoop + 1;
+END;
+    
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#----- Return Cube Logging 
+CellPutS(sOldLog, '}CubeProperties', sAttrDim, 'LOGGING');
+
+IF(nError = 0);
+     sStatus = 'SUCCESS';
+ELSE;
+     sStatus = 'ERROR';
+ENDIF;
+
+
+sMessage = '-' | FILL('-', 99);
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+
+IF(sStatus @= 'SUCCESS');
+     sMessage = 'Process completed successfully';
+     ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+ELSE;
+     sMessage = 'Process finished with errors';
+     ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+ENDIF;
+
+#--------------- Finalize Process Logging
+ExecuteProcess(cLogProc, 'pFlag', 'END', 'pProc', cProc, 'pMSG', sStatus);
+
+IF(sStatus @<> 'SUCCESS');
+     ProcessQuit;
+ENDIF;
+#endregion

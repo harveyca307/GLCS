@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"Sys_Promote",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('Sys_Promote')/Hierarchies('Sys_Promote')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"Sys_Promote.hierarchies/Sys_Promote.json"
+	]
+}

@@ -1,0 +1,24 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Currency",
+	"Elements":
+	[
+		{
+			"Name":"Local",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Reporting",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"Currency.subsets/ExportCube_1_151.json",
+		"Currency.subsets/ExportCube_1_609.json",
+		"Currency.subsets/ExportCube_1_746.json",
+		"Currency.subsets/ExportCube_1_763.json",
+		"Currency.subsets/ExportCube_1_882.json",
+		"Currency.subsets/Temp.json"
+	]
+}

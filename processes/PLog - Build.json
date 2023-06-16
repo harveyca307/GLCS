@@ -1,0 +1,21 @@
+{
+	"@type":"Process",
+	"Name":"PLog - Build",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"PLog - Build.ti",
+	"UIData":"CubeAction=1511€DataAction=1503€CubeLogChanges=0€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pRunFlag",
+			"Prompt":"BUILD or DELETE the Process logs?",
+			"Value":"BUILD",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

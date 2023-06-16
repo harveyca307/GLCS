@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mSYS Subset Control",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mSYS Subset Control')/Hierarchies('mSYS Subset Control')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mSYS Subset Control.hierarchies/mSYS Subset Control.json"
+	]
+}

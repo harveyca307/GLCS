@@ -1,0 +1,23 @@
+{
+	"@type":"Cube",
+	"Name":"Process Log by User",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('}Processes')"
+		},
+		{
+			"@id":"Dimensions('}Clients')"
+		},
+		{
+			"@id":"Dimensions('Process Log Run')"
+		},
+		{
+			"@id":"Dimensions('Process Log Line')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"Process Log by User.views/Default.json"
+	]
+}

@@ -1,0 +1,5 @@
+{
+	"@type":"Subset",
+	"Name":"SYS_HierarchyManagement_Promote.1.20211201110601.388",
+	"Expression":"TM1SubsetAll([Hierarchy_Rows])"
+}

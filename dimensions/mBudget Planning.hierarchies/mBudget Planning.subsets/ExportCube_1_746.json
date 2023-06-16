@@ -1,0 +1,10 @@
+{
+	"@type":"Subset",
+	"Name":"ExportCube_1_746",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('mBudget Planning')/Hierarchies('mBudget Planning')/Elements('Value')"
+		}
+	]
+}

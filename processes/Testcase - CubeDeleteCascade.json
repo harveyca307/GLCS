@@ -1,0 +1,21 @@
+{
+	"@type":"Process",
+	"Name":"Testcase - CubeDeleteCascade",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"Testcase - CubeDeleteCascade.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pCubeName",
+			"Prompt":"",
+			"Value":"MyTestCubeA",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

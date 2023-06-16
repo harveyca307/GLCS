@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"Data Control Scenario",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('Data Control Scenario')/Hierarchies('Data Control Scenario')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"Data Control Scenario.hierarchies/Data Control Scenario.json"
+	]
+}

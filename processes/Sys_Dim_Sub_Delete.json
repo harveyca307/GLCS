@@ -1,0 +1,39 @@
+{
+	"@type":"Process",
+	"Name":"Sys_Dim_Sub_Delete",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"Sys_Dim_Sub_Delete.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pDimensions",
+			"Prompt":"List of Dimensions Separated by Delimiter (Blank = All Dimensions)",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pSubsets",
+			"Prompt":"List of Subsets Separated by Delimiter. Wildcards Permitted on Subset Names.",
+			"Value":"}_Sys*",
+			"Type":"String"
+		},
+		{
+			"Name":"pDelimiter",
+			"Prompt":"Delimiter Character",
+			"Value":"&",
+			"Type":"String"
+		},
+		{
+			"Name":"pDebug",
+			"Prompt":"Debug Mode",
+			"Value":0,
+			"Type":"Numeric"
+		}
+	],
+	"Variables":[]
+}

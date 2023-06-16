@@ -1,0 +1,39 @@
+{
+	"@type":"Process",
+	"Name":"PLog",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"PLog.ti",
+	"UIData":"CubeAction=1511€DataAction=1503€CubeLogChanges=0€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pFlag",
+			"Prompt":"Run Flag (INIT, MSG or END):",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pProc",
+			"Prompt":"Name of Process:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pMsg",
+			"Prompt":"Log Message:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pLine",
+			"Prompt":"Line to Apply To:",
+			"Value":"",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

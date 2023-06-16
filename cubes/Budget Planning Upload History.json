@@ -1,0 +1,23 @@
+{
+	"@type":"Cube",
+	"Name":"Budget Planning Upload History",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('}Clients')"
+		},
+		{
+			"@id":"Dimensions('Version')"
+		},
+		{
+			"@id":"Dimensions('Budget Planning Upload Index')"
+		},
+		{
+			"@id":"Dimensions('mBudget Planning Upload History')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"Budget Planning Upload History.views/Default.json"
+	]
+}

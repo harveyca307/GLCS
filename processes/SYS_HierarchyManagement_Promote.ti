@@ -1,0 +1,150 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Constants ---------------#
+cProc = GetProcessName();
+cCube = 'Hierarchy Management';
+cUser = NumberToString(ElementIndex('}Clients', '}Clients', TM1USER));
+cTimeStamp = TIMST(now, '\Y\m\d\h\i\s');
+cRandomInt = NumberToString(INT(RAND() * 1000));
+cTemp = 1;
+cSource = EXPAND('%cProc%.%cUser%.%cTimeStamp%.%cRandomInt%');
+cTarget = EXPAND('%cSource%.Clear');
+
+#--------------- Error Handling ---------------#
+nError = 0;
+sMessage = '';
+
+IF(pDimension @= '' % DimensionExists(pDimension) = 0);
+	nError = 1;
+ENDIF;
+
+IF(pHierarchy @= '' % ELementINdex('Hierarchy_Alternates', 'Hierarchy_Alternates', pHierarchy) = 0);
+	nError = 1;
+ENDIF;
+
+IF(pSource @= '' % ElementINdex('Hierarchy_Scenario', 'Hierarchy_Scenario', pSource) = 0);
+	nError = 1;
+ENDIF;
+
+IF(pTarget @= '' % ElementIndex('Hierarchy_Scenario', 'Hierarchy_Scenario', pTarget) = 0);
+	nError = 1;
+ENDIF;
+
+IF(nError = 1);
+	ProcessError;
+ENDIF;
+
+#--------------- Begin Prolog Processing ---------------#
+
+#----- Create Views;
+IF(ViewExists(cCube, cSource) = 1);
+	ViewDestroy(cCube, cSource);
+ENDIF;
+
+ViewCreate(cCube, cSource, cTemp);
+ViewExtractSkipZeroesSet(cCube, cSource, 1);
+ViewextractSkipCalcsSet(cCube, cSource, 0);
+ViewExtractSkipRuleValuesSet(cCube, cSource, 1);
+
+IF(ViewExists(cCube, cTarget) = 1);
+	ViewDestroy(cCube, cTarget);
+ENDIF;
+
+ViewCreate(cCube, cTarget, cTemp);
+ViewExtractSkipZeroesSet(cCube, cTarget, 1);
+ViewextractSkipCalcsSet(cCube, cTarget, 0);
+ViewExtractSkipRuleValuesSet(cCube, cTarget, 1);
+
+#----- Target Susbets
+nLoop = 1;
+nMax = CubeDimensionCountGet(cCube);
+WHILE(nLoop <= nMax);
+	sDim = TABDIM(cCube, nLoop);
+    IF(HierarchySubsetExists(sDim, sDim, cTarget) = 1);
+    	HierarchySubsetDeleteAllElements(sDim, sDim, cTarget);
+    ELSE;
+    	HierarchySubsetCreate(sDim, sDim, cTarget, cTemp);
+    ENDIF;
+    
+    IF(sDim @= '}Dimensions');
+    	HierarchySubsetElementInsert(sDim, sDim, cTarget, pDimension, 1);
+    ELSEIF(sDim @= 'Hierarchy_Scenario');
+    	HierarchySubsetElementInsert(sDim, sDim, cTarget, pTarget, 1);
+    ELSEIF(sDim @= 'Hierarchy_Alternates');
+    	HierarchySubsetElementInsert(sDim, sDim, cTarget, pHierarchy, 1);
+    ELSEIF(sDim @= 'Hierarchy_Rows');
+    	HierarchySubsetIsAllSet(sDim, sDim, cTarget, 1);
+    ELSE;
+    	nElem = 1;
+        nElemMax = ELementCount(sDim, sDim);
+        WHILE(nElem <= nElemMax);
+        	sElem = ElementName(sDim, sDim, nElem);
+            IF(ElementLevel(sDim, sDim, sElem) = 0);
+            	HierarchySubsetElementInsert(sDim, sDim, cTarget, sElem, 0);
+            ENDIF;
+            nElem = nElem + 1;
+        END;
+    ENDIF;
+    ViewSubsetAssign(cCube, cTarget, sDim, cTarget);
+    nLoop = nLoop + 1;
+END;
+
+ViewZeroOut(cCube, cTarget);
+
+#----- Source Subsets
+nLoop = 1;
+nMax = CubeDimensionCountGet(cCube);
+
+WHILE(nLoop <= nMax);
+	sDim = TABDIM(cCube, nLoop);
+    IF(HierarchySubsetExists(sDim, sDim, cSource) = 1);
+    	HierarchySubsetDeleteAllElements(sDim, sDim, cSource);
+    ELSE;
+    	HierarchySubsetCreate(sDim, sDim, cSource, cTemp);
+    ENDIF;
+    
+    IF(sDim @= '}Dimensions');
+    	HierarchySubsetElementInsert(sDim, sDim, cSource, pDimension, 1);
+    ELSEIF(sDim @= 'Hierarchy_Scenario');
+    	HierarchySubsetElementInsert(sDim, sDim, cSource, pSource, 1);
+    ELSEIF(sDim @= 'Hierarchy_Alternates');
+    	HierarchySubsetElementInsert(sDim, sDim, cSource, pHierarchy, 1);
+    ELSEIF(sDim @= 'Hierarchy_Rows');
+    	HierarchySubsetIsAllSet(sDim, sDim, cSource, 1);
+    ELSE;
+    	nElem = 1;
+        nElemMax = ELementCount(sDim, sDim);
+        WHILE(nElem <= nElemMax);
+        	sElem = ElementName(sDim, sDim, nElem);
+            IF(ElementLevel(sDim, sDim, sElem) = 0);
+            	HierarchySubsetElementInsert(sDim, sDim, cSource, sElem, 0);
+            ENDIF;
+            nElem = nElem + 1;
+        END;
+    ENDIF;
+    ViewSubsetAssign(cCube, cSource, sDim, cSource);
+    nLoop = nLoop + 1;
+END;
+
+#----- Assign View to Process
+DatasourceType = 'VIEW';
+DatasourceNameforServer = cCube;
+DatasourceCubeView = cSource;
+    
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+CellPutS(vValue, cCube, pDimension, pTarget, pHierarchy, vRow, vMeasure);
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

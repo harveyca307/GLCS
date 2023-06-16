@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"TimeWeek",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('TimeWeek')/Hierarchies('TimeWeek')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"TimeWeek.hierarchies/TimeWeek.json"
+	]
+}

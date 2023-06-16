@@ -1,0 +1,43 @@
+{
+	"@type":"Process",
+	"Name":"Cube_Validate_[ Budget Planning Upload ]",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"Cube_Validate_[ Budget Planning Upload ].ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"VariablesUIData":
+	[
+		"VarType=32€ColType=827€"
+	],
+	"DataSource":
+	{
+		"Type":"TM1DimensionSubset",
+		"dataSourceNameForClient":"Budget Upload Index",
+		"dataSourceNameForServer":"Budget Upload Index",
+		"subset":"All"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pVersion",
+			"Prompt":"Version:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pDescription",
+			"Prompt":"Upload Description: ",
+			"Value":"",
+			"Type":"String"
+		}
+	],
+	"Variables":
+	[
+		{
+			"Name":"vLine",
+			"Type":"String",
+			"Position":1,
+			"StartByte":0,
+			"EndByte":0
+		}
+	]
+}

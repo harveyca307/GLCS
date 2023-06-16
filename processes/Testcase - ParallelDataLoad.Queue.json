@@ -1,0 +1,45 @@
+{
+	"@type":"Process",
+	"Name":"Testcase - ParallelDataLoad.Queue",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"Testcase - ParallelDataLoad.Queue.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pCubeName",
+			"Prompt":"",
+			"Value":"MyTestCubeA",
+			"Type":"String"
+		},
+		{
+			"Name":"pSplitDimension",
+			"Prompt":"",
+			"Value":"MyTestCubeA_D5",
+			"Type":"String"
+		},
+		{
+			"Name":"pQueueSize",
+			"Prompt":"",
+			"Value":8,
+			"Type":"Numeric"
+		},
+		{
+			"Name":"pQueueLog",
+			"Prompt":"",
+			"Value":"Y",
+			"Type":"String"
+		},
+		{
+			"Name":"pTM1Version",
+			"Prompt":"",
+			"Value":"V12",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

@@ -1,0 +1,44 @@
+{
+	"@type":"NativeView",
+	"Name":"Default",
+	"Columns":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('mSYS Form Filter')/Hierarchies('mSYS Form Filter')"
+				},
+				"Elements":
+				[
+					{
+						"@id":"Dimensions('mSYS Form Filter')/Hierarchies('mSYS Form Filter')/Elements('Year')"
+					}
+				]
+			}
+		}
+	],
+	"Rows":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('}Clients')/Hierarchies('}Clients')"
+				},
+				"Elements":
+				[
+					{
+						"@id":"Dimensions('}Clients')/Hierarchies('}Clients')/Elements('Admin')"
+					}
+				]
+			}
+		}
+	],
+	"Titles":[],
+	"SuppressEmptyColumns":false,
+	"SuppressEmptyRows":false,
+	"FormatString":"0.#########"
+}

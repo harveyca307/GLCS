@@ -1,0 +1,43 @@
+{
+	"@type":"Subset",
+	"Name":"Default",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Total')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 1')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 2')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 3')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 4')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 5')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 6')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 7')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 8')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 9')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Dimension 10')"
+		},
+		{
+			"@id":"Dimensions('Data Control Source')/Hierarchies('Data Control Source')/Elements('Source Header')"
+		}
+	]
+}

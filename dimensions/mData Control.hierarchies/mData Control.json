@@ -1,0 +1,108 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mData Control",
+	"Elements":
+	[
+		{
+			"Name":"Action",
+			"Type":"String"
+		},
+		{
+			"Name":"Source Name",
+			"Type":"String"
+		},
+		{
+			"Name":"Target Type",
+			"Type":"String"
+		},
+		{
+			"Name":"Target Name",
+			"Type":"String"
+		},
+		{
+			"Name":"Target Location",
+			"Type":"String"
+		},
+		{
+			"Name":"Header",
+			"Type":"String"
+		},
+		{
+			"Name":"Dimension",
+			"Type":"String"
+		},
+		{
+			"Name":"Output Alias",
+			"Type":"String"
+		},
+		{
+			"Name":"Output Count",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension Count",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Delimiter",
+			"Type":"String"
+		},
+		{
+			"Name":"Include Header",
+			"Type":"String"
+		},
+		{
+			"Name":"Ignore Rounded Zero",
+			"Type":"String"
+		},
+		{
+			"Name":"Element",
+			"Type":"String"
+		},
+		{
+			"Name":"Type",
+			"Type":"String"
+		},
+		{
+			"Name":"Quote",
+			"Type":"String"
+		},
+		{
+			"Name":"Attribute",
+			"Type":"String"
+		},
+		{
+			"Name":"Suppress Zeros",
+			"Type":"String"
+		},
+		{
+			"Name":"Suppress Consolidations",
+			"Type":"String"
+		},
+		{
+			"Name":"Suppress Rules",
+			"Type":"String"
+		},
+		{
+			"Name":"Clear Target",
+			"Type":"String"
+		},
+		{
+			"Name":"Format",
+			"Type":"String"
+		},
+		{
+			"Name":"Create File If Empty",
+			"Type":"String"
+		},
+		{
+			"Name":"Precision",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Evaluate Rounded Zero",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

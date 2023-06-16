@@ -1,0 +1,73 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sDimSub = 'AllSubsets';
+sDimDim = 'Dimension_Names';
+
+IF(DimensionExists(sDimSub) = 1);
+     DimensionDestroy(sDimSub);
+ENDIF;
+
+DimensionCreate(sDimSub);
+
+IF(DimensionExists(sDimDim) = 1);
+     DimensionDestroy(sDimDim);
+ENDIF;
+DimensionCreate(sDimDim);
+DimensionElementDelete('}Dimensions', sDimDim);
+
+nLoop = 1;
+nMax = DIMSIZ('}Dimensions');
+
+WHILE(nLoop <= nMax);
+     sDim = DIMNM('}Dimensions', nLoop);
+     IF(SUBST(sDim, 1, 1) @<> '}');
+          DimensionElementInsert('Dimension_Names', '', sDim, 'N');
+          sFileLast = '';
+          bStop = 0;
+          WHILE(bStop = 0);
+               sFile = WildcardFileSearch(pData | '\' | sDim | '}subs\*.sub', sFileLast);
+               IF(sFile @<> '');
+                    IF(sFile @<> 'Default.sub');
+                         sSub = SUBST(sFile, 1, LONG(sFile)-4);
+                         DimensionELementInsert(sDimSub, '', sSub, 'N');
+                    ENDIF;
+                    sFileLast = sFile;
+               endif;
+               IF(sFile @= '');
+                    bStop = 1;
+               ENDIF;
+          END;
+     ENDIF;
+     nLoop = nLoop + 1;
+END;
+
+nSubLoop = 1;
+nSubs = DIMSIZ(sDimSub);
+nDims = DIMSIZ(sDimDim);
+
+ASCIIOutput(pOut | '\SubsetCount.csv', 'Dimension Name', 'Subset Name');
+WHILE(nSubLoop <= nSubs);
+     sSub = DIMNM(sDimSub, nSubLoop);
+     nDimLoop = 1;
+     WHILE(nDimLoop <= nDims);
+          sDim = DIMNM(sDimDim, nDimLoop);
+          IF(sDim @<> 'AllSubsets');
+               IF(SubsetExists(sDim, sSub) = 1);
+                    ASCIIOutput(pOut | '\SubsetCount.csv', sDim, sSub);
+               ENDIF;
+          ENDIF;
+          nDimLoop = nDimLoop + 1;
+     END;
+     nSubLoop = nSubLoop + 1;
+END;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+DimensionDestroy('AllSubsets');
+DImensionDestroy('Dimension_Names');
+#endregion

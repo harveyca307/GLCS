@@ -1,0 +1,34 @@
+{
+	"@type":"Process",
+	"Name":"SYS_DataLoad_BackupFiles",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"SYS_DataLoad_BackupFiles.ti",
+	"UIData":"CubeAction=1511€DataAction=1503€CubeLogChanges=0€_ParameterConstraints=e30€",
+	"VariablesUIData":
+	[
+		"VarType=32€ColType=827€"
+	],
+	"DataSource":
+	{
+		"Type":"ASCII",
+		"asciiDecimalSeparator":".",
+		"asciiDelimiterChar":",",
+		"asciiDelimiterType":"Character",
+		"asciiHeaderRecords":1,
+		"asciiQuoteCharacter":"\"",
+		"asciiThousandSeparator":",",
+		"dataSourceNameForClient":"model_upload\\_BackupFiles.txt",
+		"dataSourceNameForServer":"model_upload\\_BackupFiles.txt"
+	},
+	"Parameters":[],
+	"Variables":
+	[
+		{
+			"Name":"vFile",
+			"Type":"String",
+			"Position":1,
+			"StartByte":0,
+			"EndByte":0
+		}
+	]
+}

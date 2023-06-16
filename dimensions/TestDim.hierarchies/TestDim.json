@@ -1,0 +1,20 @@
+{
+	"@type":"Hierarchy",
+	"Name":"TestDim",
+	"Elements":
+	[
+		{
+			"Name":"A",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"B",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"C",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

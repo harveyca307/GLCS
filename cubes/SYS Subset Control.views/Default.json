@@ -1,0 +1,338 @@
+{
+	"@type":"NativeView",
+	"Name":"Default",
+	"Columns":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('mSYS Subset Control')/Hierarchies('mSYS Subset Control')"
+				},
+				"Elements":
+				[
+					{
+						"@id":"Dimensions('mSYS Subset Control')/Hierarchies('mSYS Subset Control')/Elements('Subset Name')"
+					},
+					{
+						"@id":"Dimensions('mSYS Subset Control')/Hierarchies('mSYS Subset Control')/Elements('String or MDX')"
+					},
+					{
+						"@id":"Dimensions('mSYS Subset Control')/Hierarchies('mSYS Subset Control')/Elements('Make Static')"
+					},
+					{
+						"@id":"Dimensions('mSYS Subset Control')/Hierarchies('mSYS Subset Control')/Elements('Active')"
+					},
+					{
+						"@id":"Dimensions('mSYS Subset Control')/Hierarchies('mSYS Subset Control')/Elements('Alias Attribute')"
+					}
+				]
+			}
+		}
+	],
+	"Rows":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')"
+				},
+				"Elements":
+				[
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('1')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('2')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('3')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('4')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('5')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('6')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('7')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('8')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('9')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('10')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('11')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('12')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('13')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('14')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('15')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('16')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('17')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('18')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('19')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('20')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('21')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('22')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('23')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('24')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('25')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('26')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('27')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('28')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('29')"
+					},
+					{
+						"@id":"Dimensions('SYS LineNo')/Hierarchies('SYS LineNo')/Elements('30')"
+					}
+				]
+			}
+		}
+	],
+	"Titles":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')"
+				},
+				"Elements":
+				[
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('mSYS Form Filter')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('mSYS Hierarchy Control')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('mSYS Process Status')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('mSYS Subset Control')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('SYS LineNo')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('SYS Process Status Lines')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('Version')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('Year')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}ApplicationEntries')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}CAMAssociatedGroups')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Chores')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}ClientProperties')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Clients')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}ClientSettings')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}ConnectionProperties')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Connections')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Cube Functions')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}CubeProperties')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Cubes')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}CubeSecurityProperties')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Cultures')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}DimensionFormatAttributes')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}DimensionFormatItems')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}DimensionProperties')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Dimensions')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}ElementAttributes_mSYS Hierarchy Control')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}ElementAttributes_}Clients')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}ElementAttributes_}Cultures')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}ElementAttributes_}Groups')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}ElementProperties')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Features')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Groups')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Hierarchies')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Hierarchies_mSYS Form Filter')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Hierarchies_mSYS Hierarchy Control')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Hierarchies_mSYS Process Status')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Hierarchies_mSYS Subset Control')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Hierarchies_SYS LineNo')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Hierarchies_SYS Process Status Lines')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Hierarchies_Version')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Hierarchies_Year')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}HierarchyProperties')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}LineNumber')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}PerfClients')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}PerfCubes')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Permissions')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}PickList')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Processes')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}RuleStats')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}SecurityOverlay')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}StatsByProcess')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}StatsStatsByClient')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}StatsStatsByCube')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}StatsStatsByCubeByClient')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}StatsStatsForServer')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Subsets_Year')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}TimeIntervals')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Views_sys form filter')"
+					},
+					{
+						"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('}Views_sys process status')"
+					}
+				]
+			},
+			"Selected":
+			{
+				"@id":"Dimensions('}Dimensions')/Hierarchies('}Dimensions')/Elements('mSYS Form Filter')"
+			}
+		}
+	],
+	"SuppressEmptyColumns":false,
+	"SuppressEmptyRows":false,
+	"FormatString":"0.#########"
+}

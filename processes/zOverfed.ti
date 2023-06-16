@@ -1,0 +1,30 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+sPath = 'c:\TM1_Servers\GLCS\Data\';
+
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF(SUBST(vCube, 1, 1) @<> '}');
+  # List Feeders
+  DebugUtility(100, 0, 0, vCube, sPath | vCube | '_Feeders.txt');
+
+  # List Overfeeds
+  DebugUtility(105, 0, 1, vCube, sPath | vCube | '_Overfed.txt');
+
+  # List Underfeeds
+  DebugUtility(113, 0, 0, vCube, sPath | vCube | '_Underfed.txt');
+ENDIF;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

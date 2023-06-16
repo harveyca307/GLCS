@@ -1,0 +1,15 @@
+{
+	"@type":"Dimension",
+	"Name":"Vehicles",
+	"AllLeavesHierarchyName":"Leaves",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('Vehicles')/Hierarchies('Vehicles')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"Vehicles.hierarchies/Vehicles.json",
+		"Vehicles.hierarchies/Manufacturer.json",
+		"Vehicles.hierarchies/Vehicle Types.json"
+	]
+}

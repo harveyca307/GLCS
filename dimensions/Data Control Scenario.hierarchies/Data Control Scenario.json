@@ -1,0 +1,128 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Data Control Scenario",
+	"Elements":
+	[
+		{
+			"Name":"Scenario 1",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 2",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 3",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 4",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 5",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 6",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 7",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 8",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 9",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 10",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 11",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 12",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 13",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 14",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 15",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 16",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 17",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 18",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 19",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 20",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 21",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 22",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 23",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 24",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 25",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 26",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 27",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 28",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 29",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Scenario 30",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

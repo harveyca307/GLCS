@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"CapEx Assumptions",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('CapEx Assumptions')/Hierarchies('CapEx Assumptions')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"CapEx Assumptions.hierarchies/CapEx Assumptions.json"
+	]
+}

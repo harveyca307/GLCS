@@ -1,0 +1,20 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mBudget Upload Validation",
+	"Elements":
+	[
+		{
+			"Name":"No. of Errors",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Line No.",
+			"Type":"String"
+		},
+		{
+			"Name":"Description of Error",
+			"Type":"String"
+		}
+	],
+	"Subsets@Code.links":[]
+}

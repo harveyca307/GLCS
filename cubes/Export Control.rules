@@ -1,0 +1,23 @@
+FEEDSTRINGS;
+SKIPCHECK;
+
+#Region STETS
+['Source Header', 'Target Header', {'Source Name', 'Target Name', 'Suppress Consolidations', 'Suppress Rules', 'Suppress Zeros', 'Ignore Rounded Zero'}] = STET;
+['Source Header', 'Target Header', {'Delimiter', 'Include Header', 'Quote'}] = S: STET;
+[{'Dimension 1','Dimension 2','Dimension 3','Dimension 4','Dimension 5','Dimension 6','Dimension 7','Dimension 8','Dimension 9','Dimension 10'}, 'Target Header', {'Header', 'Output Alias'}] = S: STET;
+['Source Header', 'Target Header', {'Create File if Empty', 'Delimiter', 'Include Header','Quote'}] = S: STET;
+#EndRegion
+
+
+#Region Misc
+[{'Create File if Empty', 'Header', 'Source Name', 'Delimiter', 'Header','Include Header', 'Output Alias', 'Quote', 'Suppress Consolidations', 'Suppress Rules', 'Suppress Zeros', 'Target Name'}] = S: '';
+['Target Header', 'Dimension'] = S: TABDIM(DB('Export Control', !'Export Control Scenario', 'Source Header', 'Target Header', 'Source Name'), NUMBR(ATTRS('Export Control Source',!Export Control Source, 'Number')));
+['Dimension Count'] = N: IF(DB('Export Control', !'Export Control Scenario', !'Export Control Source', !'Export Control Target', 'Dimension') @<> '', 1, 0);
+['Output Count'] = N: IF(DB('Export Control', !'Export Control Scenario', !'Export Control Source', !'Export Control Target', 'Header') @<> '', 1, 0);
+['Source Header', 'Target Header'] = S: '';
+#EndRegion
+
+FEEDERS;
+['Source Header', 'Target Header', 'Source Name'] => DB('Export Control', !'Export Control Scenario', 'Total', 'Target Header', 'Dimension');
+['Target Header', 'Dimension'] => ['Target Header', 'Dimension Count'];
+['Header'] => ['Output Count'];

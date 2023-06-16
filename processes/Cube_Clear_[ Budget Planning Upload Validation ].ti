@@ -1,0 +1,63 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			Cube_Clear_[ Budget Planning Upload Validation ]
+# Author:			Chad Harvey
+# Date Created:		05.21.2020
+# Date Modified:	05.21.2020 by: Chad Harvey
+# Purpose:			This process will clear the validation cube for the current user
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sUserID = TM1USER;
+IF(DIMIX('}Clients', sUserID) = 0);
+     sUser = 'Chore';
+ELSE;
+     sUser = NumberToString(DIMIX('}Clients', sUserID));
+ENDIF;
+sTimeStamp = TIMST(NOW, '\Y\m\d\h\i\s');
+sRandomInt = NumberToString(INT(RAND() * 1000));
+
+#--------------- Process Logging ---------------#
+sProcess = GetProcessName();
+sLogProc = 'SYS Process Status';
+nStartTime = NOW();
+sStartTime = TIMST(nStartTime, '\Y/\m/\d, \h:\i:\s');
+
+IF(UPPER(pClearValidation) @= 'Y');
+  sCube = 'Budget Planning Upload Validation';
+  sFilter = '}Clients:' | sUserID;
+  ExecuteProcess('}bedrock.cube.data.clear'
+      , 'pCube', sCube
+      , 'pView', ''
+      , 'pFilter', sFilter
+      , 'pFilterParallel', ''
+      , 'pDimDelim', '&'
+      , 'pEleStartDelim', ':'
+      , 'pEleDelim', '+'
+      , 'pCubeLogging', 0
+      , 'pTemp', 1);
+ENDIF;
+
+IF(UPPER(pClearUpload) @= 'Y');
+  sCube = 'Budget Planning Upload';
+  sFilter = '}Clients:' | sUserID;
+  ExecuteProcess('}bedrock.cube.data.clear'
+      , 'pCube', sCube
+      , 'pView', ''
+      , 'pFilter', sFilter
+      , 'pFilterParallel', ''
+      , 'pDimDelim', '&'
+      , 'pEleStartDelim', ':'
+      , 'pEleDelim', '+'
+      , 'pCubeLogging', 0
+      , 'pTemp', 1);
+ENDIF;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

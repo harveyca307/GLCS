@@ -1,0 +1,20 @@
+{
+	"@type":"Hierarchy",
+	"Name":"CapEx Assumptions",
+	"Elements":
+	[
+		{
+			"Name":"Transportation",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Technology",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Property",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

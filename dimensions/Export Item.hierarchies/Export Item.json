@@ -1,0 +1,109 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Export Item",
+	"Elements":
+	[
+		{
+			"Name":"Export Header",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"All Outputs",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Output 1",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 2",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 3",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 4",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 5",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 6",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 7",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 8",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 9",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Output 10",
+			"Type":"Numeric"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 2",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 3",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 4",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 5",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 6",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 7",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 8",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 9",
+			"Weight":1
+		},
+		{
+			"ParentName":"All Outputs",
+			"ComponentName":"Output 10",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":[]
+}

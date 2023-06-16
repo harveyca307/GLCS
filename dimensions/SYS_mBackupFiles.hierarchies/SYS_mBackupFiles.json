@@ -1,0 +1,12 @@
+{
+	"@type":"Hierarchy",
+	"Name":"SYS_mBackupFiles",
+	"Elements":
+	[
+		{
+			"Name":"FileName",
+			"Type":"String"
+		}
+	],
+	"Subsets@Code.links":[]
+}

@@ -1,0 +1,49 @@
+{
+	"@type":"Process",
+	"Name":"Cube_Upload_[ Budget Planning ]_from_[ Budget Planning Upload ]",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"Cube_Upload_[ Budget Planning ]_from_[ Budget Planning Upload ].ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"VariablesUIData":
+	[
+		"VarType=32€ColType=827€"
+	],
+	"DataSource":
+	{
+		"Type":"TM1DimensionSubset",
+		"dataSourceNameForClient":"Budget Planning Upload Index",
+		"dataSourceNameForServer":"Budget Planning Upload Index",
+		"subset":"All"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pVersion",
+			"Prompt":"Version: ",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pSub",
+			"Prompt":"Index Subset:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pSeq",
+			"Prompt":"Sequence Number: (0= Zero Target; 1 = Increment Target)",
+			"Value":0,
+			"Type":"Numeric"
+		}
+	],
+	"Variables":
+	[
+		{
+			"Name":"vLine",
+			"Type":"String",
+			"Position":1,
+			"StartByte":0,
+			"EndByte":0
+		}
+	]
+}

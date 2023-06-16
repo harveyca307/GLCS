@@ -1,0 +1,14 @@
+{
+	"@type":"Cube",
+	"Name":"SYS_BackupFiles",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('SYS_BackupIndex')"
+		},
+		{
+			"@id":"Dimensions('SYS_mBackupFiles')"
+		}
+	],
+	"Views@Code.links":[]
+}

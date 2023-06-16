@@ -1,0 +1,51 @@
+{
+	"@type":"Process",
+	"Name":"SYS_Dim_CreateSubset_ByMDX",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"SYS_Dim_CreateSubset_ByMDX.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pDimension",
+			"Prompt":"Dimension Name:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pSubset",
+			"Prompt":"Subset Name:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pMDXExpr",
+			"Prompt":"MDX Expression:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pConvertToStatic",
+			"Prompt":"Convert To Static (Yes/No):",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pUseAlias",
+			"Prompt":"Use Alias (Yes/No):",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pAliasName",
+			"Prompt":"Alias Name:",
+			"Value":"",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

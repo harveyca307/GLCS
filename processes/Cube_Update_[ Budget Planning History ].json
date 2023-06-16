@@ -1,0 +1,27 @@
+{
+	"@type":"Process",
+	"Name":"Cube_Update_[ Budget Planning History ]",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"Cube_Update_[ Budget Planning History ].ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pVersion",
+			"Prompt":"Version:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pDesc",
+			"Prompt":"Update Description: ",
+			"Value":"",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

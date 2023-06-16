@@ -1,0 +1,35 @@
+{
+	"@type":"Cube",
+	"Name":"Hierarchy Management",
+	"Rules@Code.link":"Hierarchy Management.rules",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('}Dimensions')"
+		},
+		{
+			"@id":"Dimensions('Hierarchy_Scenario')"
+		},
+		{
+			"@id":"Dimensions('Hierarchy_Alternates')"
+		},
+		{
+			"@id":"Dimensions('Hierarchy_Rows')"
+		},
+		{
+			"@id":"Dimensions('m_HierarchyManagement')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"Hierarchy Management.views/SYS_HierarchyManagement_Promote.1.20211201105240.602.Clear.json",
+		"Hierarchy Management.views/SYS_HierarchyManagement_Promote.1.20211201105722.671.json",
+		"Hierarchy Management.views/SYS_HierarchyManagement_Promote.1.20211201105722.671.Clear.json",
+		"Hierarchy Management.views/SYS_HierarchyManagement_Promote.1.20211201110443.358.json",
+		"Hierarchy Management.views/SYS_HierarchyManagement_Promote.1.20211201110443.358.Clear.json",
+		"Hierarchy Management.views/SYS_HierarchyManagement_Promote.1.20211201110601.388.json",
+		"Hierarchy Management.views/SYS_HierarchyManagement_Promote.1.20211201110601.388.Clear.json",
+		"Hierarchy Management.views/SYS_HierarchyManagement_Promote.Target.1.20211201095559.601.json",
+		"Hierarchy Management.views/default.json"
+	]
+}

@@ -1,0 +1,37 @@
+{
+	"@type":"Process",
+	"Name":"zOrphans",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"zOrphans.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"VariablesUIData":
+	[
+		"VarType=32€ColType=827€"
+	],
+	"DataSource":
+	{
+		"Type":"TM1DimensionSubset",
+		"dataSourceNameForClient":"ChadDim",
+		"dataSourceNameForServer":"ChadDim",
+		"subset":"All"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pDim",
+			"Prompt":"",
+			"Value":"",
+			"Type":"String"
+		}
+	],
+	"Variables":
+	[
+		{
+			"Name":"vElement",
+			"Type":"String",
+			"Position":1,
+			"StartByte":0,
+			"EndByte":0
+		}
+	]
+}

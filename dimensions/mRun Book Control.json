@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mRun Book Control",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mRun Book Control')/Hierarchies('mRun Book Control')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mRun Book Control.hierarchies/mRun Book Control.json"
+	]
+}

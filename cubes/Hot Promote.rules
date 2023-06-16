@@ -1,0 +1,21 @@
+FEEDSTRINGS;
+SKIPCHECK;
+
+#Region Output Header
+['Output Header', {'Source Instance', 'Target Instance', 'Promotion Title'}] = S: STET;
+['Output Header', 'Object Type'] = S: '';
+['Output Header', 'Object'] = S: '';
+['Output Header', 'NUmber of Output Objects'] = N: 0;
+
+#EndRegion
+
+
+#Region Misc
+['Number of Output Objects'] = N: IF(DB('Hot Promote', !'Promotion Job', !'Promotion Job Index', 'Object') @<> '', 1, 0);
+['Total Output Objects'] = S:'';
+[{'Source Instance', 'Target Instance', 'Promotion Title'}] = S: '';
+#EndRegion
+
+
+FEEDERS;
+['Object'] => ['Number of Output Objects'];

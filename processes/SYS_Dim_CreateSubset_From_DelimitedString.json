@@ -1,0 +1,51 @@
+{
+	"@type":"Process",
+	"Name":"SYS_Dim_CreateSubset_From_DelimitedString",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"SYS_Dim_CreateSubset_From_DelimitedString.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pDimension",
+			"Prompt":"Dimension Name:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pSubset",
+			"Prompt":"Subset Name:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pString",
+			"Prompt":"Delimited String:",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pDelimiter",
+			"Prompt":"Delimiter String:",
+			"Value":"+",
+			"Type":"String"
+		},
+		{
+			"Name":"pUseAlias",
+			"Prompt":"Use Alias (Y/N):",
+			"Value":"No",
+			"Type":"String"
+		},
+		{
+			"Name":"pAliasName",
+			"Prompt":"Alias Name:",
+			"Value":"",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

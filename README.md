@@ -1,2 +1,0 @@
-# GLCS
-IBM PA Model

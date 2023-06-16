@@ -1,0 +1,336 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Dimensions",
+	"Elements":
+	[
+		{
+			"Name":"Account",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Budget Planning Upload Index",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Budget Upload Index",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Business Unit",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Business Unit:Leaves",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Business Unit:Test",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"CapEx Assumptions",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Capex Index",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"ChadDim",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"ChadTest",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Control",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Currency",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Data Control Scenario",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Data Control Source",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Data Control Target",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Data Update Scenario",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Department",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimensions",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Export Dimension",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Export Index",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Export Item",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy_Alternates",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy_Rows",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy_Scenario",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"m_HierarchyManagement",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mBudget Planning",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mBudget Planning Upload",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mBudget Planning Upload History",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mBudget Upload Validation",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mCapEx Assumptions",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mControl",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mData Control",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mDataUpdate Scenario",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mExportControl",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mMonth Control",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Month",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Months",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mRun Book Control",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mSecurity",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mSYS_Cubes_Dims",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mSYS Form Filter",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mSYS Hierarchy Control",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mSYS Process Status",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mSYS Subset Control",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"mUSerSelections",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"plan_business_unit",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"plan_chart_of_accounts",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"plan_currency",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"plan_department",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"plan_exchange_rates",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"plan_source",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"plan_time",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"plan_version",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Process Log Line",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Process Log Run",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Promotion Job",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Promotion Job Index",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Run Book",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Run Book Index",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"SYS_BackupIndex",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"SYS_LogDeletions",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"SYS_mBackupFiles",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"SYS_mLogDeletions",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"SYS_PAW_Colunm",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Sys_Promote",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"SYS LineNo",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"SYS Process Status Lines",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Test1",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Test2",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TestDim",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TimeDay",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TimeMonth",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TimeSeason",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TimeWeek",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TM1Py Region",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"tMonth",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Vehicles",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Vehicles:Leaves",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Vehicles:Manufacturer",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Vehicles:Vehicle Types",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Version",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Year",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

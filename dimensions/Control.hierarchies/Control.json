@@ -1,0 +1,210 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Control",
+	"Elements":
+	[
+		{
+			"Name":"TM1 Server Controls",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"TM1 Server Name",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TM1 Database Path",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TM1 Logging Path",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Logging Retention Period",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TM1 Application Log Path",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TM1 Programs Path",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TM1 Backups",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Backup Retention Period",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"File Path Import",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"File Path Export",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"TI Prefix",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Version Controls",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Version Dimension",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Active Version",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Archive Version",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Last Archive",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Time Controls",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Current Year",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Current Month",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Forecast Controls",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Current Inventory Actual Week",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"First Inventory Forecast Week",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Current Full Inventory Month",
+			"Type":"Numeric"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"TM1 Server Name",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"TM1 Database Path",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"TM1 Logging Path",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"Logging Retention Period",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"TM1 Application Log Path",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"TM1 Programs Path",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"TM1 Backups",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"Backup Retention Period",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"File Path Import",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"File Path Export",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM1 Server Controls",
+			"ComponentName":"TI Prefix",
+			"Weight":1
+		},
+		{
+			"ParentName":"Version Controls",
+			"ComponentName":"Version Dimension",
+			"Weight":1
+		},
+		{
+			"ParentName":"Version Controls",
+			"ComponentName":"Active Version",
+			"Weight":1
+		},
+		{
+			"ParentName":"Version Controls",
+			"ComponentName":"Archive Version",
+			"Weight":1
+		},
+		{
+			"ParentName":"Version Controls",
+			"ComponentName":"Last Archive",
+			"Weight":1
+		},
+		{
+			"ParentName":"Time Controls",
+			"ComponentName":"Current Year",
+			"Weight":1
+		},
+		{
+			"ParentName":"Time Controls",
+			"ComponentName":"Current Month",
+			"Weight":1
+		},
+		{
+			"ParentName":"Forecast Controls",
+			"ComponentName":"Current Inventory Actual Week",
+			"Weight":1
+		},
+		{
+			"ParentName":"Forecast Controls",
+			"ComponentName":"First Inventory Forecast Week",
+			"Weight":1
+		},
+		{
+			"ParentName":"Forecast Controls",
+			"ComponentName":"Current Full Inventory Month",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"Control.subsets/Default.json"
+	]
+}

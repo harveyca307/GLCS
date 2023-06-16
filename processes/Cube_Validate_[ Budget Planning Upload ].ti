@@ -1,0 +1,276 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			SYS_HierarchyUpdate_[ SYS Hierarchy Control }_Destroy
+# Author:			Chad Harvey
+# Date Created:		05.14.2020
+# Date Modified:	03.14.2020 by: Chad Harvey
+# Purpose:			This process will set the initial value in the Override column
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#--------------- Error Handlers ---------------#
+nError = 0;
+sParameters = '';
+sMessage = '';
+
+IF(pVersion @= '');
+	nError = nError + 1;
+    sMessage = 'Version not supplied.';
+ELSEIF(DIMIX('Version', pVersion) = 0);
+	nError = nError + 1;
+    sMessage = 'Version:"' | pVersion | '" is not valid.';
+ENDIF;
+
+IF(pDescription @= '');
+	nError = nError + 1;
+    sMessage = sMessage | ' Description not supplied.';
+ENDIF;
+
+sParameters = 'pVersion="' | pVersion | '"; pDescription="' | pDescription | '"';
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sUserID = TM1USER;
+IF(DIMIX('}Clients', sUserID) = 0);
+     sUser = 'Chore';
+ELSE;
+     sUser = NumberToString(DIMIX('}Clients', sUserID));
+ENDIF;
+sPrefix = CellGetS('Control', 'TI Prefix', 'Value');
+sTimeStamp = TIMST(NOW, '\Y\m\d\h\i\s');
+sRandomInt = NumberToString(INT(RAND() * 1000));
+sCubeV = 'Budget Planning Upload Validation';
+sCube = 'Budget Planning Upload';
+sCubeH = 'Budget Planning Upload History';
+sDim = 'Budget Planning Upload Index';
+sSub = sPrefix | sDim | '.' | sUser | '.' | sTimeStamp | '.' | sRandomInt;
+nErrCnt = 0;
+nLineNo = 0;
+sLineNo = '';
+
+#--------------- Process Logging ---------------#
+sProcess = GetProcessName();
+sLogProc = 'SYS Process Status';
+nStartTime = NOW();
+sStartTime = TIMST(nStartTime, '\Y/\m/\d, \h:\i:\s');
+
+IF(nError = 0);
+	#----- Turn off loggin on Validation Cube
+    CellPutS('NO', '}CubeProperties', sCubeV, 'LOGGING');
+    
+    ExecuteProcess('Cube_Clear_[ Budget Planning Upload Validation ]'
+    	, 'pClearValidation', 'Y'
+        , 'pClearUpload', 'N');
+    
+    IF(SubsetExists(sDim, sSub) = 1);
+    	SubsetDeleteAllElements(sDim, sSub);
+    ELSE;
+    	SubsetCreate(sDim, sSub, 0);
+    ENDIF;
+    
+    nLoop = 1;
+    nMax = DIMSIZ(sDim);
+    WHILE(nLoop <= nMax);
+    	sElement = DIMNM(sDIm, nLoop);
+        nCheck = LONG(TRIM(CellGetS(sCube, sUserID, pVersion, sElement, 'Business Unit')))
+        	+ LONG(TRIM(CellGetS(sCube, sUserID, pVersion, sElement, 'Department')))
+            + LONG(TRIM(CellGetS(sCube, sUserID, pVersion, sElement, 'Account')));
+    	IF(nCheck > 0);
+        	SubsetElementInsert(sDim, sSub, sElement, 0);
+        ENDIF;
+        nLoop = nLoop + 1;
+    END;
+    
+    #----- Check for Empty Subset
+    IF(SubsetGetSize(sDim, sSub) = 0);
+    	sMessage = 'There are no lines to process.';
+        CellPutS(sMessage, sCubeV, sUserID, pVersion, '1', 'Description of Error');
+        CellPutS('0', sCubeV, sUserID, pVersion, '1', 'Line No.');
+        CellPutN(1, sCubeV, sUserID, pVersion, '1', 'No. of Errors');
+        ProcessBreak;
+    ENDIF;
+    
+    #----- Assign Subset to Process
+    DatasourceType = 'SUBSET';
+    DatasourceNameforServer = sDim;
+    DatasourceDimensionSubset = sSub;
+ELSE;
+	CellPutS(sMessage, sCubeV, sUserID, pVersion, '1', 'Description of Error');
+    CellPutS('0', sCubeV, sUserID, pVersion, '1', 'Line No.');
+    CellPutN(nError, sCubeV, sUserID, pVersion, '1', 'No. of Errors');
+	nEndTime = NOW();
+    sEndTIme = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+    sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+    ExecuteProcess(sLogProc
+          , 'pProcess', sProcess
+          , 'pLogFile', ''
+          , 'pStatus', 'Error'
+          , 'pParameters', sParameters
+          , 'pStartTime', sStartTime
+          , 'pEndTime', sEndTime
+          , 'pRun', sDuration);
+    ProcessBreak;
+ENDIF;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sBU = CellGetS(sCube, sUserID, pVersion, vLine, 'Business Unit');
+sDept = CellGetS(sCube, sUserID, pVersion, vLine, 'Department');
+sAcct = CellGetS(sCube, sUserID, pVersion, vLine, 'Account');
+
+#----- Check Business Unit
+#----- Cannot be blank,must be 5 Characters
+sErr = '';
+IF(sBU @= '');
+	sErr = 'Business Unit is missing';
+    nStop = 1;
+ELSEIF(LONG(sBU) < 5);
+	sErr = 'Business Unit must be 5 characters';
+    nStop = 1;
+ELSEIF(DIMIX('Business Unit', sBU) = 0);
+	sErr = 'Business Unit: "' | sBU | '" does not exist in the system';
+    nStop = 1;
+ENDIF;
+
+IF(LONG(sErr) > 0);
+	nErrCnt = nErrCnt + 1;
+    nLineNo = nLineNo + 1;
+    sLineNo = NumberToString(nLineNo);
+    CellPutS(sErr, sCubeV, sUserID, pVersion, sLineNo, 'Description of Error');
+    CellPutS(vLine, sCubeV, sUserID, pVersion, sLineNo, 'Line No.');
+    CellIncrementN(1, sCubeV, sUserID, pVersion, '1', 'No. of Errors');
+ENDIF;
+
+#----- Check Department
+#----- Cannot be blank, must be 3 characters
+sErr = '';
+IF(sDept @= '');
+	sErr = 'Department is missing.';
+    nStop = 1;
+ELSEIF(LONG(sDept) < 3);
+	sErr = 'Department must be 3 characters.';
+    nStop = 1;
+ELSEIF(DIMIX('Department', sDept) = 0);
+	sErr = 'Department:"' | sDept | '" does not exist in the system.';
+    nStop = 1;
+ENDIF;
+
+IF(LONG(sErr) > 0);
+	nErrCnt = nErrCnt + 1;
+    nLineNo = nLineNo + 1;
+    sLineNo = NumberToString(nLineNo);
+    CellPutS(sErr, sCubeV, sUserID, pVersion, sLineNo, 'Description of Error');
+    CellPutS(vLine, sCubeV, sUserID, pVersion, sLineNo, 'Line No.');
+    CellIncrementN(1, sCubeV, sUserID, pVersion, '1', 'No. of Errors');
+ENDIF;
+
+#----- Check Account
+#----- Cannot be blank, must be 5 characters
+sErr = '';
+IF(sAcct @= '');
+	sErr = 'Account is missing.';
+    nStop = 1;
+ELSEIF(LONG(sAcct) < 5);
+	sErr = 'Account must be 5 characters.';
+    nStop = 1;
+ELSEIF(DIMIX('Account', sAcct) = 0);
+	sErr = 'Account:"' | sAcct | '" does not exist in the system.';
+    nStop = 1;
+ENDIF;
+
+IF(LONG(sErr) > 0);
+	nErrCnt = nErrCnt + 1;
+    nLineNo = nLineNo + 1;
+    sLineNo = NumberToString(nLineNo);
+    CellPutS(sErr, sCubeV, sUserID, pVersion, sLineNo, 'Description of Error');
+    CellPutS(vLine, sCubeV, sUserID, pVersion, sLineNo, 'Line No.');
+    CellIncrementN(1, sCubeV, sUserID, pVersion, '1', 'No. of Errors');
+ENDIF;
+
+#---------- Check security group
+
+#----- Business Unit
+# nCheck = 0;
+# sErr = '';
+# nGrpCnt = DIMSIZ('}Groups');
+# IF(DIMIX('Business Unit', sBU) > 0);
+#   WHILE(nGrpCnt > 0);
+#       sGrp = DIMNM('}Grpups', nGrpCnt);
+#       IF(CellGetS('}ElementSecurity_Business Unit', sBU, sGrp) @= 'WRITE');
+#           IF(CellGetS('}ClientGroups', sUserID, sGrp) @<> '');
+#               nCheck = 1;
+#               nGrpCnt = 0;
+#           ENDIF;
+#       ELSE;
+#           nGrpCnt = nGrpCnt - 1;
+#       ENDIF;
+#   END;
+# ENDIF;
+
+# IF(nCheck > 0);
+# 	sErr = 'User does not have write permission to Business Unit "' | sBU | '".  Please contact the Planning Administrator for assitance.';
+# 	nErrCnt = nErrCnt + 1;
+#     nLineNo = nLineNo + 1;
+#     sLineNo = NumberToString(nLineNo);
+#     CellPutS(sErr, sCubeV, sUserID, pVersion, sLineNo, 'Description of Error');
+#     CellPutS(vLine, sCubeV, sUserID, pVersion, sLineNo, 'Line No.');
+#     CellIncrementN(1, sCubeV, sUserID, pVersion, '1', 'No. of Errors');
+# ENDIF;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sStatus = GetProcessErrorFilename;
+sReturn = 0;
+
+#----- IF all validation errors occured, upload to Budget Planning
+IF(nStop = 0 & nErrCnt = 0 & sStatus @= '');
+	sReturn = ExecuteProcess('Cube_Upload_[ Budget Planning ]_from_[ Budget Planning Upload ]'
+    	, 'pVersion', pVersion
+        , 'pSub', sSub
+        , 'pSeq', 0);
+ENDIF;
+
+IF(nStop = 0 & nErrCnt = 0 & sReturn = ProcessExitNormal());
+	ExecuteProcess('Cube_Update_[ Budget Planning History ]'
+    	, 'pVersion', pVersion
+        , 'pDesc', pDescription);
+ENDIF;
+
+#----- Return Previous Logging setting
+CellPutS('YES', '}CubeProperties', sCubeV, 'LOGGING');
+
+sLogDir = GetProcessErrorFileDirectory();
+sErrLog = GetProcessErrorFileName();
+IF(sErrLog @<> '');
+     sStatus = 'Error';
+     sLogFile = sLogDir | sErrLog;
+ELSE;
+     sStatus = 'Success';
+     sLogFile = '';
+     sMessage = '';
+ENDIF;
+
+#---------- Process Logging ----------#
+nEndTime = NOW();
+sEndTime = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+ExecuteProcess(sLogProc
+    , 'pProcess', sProcess
+    , 'pLogFile', sLogFile
+    , 'pStatus', sStatus  | ' ' | sMessage
+    , 'pParameters', sParameters
+    , 'pStartTime', sStartTime
+    , 'pEndTime', sEndTime
+    , 'pRun', sDuration);
+#endregion

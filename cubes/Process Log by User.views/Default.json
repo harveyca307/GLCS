@@ -1,0 +1,64 @@
+{
+	"@type":"NativeView",
+	"Name":"Default",
+	"Columns":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('Process Log Line')/Hierarchies('Process Log Line')"
+				},
+				"Expression":"TM1SubsetAll([Process Log Line])"
+			}
+		}
+	],
+	"Rows":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('Process Log Run')/Hierarchies('Process Log Run')"
+				},
+				"Expression":"TM1SubsetAll([Process Log Run])"
+			}
+		}
+	],
+	"Titles":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('}Processes')/Hierarchies('}Processes')"
+				},
+				"Expression":"TM1SubsetAll([}Processes])"
+			},
+			"Selected":
+			{
+				"@id":"Dimensions('}Processes')/Hierarchies('}Processes')/Elements('Cube_Clear_[ Budget Planning Upload Validation ]')"
+			}
+		},
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('}Clients')/Hierarchies('}Clients')"
+				},
+				"Expression":"TM1SubsetAll([}Clients])"
+			},
+			"Selected":
+			{
+				"@id":"Dimensions('}Clients')/Hierarchies('}Clients')/Elements('Admin')"
+			}
+		}
+	],
+	"SuppressEmptyColumns":false,
+	"SuppressEmptyRows":false,
+	"FormatString":"0.00"
+}

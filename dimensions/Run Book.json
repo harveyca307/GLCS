@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"Run Book",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('Run Book')/Hierarchies('Run Book')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"Run Book.hierarchies/Run Book.json"
+	]
+}

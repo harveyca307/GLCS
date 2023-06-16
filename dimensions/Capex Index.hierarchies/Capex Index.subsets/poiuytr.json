@@ -1,0 +1,43 @@
+{
+	"@type":"Subset",
+	"Name":"poiuytr",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('5')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('6')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('7')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('8')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('9')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('10')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('11')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('12')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('13')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('14')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('15')"
+		},
+		{
+			"@id":"Dimensions('Capex Index')/Hierarchies('Capex Index')/Elements('16')"
+		}
+	]
+}

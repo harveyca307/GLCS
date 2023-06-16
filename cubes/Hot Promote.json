@@ -1,0 +1,18 @@
+{
+	"@type":"Cube",
+	"Name":"Hot Promote",
+	"Rules@Code.link":"Hot Promote.rules",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('Promotion Job')"
+		},
+		{
+			"@id":"Dimensions('Promotion Job Index')"
+		},
+		{
+			"@id":"Dimensions('Sys_Promote')"
+		}
+	],
+	"Views@Code.links":[]
+}

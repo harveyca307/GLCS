@@ -1,0 +1,15 @@
+{
+	"@type":"Cube",
+	"Name":"Data Update Scenario",
+	"Rules@Code.link":"Data Update Scenario.rules",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('Data Update Scenario')"
+		},
+		{
+			"@id":"Dimensions('mDataUpdate Scenario')"
+		}
+	],
+	"Views@Code.links":[]
+}

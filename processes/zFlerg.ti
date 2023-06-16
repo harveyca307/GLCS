@@ -1,0 +1,27 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+cDim = 'Projects';
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+sID = 'z' | vID;
+DimensionElementInsert(cDim, '', sID, 'N');
+DimensionElementComponentAdd(cDim, 'All Projects', sID, 1);
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+sID = 'z' | vID;
+sAlias = vAcct | ' - ' | vDealNm | ' - ' | vProb;
+
+AttrPutS(sAlias, cDim, sID, 'Project Code + Type', 'en', 1);
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

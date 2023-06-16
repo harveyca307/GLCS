@@ -1,0 +1,18 @@
+{
+	"@type":"Cube",
+	"Name":"CapEx Assumptions",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('CapEx Assumptions')"
+		},
+		{
+			"@id":"Dimensions('mCapEx Assumptions')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"CapEx Assumptions.views/test.json",
+		"CapEx Assumptions.views/test2.json"
+	]
+}

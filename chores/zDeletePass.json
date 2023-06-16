@@ -1,0 +1,20 @@
+{
+	"@type":"Chore",
+	"Name":"zDeletePass",
+	"StartTime":"2023-04-13T22:32Z",
+	"DSTSensitive":true,
+	"Active":false,
+	"ExecutionMode":"SingleCommit",
+	"Frequency":"P1DT00H00M00S",
+	"Tasks":
+	[
+		{
+			"Step":0,
+			"Parameters":[],
+			"Process":
+			{
+				"@id":"Processes('zDeletePass')"
+			}
+		}
+	]
+}

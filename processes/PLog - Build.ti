@@ -1,0 +1,381 @@
+#region Prolog
+#===========================================================================================
+#
+#   Product:      ACG Resource Planning
+#                               Copyright:  Application Consulting Group, Inc.  2021
+#
+#   Process:      }ARP - Install 01 - Process Log Build
+#   Created:      2021-01-15
+#   Author:        B. Cave (ACG)
+#
+#   Parameters:
+#      None
+#
+#   Description:
+#      Used for initial installation and setup of ACG Resource Planning at a new client site.
+#        -  Defines required dimensions and populates element members as needed
+#
+#      Calls the following processes in turn to build all needed materials (if not already present):
+#
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+#  Modifications:
+#
+#    Date                        Modifier                              Comments
+#    ============        ====================  ======================================================
+#    yyyy-mm-dd              J. Doe (Company X)           Example of change comment
+#
+#===========================================================================================
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+
+#============================================================================================
+#--- Variables for object & process names (revise on a client-by-client basis as needed!)
+#============================================================================================
+sPLogRun = 'Process Log Run';
+sPLogLine = 'Process Log Line';
+sPLog = 'Process Log';
+sPLogUser = 'Process Log by User';
+sPLogTI = 'PLog';
+
+
+#===================================================================================================
+#----  If pRunFlag = DELETE, then delete all Process Log related objects
+#===================================================================================================
+pRunFlag = UPPER( pRunFlag );
+IF( pRunFlag @= 'DELETE' );
+
+     IF( CubeExists( sPLog ) = 1 );
+          CubeDestroy( sPLog );
+     EndIF;
+
+     IF( CubeExists( sPLogUser ) = 1 );
+          CubeDestroy( sPLogUser );
+     EndIF;
+
+     IF( DimensionExists( sPLogRun ) = 1 );
+          DimensionDestroy( sPLogRun );
+     EndIF;
+
+     IF( DimensionExists( sPLogLine ) = 1 );
+          DimensionDestroy( sPLogLine );
+     EndIF;
+
+     ProcessBreak;
+EndIF;
+
+
+#===================================================================================================
+#----  Process Log - Definitions and Configuration
+#===================================================================================================
+
+#---  This configures all of the supporting structures for use in Process Log audit trails
+#---  These are defined first as all setups that follow will use the Proces Log auditing proces to write out all work being done 
+
+#---  Define Dimensions
+IF( DimensionExists( sPLogRun ) = 0 );
+    DimensionCreate( sPLogRun );
+EndIF;
+
+IF( DimensionExists( sPLogLine ) = 0 );
+    DimensionCreate( sPLogLine );
+EndIF;
+
+
+#---  Define Cubes
+IF( CubeExists( sPLog ) = 0 );
+    CubeCreate( sPLog, '}Processes', sPLogRun, sPLogLine );
+EndIF;
+
+IF( CubeExists( sPLogUser ) = 0 );
+    CubeCreate( sPLogUser, '}Processes', '}Clients', sPLogRun, sPLogLine );
+EndIF;
+
+
+#---  Define Attributes when none have been created before
+IF( DimensionExists( '}ElementAttributes_'  |  sPLogRun ) = 0 );
+     AttrInsert(sPLogRun, '', 'Name', 'A');
+EndIF;
+
+IF( DimensionExists( '}ElementAttributes_'  |  sPLogLine ) = 0 );
+     AttrInsert(sPLogLine, '', 'Name', 'A');
+EndIF;
+
+
+#---  Define Attributes when Attribute structures already exist
+IF( DIMIX( '}ElementAttributes_'  |  sPLogRun, 'Name' ) = 0 );
+     AttrInsert(sPLogRun, '', 'Name', 'A');
+EndIF;
+
+IF( DIMIX( '}ElementAttributes_'  |  sPLogRun, 'Name - Long' ) = 0 );
+     AttrInsert(sPLogRun, '', 'Name - Long', 'A');
+EndIF;
+
+IF( DIMIX( '}ElementAttributes_'  |  sPLogRun, 'Name - Short' ) = 0 );
+     AttrInsert(sPLogRun, '', 'Name - Short', 'A');
+EndIF;
+
+IF( DIMIX( '}ElementAttributes_'  |  sPLogLine, 'Name' ) = 0 );
+     AttrInsert(sPLogLine, '', 'Name', 'A');
+EndIF;
+
+IF( DIMIX( '}ElementAttributes_'  |  sPLogLine, 'Name - Long' ) = 0 );
+     AttrInsert(sPLogLine, '', 'Name - Long', 'A');
+EndIF;
+
+IF( DIMIX( '}ElementAttributes_'  |  sPLogLine, 'Name - Short' ) = 0 );
+     AttrInsert(sPLogLine, '', 'Name - Short', 'A');
+EndIF;
+
+
+
+#===================================================================================================
+#----  Process Log - Populate Elements:  sPLogRun
+#===================================================================================================
+
+IF( DIMIX( sPLogRun, 'Current' ) = 0 );
+     DimensionElementInsertDirect( sPLogRun, '', 'Current', 'S' );
+EndIF;
+
+iCntr1 = 2;
+WHILE( iCntr1 <= 99 );
+     IF( iCntr1 <= 9 );
+          sText1 = '0'  |  STR( iCntr1, 1, 0 );
+     ELSE;
+          sText1 = STR( iCntr1, 2, 0 );
+     EndIF;
+
+     IF( DIMIX( sPLogRun, sText1 ) = 0 );
+          DimensionElementInsertDirect( sPLogRun, '', sText1, 'S' );     
+     EndIF;
+
+     iCntr1 = iCntr1 + 1;
+END;
+
+
+#===================================================================================================
+#----  Process Log - Populate Elements:  sPLogLine
+#===================================================================================================
+
+#-- Settings
+iCntr1 = 1;
+WHILE( iCntr1 <= 9 );
+     sText1 = 'T0'  |  STR( iCntr1, 1, 0 );
+     IF( DIMIX( sPLogLine, sText1 ) = 0 );
+          DimensionElementInsertDirect( sPLogLine, '', sText1, 'S' );     
+     EndIF;
+     iCntr1 = iCntr1 + 1;
+END;
+
+#-- Parameters
+iCntr1 = 1;
+WHILE( iCntr1 <= 9 );
+     sText1 = 'P0'  |  STR( iCntr1, 1, 0 );
+     IF( DIMIX( sPLogLine, sText1 ) = 0 );
+          DimensionElementInsertDirect( sPLogLine, '', sText1, 'S' );     
+     EndIF;
+     iCntr1 = iCntr1 + 1;
+END;
+
+#-- Lines
+iCntr1 = 1;
+WHILE( iCntr1 <= 2000 );
+     sText1 = TRIM( STR( iCntr1, 4, 0 ) );
+     IF( DIMIX( sPLogLine, sText1 ) = 0 );
+          DimensionElementInsertDirect( sPLogLine, '', sText1, 'S' );     
+     EndIF;
+     iCntr1 = iCntr1 + 1;
+END;
+
+
+#===================================================================================================
+#----  Process Log - Populate Atributes
+#===================================================================================================
+
+#-- sPLogLine - Name
+AttrPutS( 'Process Name', sPLogLine, 'T01', 'Name' );
+AttrPutS( 'User', sPLogLine, 'T02', 'Name' );
+AttrPutS( 'Start Date', sPLogLine, 'T03', 'Name' );
+AttrPutS( 'Start Time', sPLogLine, 'T04', 'Name' );
+AttrPutS( 'End Date', sPLogLine, 'T05', 'Name' );
+AttrPutS( 'End Time', sPLogLine, 'T06', 'Name' );
+AttrPutS( 'Elapsed', sPLogLine, 'T07', 'Name' );
+AttrPutS( 'Status', sPLogLine, 'T08', 'Name' );
+AttrPutS( 'Log Lines', sPLogLine, 'T09', 'Name' );
+
+AttrPutS( 'Parameter 01', sPLogLine, 'P01', 'Name' );
+AttrPutS( 'Parameter 02', sPLogLine, 'P02', 'Name' );
+AttrPutS( 'Parameter 03', sPLogLine, 'P03', 'Name' );
+AttrPutS( 'Parameter 04', sPLogLine, 'P04', 'Name' );
+AttrPutS( 'Parameter 05', sPLogLine, 'P05', 'Name' );
+AttrPutS( 'Parameter 06', sPLogLine, 'P06', 'Name' );
+AttrPutS( 'Parameter 07', sPLogLine, 'P07', 'Name' );
+AttrPutS( 'Parameter 08', sPLogLine, 'P08', 'Name' );
+AttrPutS( 'Parameter 09', sPLogLine, 'P09', 'Name' );
+
+
+#-- sPLogLine - Name - Short
+AttrPutS( 'Process Name', sPLogLine, 'T01', 'Name - Short' );
+AttrPutS( 'User', sPLogLine, 'T02', 'Name - Short' );
+AttrPutS( 'Start Date', sPLogLine, 'T03', 'Name - Short' );
+AttrPutS( 'Start Time', sPLogLine, 'T04', 'Name - Short' );
+AttrPutS( 'End Date', sPLogLine, 'T05', 'Name - Short' );
+AttrPutS( 'End Time', sPLogLine, 'T06', 'Name - Short' );
+AttrPutS( 'Elapsed', sPLogLine, 'T07', 'Name - Short' );
+AttrPutS( 'Status', sPLogLine, 'T08', 'Name - Short' );
+AttrPutS( 'Log Lines', sPLogLine, 'T09', 'Name - Short' );
+
+AttrPutS( 'Param 01', sPLogLine, 'P01', 'Name - Short' );
+AttrPutS( 'Param 02', sPLogLine, 'P02', 'Name - Short' );
+AttrPutS( 'Param 03', sPLogLine, 'P03', 'Name - Short' );
+AttrPutS( 'Param 04', sPLogLine, 'P04', 'Name - Short' );
+AttrPutS( 'Param 05', sPLogLine, 'P05', 'Name - Short' );
+AttrPutS( 'Param 06', sPLogLine, 'P06', 'Name - Short' );
+AttrPutS( 'Param 07', sPLogLine, 'P07', 'Name - Short' );
+AttrPutS( 'Param 08', sPLogLine, 'P08', 'Name - Short' );
+AttrPutS( 'Param 09', sPLogLine, 'P09', 'Name - Short' );
+
+
+#-- sPLogLine - Name - Long
+AttrPutS( 'T01 - Process Name', sPLogLine, 'T01', 'Name - Long' );
+AttrPutS( 'T02 - User', sPLogLine, 'T02', 'Name - Long' );
+AttrPutS( 'T03 - Start Date', sPLogLine, 'T03', 'Name - Long' );
+AttrPutS( 'T04 - Start Time', sPLogLine, 'T04', 'Name - Long' );
+AttrPutS( 'T05 - End Date', sPLogLine, 'T05', 'Name - Long' );
+AttrPutS( 'T06 - End Time', sPLogLine, 'T06', 'Name - Long' );
+AttrPutS( 'T07 - Elapsed', sPLogLine, 'T07', 'Name - Long' );
+AttrPutS( 'T08 - Status', sPLogLine, 'T08', 'Name - Long' );
+AttrPutS( 'T09 - Log Lines', sPLogLine, 'T09', 'Name - Long' );
+
+AttrPutS( 'P01 - Parameter 01', sPLogLine, 'P01', 'Name - Long' );
+AttrPutS( 'P02 - Parameter 02', sPLogLine, 'P02', 'Name - Long' );
+AttrPutS( 'P03 - Parameter 03', sPLogLine, 'P03', 'Name - Long' );
+AttrPutS( 'P04 - Parameter 04', sPLogLine, 'P04', 'Name - Long' );
+AttrPutS( 'P05 - Parameter 05', sPLogLine, 'P05', 'Name - Long' );
+AttrPutS( 'P06 - Parameter 06', sPLogLine, 'P06', 'Name - Long' );
+AttrPutS( 'P07 - Parameter 07', sPLogLine, 'P07', 'Name - Long' );
+AttrPutS( 'P08 - Parameter 08', sPLogLine, 'P08', 'Name - Long' );
+AttrPutS( 'P09 - Parameter 09', sPLogLine, 'P09', 'Name - Long' );
+
+
+
+#===================================================================================================
+#----  Process Log -  Subset Defaults
+#===================================================================================================
+#---- Subsets - Default Resets
+IF( SubsetExists( sPLogRun, 'Default' ) > 0 );
+     SubsetDeleteAllElements( sPLogRun, 'Default' );
+ELSE;
+     SubsetCreate( sPLogRun, 'Default' );
+EndIF;
+SubsetAliasSet( sPLogRun, 'Default', 'Name' );
+
+IF( SubsetExists( sPLogLine, 'Default' ) > 0 );
+     SubsetDeleteAllElements( sPLogLine, 'Default' );
+ELSE;
+     SubsetCreate( sPLogLine, 'Default' );
+EndIF;
+SubsetAliasSet( sPLogLine, 'Default', 'Name' );
+
+iCntr1 = 1;
+WHILE( iCntr1 <= 20 );
+     SubsetElementInsert( sPLogRun, 'Default', DIMNM( sPLogRun, iCntr1 ), iCntr1 );
+     iCntr1 = iCntr1 + 1;
+END;
+
+iCntr1 = 1;
+WHILE( iCntr1 <= 518 );
+     SubsetElementInsert( sPLogLine, 'Default', DIMNM( sPLogLine, iCntr1 ), iCntr1 );
+     iCntr1 = iCntr1 + 1;
+END;
+
+
+#---- View - Default Reset - sPLog
+IF( ViewExists( sPLog, 'Default' ) > 0 );
+     ViewDestroy( sPLog, 'Default' );
+EndIF;
+ViewCreate( sPLog, 'Default', 0 );
+
+ViewColumnDimensionSet( sPLog, 'Default', sPLogRun, 1 );
+ViewSubsetAssign( sPLog, 'Default', sPLogRun, 'Default' );
+ViewRowDimensionSet( sPLog, 'Default', sPLogLine, 1 );
+ViewSubsetAssign( sPLog, 'Default', sPLogLine, 'Default' );
+ViewTitleDimensionSet( sPLog, 'Default', '}Processes' );
+ViewSuppressZeroesSet( sPLog, 'Default', 0 );
+
+
+#---- View - Default Reset - sPLogUser
+IF( ViewExists( sPLogUser, 'Default' ) > 0 );
+     ViewDestroy( sPLogUser, 'Default' );
+EndIF;
+ViewCreate( sPLogUser, 'Default', 0 );
+
+ViewColumnDimensionSet( sPLogUser, 'Default', sPLogRun, 1 );
+ViewSubsetAssign( sPLogUser, 'Default', sPLogRun, 'Default' );
+ViewRowDimensionSet( sPLogUser, 'Default', sPLogLine, 1 );
+ViewSubsetAssign( sPLogUser, 'Default', sPLogRun, 'Default' );
+ViewTitleDimensionSet( sPLogUser, 'Default', '}Processes' );
+ViewTitleDimensionSet( sPLogUser, 'Default', '}Clients' );
+ViewSuppressZeroesSet( sPLogUser, 'Default', 0 );
+
+
+
+
+
+#==
+#====  End of Prolog
+#==
+
+
+
+
+
+
+
+
+
+#endregion
+#region Metadata
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+
+#===================================================================================================
+#----  Final processing steps
+#===================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+#===================================================================================================
+#----  Process Log - Final close-out of current audit log
+#===================================================================================================
+
+
+
+
+
+#---
+#====   End of Epilog
+#--
+#endregion

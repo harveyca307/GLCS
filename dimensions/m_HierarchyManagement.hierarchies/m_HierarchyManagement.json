@@ -1,0 +1,100 @@
+{
+	"@type":"Hierarchy",
+	"Name":"m_HierarchyManagement",
+	"Elements":
+	[
+		{
+			"Name":"Column 1",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 2",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 3",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 4",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 5",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 6",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 7",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 8",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 9",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 10",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 11",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 12",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 13",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 14",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 15",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 16",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 17",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 18",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 19",
+			"Type":"String"
+		},
+		{
+			"Name":"Column 20",
+			"Type":"String"
+		},
+		{
+			"Name":"Status",
+			"Type":"String"
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"m_HierarchyManagement.subsets/SYS_HierarchyManagement_Promote.1.20211201105722.671.json",
+		"m_HierarchyManagement.subsets/SYS_HierarchyManagement_Promote.1.20211201105722.671.Clear.json",
+		"m_HierarchyManagement.subsets/SYS_HierarchyManagement_Promote.1.20211201110443.358.json",
+		"m_HierarchyManagement.subsets/SYS_HierarchyManagement_Promote.1.20211201110443.358.Clear.json",
+		"m_HierarchyManagement.subsets/SYS_HierarchyManagement_Promote.1.20211201110601.388.json",
+		"m_HierarchyManagement.subsets/SYS_HierarchyManagement_Promote.1.20211201110601.388.Clear.json"
+	]
+}

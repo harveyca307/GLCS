@@ -1,0 +1,40 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			SYS_DataLoad_LogDeletions
+# Author:			Chad Harvey
+# Date Created:		04.28.2020
+# Date Modified:	04.28.2020 by: Chad Harvey
+# Purpose:			This process will load the SYS Log Deletions Cube
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sCube = 'SYS Log Deletions';
+sPath = CellGetS('Control', 'TM1 Logging Path', 'Value') | '\';
+sFile = 'LogDeletion.txt';
+nLine = 1;
+
+CubeClearData(sCube);
+
+FileNameForServer = sPath | sFile;
+#endregion
+#region Metadata
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+CellPutS(vLogFile, sCube, NumberToString(nLine), 'Log File');
+nLine = nLine + 1;
+#endregion
+#region Epilog
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

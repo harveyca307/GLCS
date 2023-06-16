@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"SYS_mLogDeletions",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('SYS_mLogDeletions')/Hierarchies('SYS_mLogDeletions')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"SYS_mLogDeletions.hierarchies/SYS_mLogDeletions.json"
+	]
+}

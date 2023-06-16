@@ -1,0 +1,13 @@
+{
+	"@type":"Process",
+	"Name":"zDeletePass",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"zDeletePass.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":[],
+	"Variables":[]
+}

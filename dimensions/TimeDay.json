@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"TimeDay",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('TimeDay')/Hierarchies('TimeDay')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"TimeDay.hierarchies/TimeDay.json"
+	]
+}

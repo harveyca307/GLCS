@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mTimeInformation",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mTimeInformation')/Hierarchies('mTimeInformation')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mTimeInformation.hierarchies/mTimeInformation.json"
+	]
+}

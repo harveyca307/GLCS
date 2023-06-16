@@ -1,0 +1,182 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			Cube_Upload_[ Budget Planning ]_from_[ Budget Planning Upload ]
+# Author:			Chad Harvey
+# Date Created:		05.25.2020
+# Date Modified:	05.25.2020 by: Chad Harvey
+# Purpose:			This process will place the upload dat into Budget Planning
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#--------------- Error Handlers ---------------#
+nError = 0;
+sParameters = '';
+sMessage = '';
+
+IF(pVersion @= '');
+	nError = nError + 1;
+    sMessage = 'pVersion not supplied.';
+ELSEIF(DIMIX('Version', pVersion) = 0);
+	nError = nError + 1;
+    sMessage = 'pVersion:"' | pVersion | '" is not valid.';
+ENDIF;
+
+IF(pSub @= '');
+	nError = nError + 1;
+    sMessage = sMessage | ' pSub not supplied.';
+ELSEIF(SubsetExists('Budget Planning Upload Index', pSub) = 0);
+	nError = nError + 1;
+    sMessage = sMessage | ' pSub:"' | pSub | '" is not valid.';
+ENDIF;
+
+IF(pSeq <> 0 & pSeq <> 1);
+	nError = nError + 1;
+    sMessage = sMessage | ' pSeq:"' | NumberToString(pSeq) | '" is not valid.';
+ENDIF;
+
+sParameters = 'pVersion="' | pVersion | '"; pSub="' | pSub | '"; pSeq="' | NumberToString(pSeq) | '"';
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sUserID = TM1USER;
+IF(DIMIX('}Clients', sUserID) = 0);
+     sUser = 'Chore';
+ELSE;
+     sUser = NumberToString(DIMIX('}Clients', sUserID));
+ENDIF;
+sPrefix = CellGetS('Control', 'TI Prefix', 'Value');
+sTimeStamp = TIMST(NOW, '\Y\m\d\h\i\s');
+sRandomInt = NumberToString(INT(RAND() * 1000));
+sCubeS = 'Budget Planning Upload';
+sCubeT = 'Budget Planning';
+sViewT = sPrefix | sCubeT | '.' | sUser | '.' | sTimeStamp | '.' | sRandomInt;
+nErrCnt = 0;
+nLineNo = 0;
+sLineNo = '';
+
+#--------------- Process Logging ---------------#
+sProcess = GetProcessName();
+sLogProc = 'SYS Process Status';
+nStartTime = NOW();
+sStartTime = TIMST(nStartTime, '\Y/\m/\d, \h:\i:\s');
+
+IF(nError = 0);
+	#----- Ensure Cube Logging is on for Target Cube
+    CellPutS('YES', '}CubeProperties', sCubeT, 'LOGGING');
+    
+    IF(pSeq = 0);
+    	ExecuteProcess('}bedrock.cube.viewandsubsets.create'
+        	, 'pCube', sCubeT
+            , 'pView', sViewT
+            , 'pDim', 'Version'
+            , 'pDelim', '&'
+            , 'pSuppressZero', 1
+            , 'pSuppressConsol', 1
+            , 'pSuppressRules', 1
+            , 'pTemp', 1
+            , 'pSubN', 1);
+            
+        SubsetElementInsert('Version', sViewT, pVersion, 1);
+        ViewZeroOut(sCubeT, sViewT);
+    ENDIF;
+    
+    #----- Assign Subset to View
+    DatasourceType = 'SUBSET';
+    DatasourcenameforServer = 'Budget Planning Upload Index';
+    DatasourceDimensionSubset = pSub;
+ELSE;
+	nEndTime = NOW();
+    sEndTIme = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+    sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+    ExecuteProcess(sLogProc
+          , 'pProcess', sProcess
+          , 'pLogFile', ''
+          , 'pStatus', 'Error'
+          , 'pParameters', sParameters
+          , 'pStartTime', sStartTime
+          , 'pEndTime', sEndTime
+          , 'pRun', sDuration);
+    ProcessError;
+ENDIF;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sBU = CellGetS(sCubeS, sUserID, pVersion, vLine, 'Business Unit');
+sDept = CellGetS(sCubeS, sUserID, pVersion, vLine, 'Department');
+sAcct = CellGetS(sCubeS, sUserID, pVersion, vLine, 'Account');
+nMonth1 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M1');
+nMonth2 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M2');
+nMonth3 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M3');
+nMonth4 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M4');
+nMonth5 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M5');
+nMonth6 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M6');
+nMonth7 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M7');
+nMonth8 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M8');
+nMonth9 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M9');
+nMonth10 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M10');
+nMonth11 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M11');
+nMonth12 = CellGetN(sCubes, sUserID, pVersion, vLine, 'M12');
+
+CellIncrementN(nMonth1, sCubeT, pVersion, sBU, sDept, sAcct, 'Jan-2021', 'Local', 'Value');
+CellIncrementN(nMonth2, sCubeT, pVersion, sBU, sDept, sAcct, 'Feb-2021', 'Local', 'Value');
+CellIncrementN(nMonth3, sCubeT, pVersion, sBU, sDept, sAcct, 'Mar-2021', 'Local', 'Value');
+CellIncrementN(nMonth4, sCubeT, pVersion, sBU, sDept, sAcct, 'Apr-2021', 'Local', 'Value');
+CellIncrementN(nMonth5, sCubeT, pVersion, sBU, sDept, sAcct, 'May-2021', 'Local', 'Value');
+CellIncrementN(nMonth6, sCubeT, pVersion, sBU, sDept, sAcct, 'Jun-2021', 'Local', 'Value');
+CellIncrementN(nMonth7, sCubeT, pVersion, sBU, sDept, sAcct, 'Jul-2021', 'Local', 'Value');
+CellIncrementN(nMonth8, sCubeT, pVersion, sBU, sDept, sAcct, 'Aug-2021', 'Local', 'Value');
+CellIncrementN(nMonth9, sCubeT, pVersion, sBU, sDept, sAcct, 'Sep-2021', 'Local', 'Value');
+CellIncrementN(nMonth10, sCubeT, pVersion, sBU, sDept, sAcct, 'Oct-2021', 'Local', 'Value');
+CellIncrementN(nMonth11, sCubeT, pVersion, sBU, sDept, sAcct, 'Nov-2021', 'Local', 'Value');
+CellIncrementN(nMonth12, sCubeT, pVersion, sBU, sDept, sAcct, 'Dec-2021', 'Local', 'Value');
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sStatus = GetProcessErrorFilename;
+
+#----- IF all validation errors occured, upload to Budget Planning
+IF(sStatus @= '');
+	#----- Clear upload and Validation
+    ExecuteProcess('Cube_Clear_[ Budget Planning Upload Validation ]'
+    	, 'pClearValidation', 'Y'
+        , 'pClearUpload', 'Y');
+ENDIF;
+
+#----- Return Previous Logging setting
+CellPutS('YES', '}CubeProperties', sCubeT, 'LOGGING');
+
+sLogDir = GetProcessErrorFileDirectory();
+sErrLog = GetProcessErrorFileName();
+IF(sErrLog @<> '');
+     sStatus = 'Error';
+     sLogFile = sLogDir | sErrLog;
+ELSE;
+     sStatus = 'Success';
+     sLogFile = '';
+     sMessage = '';
+ENDIF;
+
+#---------- Process Logging ----------#
+nEndTime = NOW();
+sEndTime = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+ExecuteProcess(sLogProc
+    , 'pProcess', sProcess
+    , 'pLogFile', sLogFile
+    , 'pStatus', sStatus  | ' ' | sMessage
+    , 'pParameters', sParameters
+    , 'pStartTime', sStartTime
+    , 'pEndTime', sEndTime
+    , 'pRun', sDuration);
+#endregion

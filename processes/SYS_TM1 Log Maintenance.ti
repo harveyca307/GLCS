@@ -1,0 +1,27 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:	SYS_TM1 Log Maintenance
+# Author:		Chad Harvey
+# Date Created:	04.20.2020
+# Date Modified:	04.20.2020 by: Chad Harvey
+# Purpose:	This process will backup the TM1 Database
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sPrograms = CellGetS('Control', 'TM1 Programs Path', 'Value');
+sLogs = CellGetS('Control', 'TM1 Logging Path', 'Value');
+sRetention = CellGetS('Control', 'Logging Retention Period', 'Value');
+
+sCMD = sPrograms | '\TM1_Logs.exe --source ' | sLogs | ' --days ' |  sRetention;
+
+ExecuteCommand(sCMD, 1);
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+ExecuteProcess('SYS_DataLoad_LogDeletions');
+#endregion

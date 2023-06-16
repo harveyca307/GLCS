@@ -1,0 +1,295 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mForecast",
+	"Elements":
+	[
+		{
+			"Name":"Sales ASP $",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Total Sales",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Regular TM %",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Clearance TM %",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Total Quantity",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Sales @ Cost",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"TM %",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Trading Margin",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Loadings %",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Loadings $",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Gross Margin 2",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Regular Sales",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Clearance Sales",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Regular Quantity",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Clearance Quantity",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Rebates",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Regular Sales @ Cost",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Clearance Sales @ Cost",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Regular Trading Margin 1",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Regular Loadings $",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Clearance Trading Margin 1",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Clearance Loadings $",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Gross Margin 1",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Percentages",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Regular Loadings %",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Clearance Loadings %",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Rebate %",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Regular Gross Margin 1",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"Clearance Gross Margin 1",
+			"Type":"Consolidated"
+		},
+		{
+			"Name":"GM1 %",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"GM2 %",
+			"Type":"Numeric"
+		}
+	],
+	"Edges":
+	[
+		{
+			"ParentName":"Sales ASP $",
+			"ComponentName":"Total Sales",
+			"Weight":0
+		},
+		{
+			"ParentName":"Total Sales",
+			"ComponentName":"Clearance Sales",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total Sales",
+			"ComponentName":"Regular Sales",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total Quantity",
+			"ComponentName":"Regular Quantity",
+			"Weight":1
+		},
+		{
+			"ParentName":"Total Quantity",
+			"ComponentName":"Clearance Quantity",
+			"Weight":1
+		},
+		{
+			"ParentName":"Sales @ Cost",
+			"ComponentName":"Regular Sales @ Cost",
+			"Weight":1
+		},
+		{
+			"ParentName":"Sales @ Cost",
+			"ComponentName":"Clearance Sales @ Cost",
+			"Weight":1
+		},
+		{
+			"ParentName":"TM %",
+			"ComponentName":"Trading Margin",
+			"Weight":0
+		},
+		{
+			"ParentName":"Trading Margin",
+			"ComponentName":"Regular Trading Margin 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"Trading Margin",
+			"ComponentName":"Clearance Trading Margin 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"Loadings %",
+			"ComponentName":"Loadings $",
+			"Weight":1
+		},
+		{
+			"ParentName":"Loadings $",
+			"ComponentName":"Regular Loadings $",
+			"Weight":1
+		},
+		{
+			"ParentName":"Loadings $",
+			"ComponentName":"Clearance Loadings $",
+			"Weight":1
+		},
+		{
+			"ParentName":"Gross Margin 2",
+			"ComponentName":"Gross Margin 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"Gross Margin 2",
+			"ComponentName":"Rebates",
+			"Weight":1
+		},
+		{
+			"ParentName":"Regular Sales @ Cost",
+			"ComponentName":"Regular Sales",
+			"Weight":1
+		},
+		{
+			"ParentName":"Regular Sales @ Cost",
+			"ComponentName":"Regular Trading Margin 1",
+			"Weight":-1
+		},
+		{
+			"ParentName":"Clearance Sales @ Cost",
+			"ComponentName":"Clearance Sales",
+			"Weight":1
+		},
+		{
+			"ParentName":"Clearance Sales @ Cost",
+			"ComponentName":"Clearance Trading Margin 1",
+			"Weight":-1
+		},
+		{
+			"ParentName":"Gross Margin 1",
+			"ComponentName":"Regular Gross Margin 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"Gross Margin 1",
+			"ComponentName":"Clearance Gross Margin 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"Percentages",
+			"ComponentName":"GM1 %",
+			"Weight":0
+		},
+		{
+			"ParentName":"Percentages",
+			"ComponentName":"GM2 %",
+			"Weight":0
+		},
+		{
+			"ParentName":"Percentages",
+			"ComponentName":"Rebate %",
+			"Weight":0
+		},
+		{
+			"ParentName":"Percentages",
+			"ComponentName":"Regular TM %",
+			"Weight":0
+		},
+		{
+			"ParentName":"Percentages",
+			"ComponentName":"Regular Loadings %",
+			"Weight":0
+		},
+		{
+			"ParentName":"Percentages",
+			"ComponentName":"Clearance TM %",
+			"Weight":0
+		},
+		{
+			"ParentName":"Percentages",
+			"ComponentName":"Clearance Loadings %",
+			"Weight":0
+		},
+		{
+			"ParentName":"Regular Gross Margin 1",
+			"ComponentName":"Regular Loadings $",
+			"Weight":1
+		},
+		{
+			"ParentName":"Regular Gross Margin 1",
+			"ComponentName":"Regular Trading Margin 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"Clearance Gross Margin 1",
+			"ComponentName":"Clearance Trading Margin 1",
+			"Weight":1
+		},
+		{
+			"ParentName":"Clearance Gross Margin 1",
+			"ComponentName":"Clearance Loadings $",
+			"Weight":1
+		}
+	],
+	"Subsets@Code.links":[]
+}

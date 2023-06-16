@@ -1,0 +1,20 @@
+{
+	"@type":"Cube",
+	"Name":"SYS Subset Control",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('}Dimensions')"
+		},
+		{
+			"@id":"Dimensions('SYS LineNo')"
+		},
+		{
+			"@id":"Dimensions('mSYS Subset Control')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"SYS Subset Control.views/Default.json"
+	]
+}

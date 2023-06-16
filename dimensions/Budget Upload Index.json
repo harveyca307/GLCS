@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"Budget Upload Index",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('Budget Upload Index')/Hierarchies('Budget Upload Index')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"Budget Upload Index.hierarchies/Budget Upload Index.json"
+	]
+}

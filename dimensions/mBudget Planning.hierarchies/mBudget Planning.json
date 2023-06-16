@@ -1,0 +1,19 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mBudget Planning",
+	"Elements":
+	[
+		{
+			"Name":"Value",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"mBudget Planning.subsets/ExportCube_1_151.json",
+		"mBudget Planning.subsets/ExportCube_1_609.json",
+		"mBudget Planning.subsets/ExportCube_1_746.json",
+		"mBudget Planning.subsets/ExportCube_1_763.json",
+		"mBudget Planning.subsets/ExportCube_1_882.json"
+	]
+}

@@ -1,0 +1,155 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			Sys.Objects.Update
+# Author:			Chad Harvey
+# Modified by:		Chad Harvey
+# Date Created:		04.14.2021
+# Date Modified:	04.14.2021
+# Purpose:			This process will hot promote object between TM1 Instances
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#--------------- Constants ---------------#
+cProcess	    = GetProcessName();
+cUserID     	= TM1User();
+cUser			= NumberToString(DIMIX('}Clients', cUserID));
+cTimeStamp      = TimSt( Now, '\Y\m\d\h\i\s' );
+cRandomInt      = NumberToString( INT( RAND( ) * 1000 ));
+cView			= EXPAND('%cProcess%.%cUser%.%cTimeStamp%.%cRandomInt%'); 
+cCube			= 'SYS_Promote';
+cLog			= 'PLog';
+cDataOutput		= 0;
+cTemp			= 1;
+cCubeList		= '';
+cDimensionList	= '';
+cProcessList	= '';
+
+#--------------- INitialize Process Log ---------------#
+ExecuteProcess(cLog, 'pFlag', 'INIT', 'pProc', cProcess);
+
+#--------------- Error Handlers ---------------#
+nError = 0;
+ExecuteProcess(cLog, 'pFLag', 'MSG', 'pProc', cProcess, 'pMsg', 'pJob:"' | pJob | '"', 'pLine', 'P01');
+IF(pJob @= '');
+	nError = 1;
+    sMessage = 'pJob not supplied.';
+    ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMSG', sMessage);
+ELSEIF(DIMIX('Promotion Job Index', pJob) = 0);
+	nError = 1;
+    sMessage = 'pJob entry: "' | pJob | '" does not exist.';
+    ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMsg', sMessage);
+ENDIF;
+
+#--------------- Validate Parameters ---------------#
+sSource = CellGetS(cCube, pJob, 'Output Header', 'Source Instance');
+ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMSG', 'Source Instance:"' | sSource | '"', 'pLine', 'P02');
+sTarget = CellGetS(cCube, pJob, 'Output Header', 'Target Instance');
+ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMSG', 'Target Instance:"' | sTarget | '"', 'pLine', 'P03');
+sTitle = CellGetS(cCube, pJob, 'Output Header', 'Promotion Title');
+ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMsg', 'Promotion Title:"' | sTitle | '"', 'pLine', 'P04');
+
+IF(sSource @= sTarget);
+	nError = 1;
+    sMessage = 'Source Server cannot be the same as Target Server.';
+    ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMSG', sMessage);
+ENDIF;
+
+IF(nError <> 0);
+	ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMSG', expand('%cProcess% experienced crticial errors and quit processing.'));
+	ProcessQuit;
+ENDIF;
+
+#--------------- Begin Core Processing ---------------#
+ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMsg', 'Beginning Prolog core processing');
+
+IF(ViewExists(cCube, cView) = 1);
+	ViewDestroy(cCube, cView);
+ENDIF;
+ViewCreate(cCube, cView, cTemp);
+ViewExtractSkipCalcsSet(cCube, cView, 1);
+ViewExtractSkipRuleValuesSet(cCube, cView, 1);
+ViewExtractSkipZeroesSet(cCube, cView, 1);
+
+nLoop = 1;
+WHILE(TABDIM(cCube, nLoop) @<> '');
+	sDim = TABDIM(cCube, nLoop);
+    IF(SubsetExists(sDim, cView) = 1);
+    	HierarchySubsetDeleteAllElements(sDim, sDim, cView);
+    ELSE;
+    	HierarchySubsetCreate(sDim, sDim, cView, cTemp);
+    ENDIF;
+    IF(sDim @= 'SYS_Promote Job Index');
+    	HierarchySubsetElementInsert(sDim, sDim, cView, pJob, 0);
+    ELSEIF(sDim @= 'SYS_mPromote');
+    	HierarchySUbsetElementInsert(sDim, sDim, cView, 'Object Type', 1);
+    ELSE;
+    	nElement = 1;
+        nMax = DIMSIZ(sDim);
+        WHILE(nELement <= nMax);
+        	sElement = DIMNM(sDim, nElement);
+            IF(ELLEV(sDim, sElement) = 0 & ELISANC(sDim, 'Total Output Objects', sElement) = 1);
+            	HierarchySubsetElementInsert(sDim, sDim, cView, sElement, HierarchySubsetGetSize(sDim, sDim, cView) + 1);
+            ENDIF;
+            nElement = nElement + 1;
+        END;
+    ENDIF;
+    ViewSubsetAssign(cCube, cView, sDim, cView);
+    nLoop = nLoop + 1;
+END;
+
+#----- Assign View to Subset
+DatasourceType = 'VIEW';
+DataSourceNameforServer = cCube;
+DatasourceCubeView = cView;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#--------------- Variables ---------------#
+sObject = '';
+
+IF(cDataOutput = 0);
+	ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMSG', 'Beginning Data Processing');
+    cDataOutput = 1;
+ENDIF;
+
+sObject = CellGetS(cCube, pJob, vOutput, 'Object');
+
+IF(vValue @= 'Cube');
+	IF(LONG(cCubeList) = 0);
+    	cCubeList = sObject;
+    ELSE;
+		cCubeList = cCubeList | ',' | sObject;
+    ENDIF;
+ELSEIF(vValue @= 'Dimension');
+	IF(LONG(cDimensionList) = 0);
+    	cDImensionList = sObject;
+    ELSE;
+		cDimensionList = cDimensionList | ',' | sObject;
+    ENDIF;
+ELSEIF(vValue @= 'Process');
+	IF(LONG(cProcessList) = 0);
+    	cProcessList = sObject;
+    ELSE;
+		cProcessList = cProcessList | ',' | sObject;
+    ENDIF;
+ENDIF;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+ExecuteProcess(cLog, 'pFlag', 'MSG', 'pProc', cProcess, 'pMSG', 'Beginning Epilog Processing.');
+
+ASCIIOUTPUT('cubes.txt', cCubeList);
+ASCIIOUTPUT('dimensions.txt', cDimensionList);
+ASCIIOUTPUT('processes.txt', cProcessList);
+
+ExecuteProcess(cLog, 'pFlag', 'END', 'pProc', cProcess, 'pMSG', 'SUCCESS');
+#endregion

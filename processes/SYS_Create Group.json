@@ -1,0 +1,21 @@
+{
+	"@type":"Process",
+	"Name":"SYS_Create Group",
+	"HasSecurityAccess":true,
+	"Code@Code.link":"SYS_Create Group.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pGroup",
+			"Prompt":"",
+			"Value":"",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

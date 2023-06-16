@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"Promotion Job Index",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('Promotion Job Index')/Hierarchies('Promotion Job Index')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"Promotion Job Index.hierarchies/Promotion Job Index.json"
+	]
+}

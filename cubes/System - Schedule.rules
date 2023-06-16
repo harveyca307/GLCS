@@ -1,0 +1,17 @@
+SKIPCHECK;
+
+
+['System - mSchedule':'Run Count']  = N: IF(DB('System - Schedule', !'System - Schedule', !'System - Schedule Processes', 'Active') @= 'Y'
+  , 1
+  , 0);
+  
+['System - Schedule':'Total Schedule', 'System - mSchedule':'Schedule Sequence'] = S: '0';  
+['System - Schedule Processes':'Total for Processing', 'System - mSchedule':'Schedule Sequence'] = S: IF(DB('System - Schedule', !'System - Schedule', 'Total for Processing',  'Run Count') = 1
+    , STET
+    , '0'); 
+  
+
+['System - mSchedule':'Schedule Sequence'] = S: '0';
+
+FEEDERS;
+['System - mSchedule':'Active'] => ['System - mSchedule':'Run Count'];

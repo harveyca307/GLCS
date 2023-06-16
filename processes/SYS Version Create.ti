@@ -1,0 +1,36 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF(  DIMIX( 'Version', pTgtVersion  ) = 0 );
+
+sArchiveVersion = CellGetS ( 'Version Control', pCube, 'Archive Version');
+
+sPriorVersion = CellGetS ( 'Version Control', pCube, 'Prior Versions');
+
+vCurPrior = ELCOMP('Version', sArchiveVersion, 1);
+
+
+#DimensionElementInsertDirect('Version', vCurPrior, pTgtVersion, 'n');
+
+DimensionElementInsertDirect('Version', sPriorVersion, pTgtVersion, 'n');
+
+
+#??
+ATTRPUTS('S', 'Version', pTgtVersion, 'Archive');
+
+
+IF ( pMakePrior @= 'Y');
+   DimensionElementComponentDeleteDirect('Version', sArchiveVersion, vCurPrior);
+   DimensionElementComponentAddDirect('Version', sArchiveVersion, pTgtVersion, 1);
+ENDIF;
+
+   DimensionElementComponentAddDirect('Version', sPriorVersion, pTgtVersion, 1);
+
+ENDIF;
+
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

@@ -1,0 +1,36 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mSYS Subset Control",
+	"Elements":
+	[
+		{
+			"Name":"Subset Name",
+			"Type":"String"
+		},
+		{
+			"Name":"String or MDX",
+			"Type":"String"
+		},
+		{
+			"Name":"Subset Expression",
+			"Type":"String"
+		},
+		{
+			"Name":"Make Static",
+			"Type":"String"
+		},
+		{
+			"Name":"Active",
+			"Type":"String"
+		},
+		{
+			"Name":"Use Alias",
+			"Type":"String"
+		},
+		{
+			"Name":"Alias Attribute",
+			"Type":"String"
+		}
+	],
+	"Subsets@Code.links":[]
+}

@@ -1,0 +1,65 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#--------------- Variables ---------------#
+sDim = '}Cubes';
+sDimC = 'AllViews';
+
+
+IF(DimensionExists(sDimC) = 1);
+     DimensionDestroy(sDimC);
+ENDIF;
+DimensionCreate(sDimC);
+
+nLoop = 1;
+nMax = DIMSIZ(sDim);
+WHILE(nLoop <= nMax);
+     sCube = DIMNM(sDim, nLoop);
+     IF(SUBST(sCube, 1, 1) @<> '}');
+          nView = 0;
+          bStop = 0;
+          sFileLast = '';
+          WHILE(bStop = 0);
+               sFile = WildCardFileSearch(pData | '\' | sCube | '}vues\*.vue', sFileLast);
+               IF(sFile @<> '');
+                    IF(sFile @<> 'Default.vue');
+                         sView = SUBST(sFile, 1, LONG(sFile)-4);
+                         DimensionElementInsert(sDimC, '', sView, 'N');
+                    ENDIF;
+                    sFileLast = sFile;
+               ENDIF;
+               IF(sFile @= '');
+                    bStop = 1;
+               ENDIF;
+          END;
+     ENDIF;
+     nLoop = nLoop + 1;
+END;
+
+nVLoop = 1;
+nVMax = DIMSIZ(sDimC);
+nCMax = DIMSIZ(sDim);
+
+ASCIIOutPut(pOut | '\CubeViews.csv', 'Cube Name', 'View Name');
+
+WHILE(nVLoop <= nVMax);
+     sView = DIMNM(sDImC, nVLoop);
+     nCLoop = 1;
+     WHILE(nCLoop <= nCMax);
+          sCube = DIMNM(sDim, nCLoop);
+          IF(SUBST(sCube, 1, 1) @<> '}');
+               IF(ViewExists(sCube, sView) = 1);
+                    ASCIIOutput(pOut | '\CubeViews.csv', sCube, sView);
+               ENDIF;
+          ENDIF;
+          nCLoop = nCLoop + 1;
+     END;
+     nVLoop = nVLoop + 1;
+END;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+DimensionDestroy(sDimC);
+#endregion

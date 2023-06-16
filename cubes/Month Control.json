@@ -1,0 +1,18 @@
+{
+	"@type":"Cube",
+	"Name":"Month Control",
+	"Rules@Code.link":"Month Control.rules",
+	"Dimensions":
+	[
+		{
+			"@id":"Dimensions('tMonth')"
+		},
+		{
+			"@id":"Dimensions('mMonth Control')"
+		}
+	],
+	"Views@Code.links":
+	[
+		"Month Control.views/Chad.json"
+	]
+}

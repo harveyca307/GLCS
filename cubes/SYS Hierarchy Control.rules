@@ -1,0 +1,39 @@
+FEEDSTRINGS;
+SKIPCHECK;
+
+['Validation'] = S: IF(DB('SYS Hierarchy Control', !'}Dimensions', !'SYS LineNo', 'Active' ) @= 'Y'
+	, CONTINUE
+    , STET);
+    
+['Validation'] = S: IF(DB('SYS Hierarchy Control', !'}Dimensions', !'SYS LineNo', 'Hierarchy Name') @= ''
+		% DB('SYS Hierarchy Control', !'}Dimensions', !'SYS LineNo', 'Root Element Name') @= ''
+        % DB('SYS Hierarchy Control', !'}Dimensions', !'SYS LineNo', 'Empty Attribute Default') @= ''
+    , 'Issue'
+    , '');
+    
+['Levels'] = N: IF(DB('SYS Hierarchy Control', !'}Dimensions', !'SYS LineNo', 'Active') @= 'Y'
+	, CONTINUE
+    , STET);
+    
+['Levels'] = N: IF(DB('SYS Hierarchy Control', !'}Dimensions', !'SYS LineNo', 'Level 5 Attribute') @<> ''
+	, 5
+    , CONTINUE);
+
+['Levels'] = N: IF(DB('SYS Hierarchy Control', !'}Dimensions', !'SYS LineNo', 'Level 4 Attribute') @<> ''
+	, 4
+    , CONTINUE);
+    
+['Levels'] = N: IF(DB('SYS Hierarchy Control', !'}Dimensions', !'SYS LineNo', 'Level 3 Attribute') @<> ''
+	, 3
+    , CONTINUE);
+
+['Levels'] = N: IF(DB('SYS Hierarchy Control', !'}Dimensions', !'SYS LineNo', 'Level 2 Attribute') @<> ''
+	, 2
+    , CONTINUE);
+    
+['Levels'] = 1;
+    
+FEEDERS;
+
+['Active'] => ['Validation'];
+['Active'] => ['Levels'];

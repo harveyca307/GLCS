@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mDataUpdate Scenario",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mDataUpdate Scenario')/Hierarchies('mDataUpdate Scenario')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mDataUpdate Scenario.hierarchies/mDataUpdate Scenario.json"
+	]
+}

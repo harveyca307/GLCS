@@ -1,0 +1,127 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:			Cube_Update_[ Budget Planning Upload Hostory ]
+# Author:			Chad Harvey
+# Date Created:		05.25.2020
+# Date Modified:	05.25.2020 by: Chad Harvey
+# Purpose:			This process will update the upload hostory cube
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#--------------- Error Handlers ---------------#
+nError = 0;
+sParameters = '';
+sMessage = '';
+
+IF(pVersion @= '');
+	nError = nError + 1;
+    sMessage = 'pVerison not supplied.';
+ELSEIF(DIMIX('Version', pVersion) = 0);
+	nError = nError + 1;
+    sMessage = 'pVersion: "' | pVersion | '" is not valid.';
+ENDIF;
+
+IF(pDesc @= '');
+	nError = nError + 1;
+    sMessage = sMessage | ' pDesc not supplied.';
+ENDIF;
+
+sParameters = 'pVersion="' | pVersion | '"; pDesc="' | pDesc | '"';
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sUserID = TM1USER;
+IF(DIMIX('}Clients', sUserID) = 0);
+     sUser = 'Chore';
+ELSE;
+     sUser = NumberToString(DIMIX('}Clients', sUserID));
+ENDIF;
+sPrefix = CellGetS('Control', 'TI Prefix', 'Value');
+sTimeStamp = TIMST(NOW, '\Y\m\d\h\i\s');
+sRandomInt = NumberToString(INT(RAND() * 1000));
+sCube = 'Budget Planning Upload History';
+sDim = 'Budget Planning Upload Index';
+
+#--------------- Process Logging ---------------#
+sProcess = GetProcessName();
+sLogProc = 'SYS Process Status';
+nStartTime = NOW();
+sStartTime = TIMST(nStartTime, '\Y/\m/\d, \h:\i:\s');
+
+IF(nError = 0);
+	#----- Turn on Cube Logging
+    CellPutS('YES', '}CubeProperties', sCube, 'LOGGING');
+    
+    #----- Update History
+    sTime = TIMST(NOW, '\Y/\m/\d at \H:\i:\p');
+    nMax = DIMSIZ(sDim) - 1;
+    nLoop = CellGetN(sCube, sUserID, pVersion, '1', 'Counter');
+    IF(nLoop >= 1);
+    	nInner = nLoop;
+        WHILE(nInner > 0);
+        	sTempUpdate = CellGetS(sCube, sUserId, pVersion, NumberToString(nInner), 'Updated');
+            sTempDesc = CellGetS(sCube, sUserId, pVersion, NumberToString(nInner), 'Update Description');
+            nMove = nInner + 1;
+            CellPutS(sTempUpdate, sCube, sUserId, pVersion, NumberToString(nMove), 'Updated');
+            CellPutS(sTempDesc, sCube, sUserId, pVersion, NumberToString(nMove), 'Update Description');
+            nInner = nInner - 1;
+        END;
+    ENDIF;
+    
+    #----- Update History
+    CellPutS(sTime, sCube, sUserID, pVersion, '1', 'Updated');
+    CellPutS(pDesc, sCube, sUserID, pVersion, '1', 'Update Description');
+    
+    #----- Update Counter
+    nCounter = nLoop + 1;
+    IF(nCounter > nMax);
+    	nCounter = nMax;
+    ENDIF;
+    CellPutN(nCounter, sCube, sUserID, pVersion, '1', 'Counter');
+ELSE;
+	nEndTime = NOW();
+    sEndTIme = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+    sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+    ExecuteProcess(sLogProc
+          , 'pProcess', sProcess
+          , 'pLogFile', ''
+          , 'pStatus', 'Error'
+          , 'pParameters', sParameters
+          , 'pStartTime', sStartTime
+          , 'pEndTime', sEndTime
+          , 'pRun', sDuration);
+    ProcessError;
+ENDIF;
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#----- Turb off Cube Logging
+CellPutS('NO', '}CubeProperties', sCube, 'LOGGING');
+
+sLogDir = GetProcessErrorFileDirectory();
+sErrLog = GetProcessErrorFileName();
+IF(sErrLog @<> '');
+     sStatus = 'Error';
+     sLogFile = sLogDir | sErrLog;
+ELSE;
+     sStatus = 'Success';
+     sLogFile = '';
+     sMessage = '';
+ENDIF;
+
+#---------- Process Logging ----------#
+nEndTime = NOW();
+sEndTime = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+ExecuteProcess(sLogProc
+    , 'pProcess', sProcess
+    , 'pLogFile', sLogFile
+    , 'pStatus', sStatus  | ' ' | sMessage
+    , 'pParameters', sParameters
+    , 'pStartTime', sStartTime
+    , 'pEndTime', sEndTime
+    , 'pRun', sDuration);
+#endregion

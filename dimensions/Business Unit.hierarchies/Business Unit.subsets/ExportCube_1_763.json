@@ -1,0 +1,10 @@
+{
+	"@type":"Subset",
+	"Name":"ExportCube_1_763",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Business Unit')/Hierarchies('Business Unit')/Elements('10110')"
+		}
+	]
+}

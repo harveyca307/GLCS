@@ -1,0 +1,7 @@
+#region Prolog
+
+nLoop = 1;
+WHILE(1 <> 0);
+  sleep(1);
+END;
+#endregion

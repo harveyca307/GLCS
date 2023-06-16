@@ -1,0 +1,101 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Constants ---------------#
+cProc = GetProcessName;
+cLogProc = 'PLOG';
+cTemp = 1;
+
+#--------------- Initialize Logging ---------------#
+ExecuteProcess(cLogProc, 'pFLag', 'INIT', 'pProc', cProc);
+
+#--------------- Error Handling ---------------#
+nError = 0;
+nParam = 1;
+
+IF(pDim @= '');
+	nError = 1;
+    sMessage = 'pDim not supplied.';
+ELSEIF(DimensionExists(pDim) = 0);
+	nError = 1;
+    sMessage = 'pDim "' | pDim | '" does not exist.';
+ELSE;
+	sMessage = 'pDim="' | pDim | '"';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', sMessage, 'pLine', 'P0' | NumberToString(nParam)); nParam = nParam + 1;
+
+IF(nError = 1);
+	ProcessBreak;
+ENDIF;
+
+#--------------- Begin Prolog Processing ---------------#
+sMessage = 'All error conditions passed, beginning Prolog processing...';
+ExecuteProcess(cLogProc, 'pFLag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+
+sMessage = '-' | FILL('-', 99);
+ExecuteProcess(cLogProc, 'pFLag', 'MSG', 'pProc', cProc, 'pMSG', sMessage);
+
+#--------------- Variables ---------------#
+sUser = NumberToString(DIMIX('}CLients', TM1USER));
+sTimeStamp = TIMST(now, '\Y\m\d\h\i\s');
+sRandomInt = NumberToString(INT(RAND() * 1000));
+sSub = EXPAND('%pDim%.%sUser%.%sTimeStamp%.%sRandomInt%');
+sPar = 'Orphans';
+nOrphans = 0;
+nConsols = 0;
+
+IF(HierarchySubsetExists(pDim, pDim, sSub) = 1);
+	HierarchySubsetDeleteAllElements(pDim, pDim, sSub);
+ELSE;
+	HierarchySubsetCreate(pDim, pDim, sSub, cTemp);
+ENDIF;
+
+IF(ElementIndex(pDim, pDim, sPar) = 0);
+	HierarchyElementInsert(pDim, pDim, '', sPar, 'C');
+ENDIF;
+
+#----- Assign Subset to Process
+DatasourceType = 'SUBSET';
+DatasourceNameforServer = pDim;
+DatasourceDimesionSubset = sSub;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF(ElementLevel(pDim, pDim, vElement) = 0 & ElementParentCount(pDim, pDim, vELement) = 0);
+	HierarchyElementComponentAdd(pDim, pDim, 'Orphans', vElement, 1);
+    nOrphans = nOrphans + 1;
+ELSEIF(ElementLevel(pDim, pDim, vElement) > 0 & ElementComponentCount( pDim, pDim, vElement ) = 0);
+	HIerarchyElementDelete(pDim, pDim, vElement);
+    nConsols = nConsols + 1;
+ENDIF;
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF(ElementComponentCount(pDim, pDim, sPar) = 0);
+	HierarchyElementDelete(pDim, pDim, sPar);
+ENDIF;
+
+IF(nError = 0);
+	sStatus = 'SUCCESS';
+    ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', 'Orphans moved: ' | NumberToString(nOrphans));
+    ExecuteProcess(cLogProc, 'pFlag', 'MSG', 'pProc', cProc, 'pMSG', 'Orphans consolidations removed: ' | NumberToString(nConsols));
+ELSE;
+	sStatus = 'ERROR';
+ENDIF;
+
+ExecuteProcess(cLogProc, 'pFlag', 'END', 'pProc', cProc, 'pMSG', sStatus);
+
+IF(nError <> 0);
+	ProcessQuit;
+ENDIF;
+#endregion

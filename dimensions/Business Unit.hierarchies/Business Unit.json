@@ -1,0 +1,39 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Business Unit",
+	"Elements":
+	[
+		{
+			"Name":"10110",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"10120",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"10210",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"10220",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"10300",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"10400",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"Business Unit.subsets/ExportCube_1_151.json",
+		"Business Unit.subsets/ExportCube_1_609.json",
+		"Business Unit.subsets/ExportCube_1_746.json",
+		"Business Unit.subsets/ExportCube_1_763.json",
+		"Business Unit.subsets/ExportCube_1_882.json"
+	]
+}

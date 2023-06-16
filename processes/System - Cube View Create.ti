@@ -1,0 +1,17 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+pFilter = 'Chad:Test1+Test2+Test3';
+nLoop = 1;
+nMax = LONG(pFilter);
+
+pFilter = pFilter | pEDelim;
+nMax = nMax + LONG(pEDelim);
+
+
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

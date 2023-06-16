@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"mBudget Upload Validation",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('mBudget Upload Validation')/Hierarchies('mBudget Upload Validation')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"mBudget Upload Validation.hierarchies/mBudget Upload Validation.json"
+	]
+}

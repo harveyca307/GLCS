@@ -1,0 +1,24 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mUSerSelections",
+	"Elements":
+	[
+		{
+			"Name":"Department",
+			"Type":"String"
+		},
+		{
+			"Name":"Department_Selected",
+			"Type":"String"
+		},
+		{
+			"Name":"Account",
+			"Type":"String"
+		},
+		{
+			"Name":"Calendar",
+			"Type":"String"
+		}
+	],
+	"Subsets@Code.links":[]
+}

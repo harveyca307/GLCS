@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"SYS_mBackupFiles",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('SYS_mBackupFiles')/Hierarchies('SYS_mBackupFiles')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"SYS_mBackupFiles.hierarchies/SYS_mBackupFiles.json"
+	]
+}

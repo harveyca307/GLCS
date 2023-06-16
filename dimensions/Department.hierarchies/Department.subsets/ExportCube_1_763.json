@@ -1,0 +1,31 @@
+{
+	"@type":"Subset",
+	"Name":"ExportCube_1_763",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('415')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('410')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('405')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('300')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('200')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('115')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('110')"
+		},
+		{
+			"@id":"Dimensions('Department')/Hierarchies('Department')/Elements('105')"
+		}
+	]
+}

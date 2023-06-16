@@ -1,0 +1,16 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mSYS Form Filter",
+	"Elements":
+	[
+		{
+			"Name":"Year",
+			"Type":"String"
+		},
+		{
+			"Name":"Selected Version",
+			"Type":"String"
+		}
+	],
+	"Subsets@Code.links":[]
+}

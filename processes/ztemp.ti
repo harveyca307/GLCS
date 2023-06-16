@@ -1,0 +1,20 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+sCMD = 'c:\tm1_servers\GLCS\Programs\CIP-GetProjectTasks.exe C:\tm1_servers\GLCS\Programs\Asana_Get_Project_Data.yml C:\tm1_servers\GLCS\Programs\test.csv';
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+ExecuteCommand(sCMD, 1);
+#endregion

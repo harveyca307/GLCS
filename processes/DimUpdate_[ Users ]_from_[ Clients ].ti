@@ -1,0 +1,20 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+cProcess = GetProcessName;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+CellPutN(1, 'System - Schedule', 'Dimension Load', cProcess, 'Pass' );
+#endregion

@@ -1,0 +1,1 @@
+SELECT {EXCEPT(DISTINCT({[tMonth].[tMonth].[2020],DESCENDANTS([tMonth].[tMonth].[2020] , 99 , LEAVES)}) , {[tMonth].[tMonth].[2020]})} ON 0, {TM1SubsetAll([Account])} ON 1 FROM [Budget Forecast] WHERE ([Version].[Version].[Working Forecast], [Department].[Department].[105], [Currency].[Currency].[Local])

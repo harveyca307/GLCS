@@ -1,0 +1,96 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Hierarchy_Alternates",
+	"Elements":
+	[
+		{
+			"Name":"Hierarchy 1",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 2",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 3",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 4",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 5",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 6",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 7",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 8",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 9",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 10",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 11",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 12",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 13",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 14",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 15",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 16",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 17",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 18",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 19",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Hierarchy 20",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":
+	[
+		"Hierarchy_Alternates.subsets/SYS_HierarchyManagement_Promote.1.20211201105722.671.json",
+		"Hierarchy_Alternates.subsets/SYS_HierarchyManagement_Promote.1.20211201105722.671.Clear.json",
+		"Hierarchy_Alternates.subsets/SYS_HierarchyManagement_Promote.1.20211201110443.358.json",
+		"Hierarchy_Alternates.subsets/SYS_HierarchyManagement_Promote.1.20211201110443.358.Clear.json",
+		"Hierarchy_Alternates.subsets/SYS_HierarchyManagement_Promote.1.20211201110601.388.json",
+		"Hierarchy_Alternates.subsets/SYS_HierarchyManagement_Promote.1.20211201110601.388.Clear.json"
+	]
+}

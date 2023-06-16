@@ -1,0 +1,13 @@
+FEEDSTRINGS;
+SKIPCHECK;
+['MonthNr'] = C: 0;
+['Month'] = S: IF(ELLEV('tMonth', !tMonth) > 0, '', STET);
+
+['isActualsPeriod'] = N: IF(numbr(db('Month Control', !tMonth, 'YrMnthNr' )) <= numbr(db('Month Control', db('Control', 'Current Year', 'Value' ) | '-' | db('Control', 'Current Month', 'Value' ), 'YrMnthNr' ))
+	, 1
+    , 0);
+
+['isActualsPeriod'] = C: 0;
+
+FEEDERS;
+['YrMnthNr'] => ['IsActualsPeriod'];

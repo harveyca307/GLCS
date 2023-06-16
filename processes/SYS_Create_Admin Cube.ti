@@ -1,0 +1,30 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+nLoop = 1;
+nMax = 15;
+
+WHILE(nLoop <= nMax);
+	sDim = '}AdminDim' | NumberToString(nLoop);
+    DimensionCreate(sDim);
+    DimensionElementInsertDirect(sDim, '', sDim, 'n');
+    nLoop = nLoop + 1;
+END;
+
+CubeCreate('}AdminCube'
+	, '}AdminDim1'
+    , '}AdminDim2'
+    , '}AdminDim3'
+    , '}AdminDim4'
+    , '}AdminDim5'
+    , '}AdminDim6'
+    , '}AdminDim7'
+    , '}AdminDim8'
+    , '}AdminDim9'
+    , '}AdminDim10');
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

@@ -1,0 +1,10 @@
+{
+	"@type":"Subset",
+	"Name":"Chad",
+	"Elements":
+	[
+		{
+			"@id":"Dimensions('tMonth')/Hierarchies('tMonth')/Elements('All Years')"
+		}
+	]
+}

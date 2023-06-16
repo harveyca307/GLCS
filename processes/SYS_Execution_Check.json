@@ -1,0 +1,45 @@
+{
+	"@type":"Process",
+	"Name":"SYS_Execution_Check",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"SYS_Execution_Check.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pMonthDays",
+			"Prompt":"OPTIONAL: Delimited string of days in month as dd e.g. 01 & 02 & 30 & 31 (Blank=All)",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pWeekDays",
+			"Prompt":"OPTIONAL: Delimited string of days in week as ddd e.g. MON & WED (Blank=All)",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pDelim",
+			"Prompt":"OPTIONAL: String array delimiter. Only 1 character allowed (Blank=&)",
+			"Value":"&",
+			"Type":"String"
+		},
+		{
+			"Name":"pStartTime",
+			"Prompt":"OPTIONAL: Time to start running chore from in 24 hr time (at start of hour) (Blank=0)",
+			"Value":0,
+			"Type":"Numeric"
+		},
+		{
+			"Name":"pEndTime",
+			"Prompt":"OPTIONAL: Time to finish chore being able to start in 24 hr time (Blank=24)",
+			"Value":24,
+			"Type":"Numeric"
+		}
+	],
+	"Variables":[]
+}

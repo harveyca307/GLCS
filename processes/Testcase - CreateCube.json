@@ -1,0 +1,45 @@
+{
+	"@type":"Process",
+	"Name":"Testcase - CreateCube",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"Testcase - CreateCube.ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pCubeName",
+			"Prompt":"Name of Cube to Create:",
+			"Value":"MyTestCubeA",
+			"Type":"String"
+		},
+		{
+			"Name":"pDimensionCount",
+			"Prompt":"Number of dimensions in cube",
+			"Value":5,
+			"Type":"Numeric"
+		},
+		{
+			"Name":"pDimensionSizes",
+			"Prompt":"Numnber of Elements in Each dimension",
+			"Value":"10, 10, 10, 20, 400",
+			"Type":"String"
+		},
+		{
+			"Name":"pElementNameSize",
+			"Prompt":"",
+			"Value":8,
+			"Type":"Numeric"
+		},
+		{
+			"Name":"pRecreateCube",
+			"Prompt":"",
+			"Value":"Y",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

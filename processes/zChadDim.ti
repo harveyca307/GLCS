@@ -1,0 +1,46 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+cDimSrc = '}Dimensions';
+cDim = 'Dimensions';
+cTemp = 1;
+
+IF(DimensionExists(cDim) = 0);
+	DimensionCreate(cDim);
+ENDIF;
+
+sSub = 'Source';
+IF(HierarchySubsetExists(cDimSrc, cDimSrc, sSub) = 1);
+	HierarchySubsetDeleteAllElements( cDimSrc, cDimSrc, sSub);
+ELSE;
+	HierarchySubsetCreate(cDimSrc, cDimSrc, sSub, cTemp);
+ENDIF;
+
+sMDX = '{TM1SubsetAll([}Dimensions])}';
+HierarchySubsetMDXSet(cDimSrc, cDimSrc, sSub, sMDX);
+HierarchySubsetMDXSet(cDimSrc, cDimSrc, sSub, '');
+
+DatasourceType = 'SUBSET';
+DatasourceNameForServer = cDimSrc;
+DatasourceNameForClient = cDimSrc;
+DatasourceDimensionSubset = sSub;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF(SUBST(vDimension, 1, 1) @<> '}');
+	IF(ElementIndex(cDim, cDim, vDimension) = 0);
+    	HierarchyElementInsert(cDim, cDim, '', vDimension, 'N');
+    ENDIF;
+ENDIF;
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

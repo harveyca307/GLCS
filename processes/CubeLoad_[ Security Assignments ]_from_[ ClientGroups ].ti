@@ -1,0 +1,61 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+cCubeT = 'Security Assignments';
+cCubeS = '}ClientGroups';
+cView = 'Security';
+cTemp = 1;
+
+#----- Target View
+CubeClearData( cCubeT );
+
+#----- Source View
+IF(ViewExists(cCubeS, cView) = 1);
+	ViewDestroy(cCUbeS, cView);
+ENDIF;
+ViewCreate(cCubeS, cView, cTemp);
+ViewExtractSkipZeroesSet( cCubeS, cView, 1 );
+
+
+nLoop = 1;
+nMax = CubeDimensionCountGet( cCubeS );
+WHILE(nLoop <= nMax);
+	sDim = TABDIM(cCubeS, nLoop);
+    IF(HierarchySubsetExists(sDim, sDim, cView) = 1);
+    	HierarchySubsetDeleteAllElements( sDim, sDIm, cView );
+    ELSE;
+    	HierarchySubsetCreate(sDim, sDIm, cView, cTemp);
+    ENDIF;
+    
+    nElem = 1;
+    nElemMax = ELementCount(sDim, sDim);
+    WHILE(nElem <= nELemMax);
+      sElement = ElementName(sDim, sDim, nElem);
+      IF(ElementLevel(sDim, sDim, sElement) = 0);
+      	HierarchySubsetElementInsert(sDim, sDim, cView, sElement, 0);
+      ENDIF;
+      nELem = nElem + 1;
+    END;
+    nLoop  = nLoop + 1;
+	ViewSubsetAssign(cCUbeS, cView, sDim, cVIew);
+END;
+
+DatasourceType = 'VIEW';
+DatasourceNameForServer = cCUbeS;
+DatasourceCubeview = cView;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+CellPutS('X', cCubeT, vClient, vGroup, 'Access');
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

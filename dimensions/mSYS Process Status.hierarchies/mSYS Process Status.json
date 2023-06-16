@@ -1,0 +1,40 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mSYS Process Status",
+	"Elements":
+	[
+		{
+			"Name":"Client",
+			"Type":"String"
+		},
+		{
+			"Name":"Process Lines Used",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Process Start",
+			"Type":"String"
+		},
+		{
+			"Name":"Process End",
+			"Type":"String"
+		},
+		{
+			"Name":"Process Run",
+			"Type":"String"
+		},
+		{
+			"Name":"Process Status",
+			"Type":"String"
+		},
+		{
+			"Name":"Process Parameters",
+			"Type":"String"
+		},
+		{
+			"Name":"Process Error Log File",
+			"Type":"String"
+		}
+	],
+	"Subsets@Code.links":[]
+}

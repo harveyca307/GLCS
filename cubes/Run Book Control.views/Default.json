@@ -1,0 +1,50 @@
+{
+	"@type":"NativeView",
+	"Name":"Default",
+	"Columns":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('mRun Book Control')/Hierarchies('mRun Book Control')"
+				},
+				"Expression":"TM1SubsetAll([mRun Book Control])"
+			}
+		}
+	],
+	"Rows":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('Run Book Index')/Hierarchies('Run Book Index')"
+				},
+				"Expression":"TM1SubsetAll([Run Book Index])"
+			}
+		}
+	],
+	"Titles":
+	[
+		{
+			"Subset":
+			{
+				"Hierarchy":
+				{
+					"@id":"Dimensions('Run Book')/Hierarchies('Run Book')"
+				},
+				"Expression":"TM1SubsetAll([Run Book])"
+			},
+			"Selected":
+			{
+				"@id":"Dimensions('Run Book')/Hierarchies('Run Book')/Elements('Book 01')"
+			}
+		}
+	],
+	"SuppressEmptyColumns":false,
+	"SuppressEmptyRows":false,
+	"FormatString":"0.00"
+}

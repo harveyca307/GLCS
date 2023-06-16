@@ -1,0 +1,13 @@
+{
+	"@type":"Dimension",
+	"Name":"ChadDim",
+	"AllLeavesHierarchyName":"",
+	"DefaultHierarchy":
+	{
+		"@id":"Dimensions('ChadDim')/Hierarchies('ChadDim')"
+	},
+	"Hierarchies@Code.links":
+	[
+		"ChadDim.hierarchies/ChadDim.json"
+	]
+}

@@ -1,0 +1,7 @@
+FEEDSTRINGS;
+SKIPCHECK;
+['Value' ] = S: IF(ELLEV('Control', !Control) > 0
+	, ''
+	, STET);
+
+FEEDERS;

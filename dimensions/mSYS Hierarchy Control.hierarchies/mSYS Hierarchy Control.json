@@ -1,0 +1,64 @@
+{
+	"@type":"Hierarchy",
+	"Name":"mSYS Hierarchy Control",
+	"Elements":
+	[
+		{
+			"Name":"Hierarchy Name",
+			"Type":"String"
+		},
+		{
+			"Name":"Active",
+			"Type":"String"
+		},
+		{
+			"Name":"Root Element Name",
+			"Type":"String"
+		},
+		{
+			"Name":"Empty Attribute Default",
+			"Type":"String"
+		},
+		{
+			"Name":"Parent Base Hierarchy",
+			"Type":"String"
+		},
+		{
+			"Name":"Level 1 Attribute",
+			"Type":"String"
+		},
+		{
+			"Name":"Level 2 Attribute",
+			"Type":"String"
+		},
+		{
+			"Name":"Level 3 Attribute",
+			"Type":"String"
+		},
+		{
+			"Name":"Level 4 Attribute",
+			"Type":"String"
+		},
+		{
+			"Name":"Level 5 Attribute",
+			"Type":"String"
+		},
+		{
+			"Name":"Validation",
+			"Type":"String"
+		},
+		{
+			"Name":"Levels",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"Dimension Root Element",
+			"Type":"String"
+		},
+		{
+			"Name":"Dimension Root Element Count",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

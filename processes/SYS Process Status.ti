@@ -1,0 +1,78 @@
+#region Prolog
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+
+sLogDir = GetProcessErrorFileDirectory ();
+
+
+sCube = 'SYS Process Status' ;
+sElemProcLines = 'Process Lines Used' ;
+sElemLast = 'Last Run' ;
+sElemRunTime = 'Process Run Date Time' ;
+sElemStatus = 'Process Status' ;
+sElemLogFile = 'Process Error Log File' ;
+sElemClient = 'Client' ;
+sElemProcParm = 'Process Parameters' ;
+sDimClient = '}Clients' ;
+sElemDisplayName = '}TM1_DefaultDisplayValue' ;
+
+sUser = TM1User() ;
+
+sUserDisplay = if(dimix( '}clients', sUser ) = 0, 'admin', ATTRS ( sDimClient , sUser , sElemDisplayName ) );
+sSrch = 'Planning Analytics/' ;
+IF ( SCAN ( sSrch , sUserDisplay ) > 0 ) ;
+    sUserDisplay = DELET ( sUserDisplay , SCAN ( sSrch , sUserDisplay ) , LONG ( sSrch ) ) ;
+ENDIF ;
+
+#sTimeStamp = TIMST ( NOW() , '\Y-\m-\d \h:\i:\s' ) ;
+
+nLastRun = CELLGETN ( sCube , pProcess, sElemLast , sElemProcLines ) ;
+nNext= nLastRun + 1 ;
+IF ( nNext > DIMSIZ ( 'SYS Process Status Lines' ) - 1 ) ;
+    nNext =1 ;
+ENDIF ;
+
+IF ( pStatus @= 'Success' ) ;
+    sLogDirFile = '' ;
+ELSE ;
+    sLogDirFile =  pLogFile ;
+ENDIF ;
+
+CELLPUTN ( 1 , sCube ,  pProcess , NumberToString ( nNext ) , sElemProcLines ) ;
+
+CELLPUTS ( pStatus , sCube , pProcess , NumberToString ( nNext ) , sElemStatus ) ;
+CELLPUTS ( sLogDirFile , sCube , pProcess , NumberToString ( nNext ) , sElemLogFile ) ;
+CELLPUTS ( sUserDisplay , sCube ,  pProcess , NumberToString ( nNext ) , sElemClient ) ;
+CELLPUTS ( pParameters , sCube ,  pProcess , NumberToString ( nNext ) , sElemProcParm ) ;
+CELLPUTS ( pStartTime , sCube ,  pProcess , NumberToString ( nNext ) , 'Process Start' ) ;
+CELLPUTS ( pEndTime , sCube ,  pProcess , NumberToString ( nNext ) , 'Process End' ) ;
+CELLPUTS ( pRun , sCube ,  pProcess , NumberToString ( nNext ) , 'Process Run' ) ;
+
+CELLPUTN ( nNext , sCube ,  pProcess , sElemLast , sElemProcLines ) ;
+
+CELLPUTS ( pStatus , sCube , pProcess , sElemLast , sElemStatus ) ;
+CELLPUTS ( sLogDirFile , sCube , pProcess , sElemLast , sElemLogFile ) ;
+CELLPUTS ( sUserDisplay , sCube ,  pProcess , sElemLast , sElemClient ) ;
+CELLPUTS ( pParameters , sCube , pProcess , sElemLast , sElemProcParm ) ;
+CELLPUTS ( pStartTime , sCube ,  pProcess ,  sElemLast , 'Process Start' ) ;
+CELLPUTS ( pEndTime , sCube ,  pProcess ,  sElemLast , 'Process End' ) ;
+CELLPUTS ( pRun , sCube ,  pProcess ,  sElemLast , 'Process Run' );
+
+#endregion
+#region Metadata
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

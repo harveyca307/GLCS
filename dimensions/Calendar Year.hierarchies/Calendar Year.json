@@ -1,0 +1,32 @@
+{
+	"@type":"Hierarchy",
+	"Name":"Calendar Year",
+	"Elements":
+	[
+		{
+			"Name":"2020",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"2021",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"2022",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"2023",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"2024",
+			"Type":"Numeric"
+		},
+		{
+			"Name":"2025",
+			"Type":"Numeric"
+		}
+	],
+	"Subsets@Code.links":[]
+}

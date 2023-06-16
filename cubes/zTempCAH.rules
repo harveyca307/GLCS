@@ -1,0 +1,33 @@
+SKIPCHECK;
+
+[{'Regular Loadings $', 'Regular Trading Margin 1', 'Rebates'}] = N: IF(!Months @= 'Feb', STET, CONTINUE);
+
+#Region Forecast Calulations
+['Sales ASP $'] = C: ['Total Sales'] \ ['Total Quantity'];
+
+['Regular Trading Margin 1'] = N: ['Regular Sales'] * ['Regular TM %'];
+['Clearance Trading Margin 1'] = N: ['Clearance Sales'] * ['Clearance TM %'];
+
+['TM %'] = C: ['Trading Margin'] \ ['Total Sales'];
+
+['Regular Loadings $'] = N: ['Regular Sales'] * ['Regular Loadings %'];
+['Clearance Loadings $'] = N: ['Clearance Sales'] * ['Clearance Loadings %'];
+
+['GM 1 %'] = N: ['Gross Margin 1'] \ ['Total Sales'];
+ ['GM 2 %'] = N: ['Gross Margin 2'] \ ['Total Sales'];
+
+['Loadings %'] = C: ['Loadings $'] \ ['Total Sales'];
+
+['Rebates'] = N: ['Total Sales'] * ['Rebate %'];
+#EndRegion
+
+FEEDERS;
+
+#Region Forecast Feeders
+['Clearance Loadings %'] => ['Clearance Loadings $'];
+['Clearance TM %'] => ['Clearance Trading Margin 1'];
+['Rebate %'] => ['Rebates'];
+['Regular Loadings %'] => ['Regular Loadings $'];
+['Regular TM %'] => ['Regular Trading Margin 1'];
+['Total Sales'] => ['GM1 %'], ['GM2 %'];
+#EndRegion

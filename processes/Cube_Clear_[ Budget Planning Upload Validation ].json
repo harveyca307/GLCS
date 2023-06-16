@@ -1,0 +1,35 @@
+{
+	"@type":"Process",
+	"Name":"Cube_Clear_[ Budget Planning Upload Validation ]",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"Cube_Clear_[ Budget Planning Upload Validation ].ti",
+	"UIData":"_ParameterConstraints=e30=€",
+	"VariablesUIData":
+	[
+		"VarType=32€ColType=827€",
+		"VarType=32€ColType=827€",
+		"VarType=32€ColType=827€",
+		"VarType=32€ColType=827€",
+		"VarType=33€ColType=827€"
+	],
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":
+	[
+		{
+			"Name":"pClearValidation",
+			"Prompt":"Clear Validation Cube (Y/N)?",
+			"Value":"",
+			"Type":"String"
+		},
+		{
+			"Name":"pClearUpload",
+			"Prompt":"Clear Upload Cube (Y/N) ?",
+			"Value":"",
+			"Type":"String"
+		}
+	],
+	"Variables":[]
+}

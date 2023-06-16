@@ -1,0 +1,356 @@
+#region Prolog
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+# Process:	SYS_Version Copy_String Values
+# Author:		Chad Harvey
+# Date Created:	03.09.2020
+# Date Modified:	03.09.2020 by: Chad Harvey
+# Purpose:	This process copy String Value from pSrcVer to pTgtVer
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+#--------------- Error Handlers ---------------#
+nError = 0;
+sParameters = '';
+sMessage = '';
+
+IF(pSrcVer @= '');
+     nError = nError + 1;
+     sMessage = 'pSrcVer not supplied.';
+ELSEIF(DIMIX('Version', pSrcVer) = 0);
+     nError = nError + 1;
+     sMessage = 'pSrcVer:"' | pSrcVer | '" is not valid.';
+ENDIF;
+
+IF(pTgtVer @= '');
+     nError = nError + 1;
+     sMessage = sMessage | ' pTgtVer not supplied.';
+ELSEIF(DIMIX('Version', pTgtVer) = 0);
+     nError = nError + 1;
+     sMessage = sMessage | ' pTgtVer:"' | pTgtVer | '" is not valid.';
+ENDIF;
+
+IF(pTime @= '');
+     nError = nError + 1;
+     sMessage = sMessage | ' pTime not supplied.';
+ELSEIF(DIMIX('tMonth', pTime) = 0);
+     nError = nError + 1;
+     sMessage = sMessage | ' pTime:"' | pTime | '" is not valid.';
+ENDIF;
+
+IF(pCube @= '');
+     nError = nError + 1;
+     sMessage = sMessage | ' pCube not supplied.';
+ELSEIF(DIMIX('}Cubes', pCube) = 0);
+     nError = nError + 1;
+     sMessage = sMessage | ' pCube:"' | pCube | '" is not valid.';
+ENDIF;
+
+sParameters = 'pSrcVer="' | pSrcVer | '"; pTgtVer="' | pTgtVer | '"; pTime="' | pTime | '"; pCube="' | pCube | '"';
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+#--------------- Variables ---------------#
+sUserID = TM1USER;
+IF(DIMIX('}Clients', sUserID) = 0);
+     sUser = 'Chore';
+ELSE;
+     sUser = NumberToString(DIMIX('}Clients', sUserID));
+ENDIF;
+sPrefix = CellGetS('Control', 'Value', 'TI Prefix');
+sTimeStamp = TIMST(NOW, '\Y\m\d\h\i\s');
+sRandomInt = NumberToString(INT(RAND() * 1000));
+sViewS = sPrefix | pCube | '.Source.' | sUser | '.' | sTimeStamp | '.' | sRandomInt;
+sViewT = sPrefix | pCube | '.Target.' | sUser | '.' | sTimeStamp | '.' | sRandomInt;
+sVer = CellGetS('Control', 'Version Dimension', 'Value');
+
+#--------------- Process Logging ---------------#
+sProcess = GetProcessName();
+sLogProc = 'SYS Process Status';
+nStartTime = NOW();
+sStartTime = TIMST(nStartTime, '\Y/\m/\d, \h:\i:\s');
+
+IF(nError = 0);
+     #----- Turn Cube Logging off for Target Cube
+     sOldLog = CellGetS('}CubeProperties', pCube, 'LOGGING');
+     CellPutS('NO', '}CubeProperties', pCube, 'LOGGING');
+     
+     #----- Count Dimensions and Discover Time Dimension
+     bTime = 0;
+     nLoop = 1;
+     WHILE(TABDIM(pCube, nLoop) @<> '');
+          sDim = TABDIM(pCube, nLoop);
+          IF(sDim @= 'tMonth');
+               bTime = 1;
+          ENDIF;
+          nLoop = nLoop + 1;
+     END;
+     nDimCnt = nLoop - 1;
+     sMeasureDim = TABDIM(pCube, nLoop - 1);
+
+     #----- Create Measure Filter
+     sMeasures = '';
+     nLoop = 1;
+     nMax = DIMSIZ(sMeasureDim);
+     WHILE(nLoop <= nMax);
+          sElement = DIMNM(sMeasureDim, nLoop);
+          IF(ELLEV(sMeasureDim, sElement) = 0 & (DTYPE(sMeasureDim, sElement) @= 'S' % DTYPE(smeasureDim, sElement) @= 'AS'));
+               sMeasures = sMeasures | '+' | sElement;
+          ENDIF;
+          nLoop = nLoop + 1;
+     END;
+
+     #----- Create Target View
+     IF(bTime = 1);
+          sFilter = sVer | ':' | pTgtVer | '&tMonth:' | pTime | '&sMeasureDim:' | sMeasures;
+     ELSE;
+          sFilter = sVer | ':' | pTgtVer | '&sMeasureDim:' | sMeasures;
+     ENDIF;
+     
+     ExecuteProcess('}bedrock.cube.view.create'
+          , 'pLogOutput', 0
+          , 'pCube', pCube
+          , 'pView', sViewT
+          , 'pFilter', sFilter
+          , 'pSuppressZero', 1
+          , 'pSuppressConsol', 0
+          , 'pSuppressRules', 1
+          , 'pDimDelim', '&'
+          , 'pEleStartDelim', ':'
+          , 'pEleDelim', '+'
+          , 'pTemp', 1
+          , 'pSubN', 1);
+          
+     ViewZeroOut(pCube, sViewT);
+
+     #----- Create Source View
+     IF(bTime = 1);
+          sFilter = sVer | ':' | pSrcVer | '&tMonth:' | pTime | '&sMeasureDim:' | sMeasures;
+     ELSE;
+          sFilter = sVer | ':' | pSrcVer | '&sMeasureDim:' | sMeasures;
+     ENDIF;
+     
+     ExecuteProcess('}bedrock.cube.view.create'
+          , 'pLogOutput', 0
+          , 'pCube', pCube
+          , 'pView', sViewT
+          , 'pFilter', sFilter
+          , 'pSuppressZero', 1
+          , 'pSuppressConsol', 0
+          , 'pSuppressRules', 0
+          , 'pDimDelim', '&'
+          , 'pEleStartDelim', ':'
+          , 'pEleDelim', '+'
+          , 'pTemp', 0
+          , 'pSubN', 1);
+          
+      sDim1 = TABDIM(pCube, 1);
+      sDim2 = TABDIM(pCube, 2);
+      sDim3 = TABDIM(pCube, 3);
+      sDim4 = TABDIM(pCube, 4);
+      sDim5 = TABDIM(pCube, 5);
+      sDim6 = TABDIM(pCube, 6);
+      sDim7 = TABDIM(pCube, 7);
+      sDim8 = TABDIM(pCube, 8);
+      sDim9 = TABDIM(pCube, 9);
+      sDim10 = TABDIM(pCube, 10);
+      sDim11 = TABDIM(pCube, 11);
+      sDim12 = TABDIM(pCube, 12);
+      sDim13 = TABDIM(pCube, 13);
+      sDim14 = TABDIM(pCube, 14);
+      sDim15 = TABDIM(pCube, 15);
+      sDim16 = TABDIM(pCube, 16);
+      sDim17 = TABDIM(pCube, 17);
+      sDim18 = TABDIM(pCube, 18);
+      sDim19 = TABDIM(pCube, 19);
+      sDim20 = TABDIM(pCube, 20);
+
+     #----- Assign View To Process
+     DatasourceType = 'VIEW';
+     DatasourceNameforServer = pCube;
+     DatasourceCubeView = sViewS;
+ELSE;
+     nEndTime = NOW();
+     sEndTIme = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+     sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+     ExecuteProcess(sLogProc
+          , 'pProcess', sProcess
+          , 'pLogFile', ''
+          , 'pStatus', 'Error'
+          , 'pParameters', sParameters
+          , 'pStartTime', sStartTime
+          , 'pEndTime', sEndTime
+          , 'pRun', sDuration);
+ENDIF;
+#endregion
+#region Metadata
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+IF(sDim1 @= sVer);
+     V1 = pTgtVer;
+ELSEIF(sDim2 @= sVer);
+     V2 = pTgtVer;
+ELSEIF(sDim3 @= sVer);
+     V3 = pTgtVer;
+ELSEIF(sDim4 @= sVer);
+     V4 = pTgtVer;
+ELSEIF(sDim5 @= sVer);
+     V5 = pTgtVer;
+ELSEIF(sDim6 @= sVer);
+     V6 = pTgtVer;
+ELSEIF(sDim7 @= sVer);
+     v7 = pTgtVer;
+ELSEIF(sDim8 @= sVer);
+     V8 = pTgtVer;
+ELSEIF(sDim9 @= sVer);
+     V9 = pTgtVer;
+ELSEIF(sDim10 @= sVer);
+     V10 = pTgtVer;
+ELSEIF(sDim11 @= sVer);
+     V11 = pTgtVer;
+ELSEIF(sDim12 @= sVer);
+     V12 = pTgtVer;
+ELSEIF(sDim13 @= sVer);
+     V13 = pTgtVer;
+ELSEIF(sDim14 @= sVer);
+     V14 = pTgtVer;
+ELSEIF(sDim15 @= sVer);
+     V15 = pTgtVer;
+ELSEIF(sDim16 @= sVer);
+     V16 = pTgtVer;
+ELSEIF(sDim17 @= sVer);
+     V17 = pTgtVer;
+ELSEIF(sDim18 @= sVer);
+     V18 = pTgtVer;
+ELSEIF(sDim19 @= sVer);
+     V19 = pTgtVer;
+ELSEIF(sDim20 @= sVer);
+     V20 = pTgtVer;
+ENDIF;
+
+IF(nDimCnt = 2);
+     sEleTyp = DTYPE(sMeasureDim, V2);
+     IF(sEleTyp @= 'AS');
+          CellPutS(SVALUE, '}ElementAttributes_' | sMeasureDim, V2);
+     ELSE;
+          IF(CellIsUpdateable(pCube, V1, V2) = 1);
+               CellPutS(SVALUE, pCube, V1, V2);
+          ENDIF;
+     ENDIF;
+ELSEIF(nDimCnt = 3);
+     IF(CellIsUpdateable(pCube, V1, V2, V3) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3);
+     ENDIF;
+ELSEIF(nDimCnt = 4);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4);
+     ENDIF;
+ELSEIF(nDimCnt = 5);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5);
+     ENDIF;
+ELSEIF(nDimCnt = 6);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6);
+     ENDIF;
+ELSEIF(nDimCnt = 7);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7);
+     ENDIF;
+ELSEIF(nDimCnt = 8);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8);
+     ENDIF;
+ELSEIF(nDimCnt = 9);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9);
+     ENDIF;
+ELSEIF(nDimCnt = 10);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10);
+     ENDIF;
+ELSEIF(nDimCnt = 11);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11);
+     ENDIF;
+ELSEIF(nDimCnt = 12);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12);
+     ENDIF;
+ELSEIF(nDimCnt = 13);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13);
+     ENDIF;
+ELSEIF(nDimCnt = 14);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14);
+     ENDIF;
+ELSEIF(nDimCnt = 15);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15);
+     ENDIF;
+ELSEIF(nDimCnt = 16);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16);
+     ENDIF;
+ELSEIF(nDimCnt = 17);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17);
+     ENDIF;
+ELSEIF(nDimCnt = 18);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18);
+     ENDIF;
+ELSEIF(nDimCnt = 19);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19);
+     ENDIF;
+ELSEIF(nDimCnt = 20);
+     IF(CellIsUpdateable(pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19, V20) = 1);
+          CellPutS(SVALUE, pCube, V1, V2, V3, V4, V5, V6, V7, V8, V9, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19, V20);
+     ENDIF;
+ENDIF;
+#endregion
+#region Epilog
+
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+ExecuteProcess('}bedrock.cube.viewandsubsets.delete'
+     , 'pCube', pCube
+     , 'pView', sViewS
+     , 'pMode', 1);
+
+#----- Return Previous Logging setting
+CellPutS(soldLog, '}CubeProperties', pCube, 'LOGGING');
+
+sLogDir = GetProcessErrorFileDirectory();
+sErrLog = GetProcessErrorFileName();
+IF(sErrLog @<> '');
+     sStatus = 'Error';
+     sLogFile = sLogDir | sErrLog;
+ELSE;
+     sStatus = 'Success';
+     sLogFile = '';
+     sMessage = '';
+ENDIF;
+
+#---------- Process Logging ----------#
+nEndTime = NOW();
+sEndTime = TIMST(nEndTime, '\Y/\m/\d, \h:\i:\s');
+sDuration = TIMST(nEndTime - nStartTime, '\h:\i:\s');
+ExecuteProcess(sLogProc
+    , 'pProcess', sProcess
+    , 'pLogFile', sLogFile
+    , 'pStatus', sStatus  | ' ' | sMessage
+    , 'pParameters', sParameters
+    , 'pStartTime', sStartTime
+    , 'pEndTime', sEndTime
+    , 'pRun', sDuration);
+#endregion

@@ -1,0 +1,10 @@
+FEEDSTRINGS;
+SKIPCHECK;
+
+['mTimeInformation':{'Start Date', 'End Date'}] = C: 0;
+
+['mTimeInformation':'Start Date'] = N: DAYNO(!CalendarYear | '-' | !Calendar Month | '-01') + 21916;
+['mTimeInformation':'End Date'] = N: DAYNO(STR(NUMBR(!Calendar Year) + ATTRN('Calendar Month', !Calendar Month, 'Next Period Yr'), 4, 0) | '-' | ATTRS('Calendar Month', !Calendar Month, 'Next Period') | '-01') + 21915;
+['mTimeInformation':'Number of Days'] = N: ['mTimeInformation':'End Date'] - ['mTimeInformation':'Start Date'] + 1;
+
+FEEDERS;
