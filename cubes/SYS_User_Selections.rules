@@ -1,5 +1,0 @@
-['Department_Selected'] = S: '{[Department].[' | 
-	IF(DIMIX('Department', DB('SYS_User_Selections', !'}Clients', 'Element', 'Department')) = 0
-    	, '300'
-        , DB('SYS_User_Selections', !'}Clients', 'Element', 'Department')) 
-    | ']}';

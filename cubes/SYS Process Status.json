@@ -13,8 +13,5 @@
 			"@id":"Dimensions('mSYS Process Status')"
 		}
 	],
-	"Views@Code.links":
-	[
-		"SYS Process Status.views/Default.json"
-	]
+	"Views@Code.links":[]
 }
